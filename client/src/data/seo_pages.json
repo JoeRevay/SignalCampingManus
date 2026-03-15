@@ -1,1 +1,352 @@
-{"states": {"MI": {"code": "MI", "name": "Michigan", "slug": "michigan", "total": 81, "strong": 0, "moderate": 0, "weak": 0, "none": 0, "avg_rws": 7.4, "waterfront": 67}, "OH": {"code": "OH", "name": "Ohio", "slug": "ohio", "total": 69, "strong": 0, "moderate": 0, "weak": 0, "none": 0, "avg_rws": 7.9, "waterfront": 67}}, "city_pages": [{"city": "Traverse City", "state": "MI", "state_name": "Michigan", "slug": "traverse-city-mi", "latitude": 44.7631, "longitude": -85.6206, "campground_count": 15, "strong_signal": 0, "avg_rws": 7.8, "campground_slugs": ["traverse-city-state-park", "elm-cliff-county-park", "interlochen-state-park", "shady-marsh-riverside-camp", "north-ledge-camping-resort", "sunny-bay-national-forest-campground", "spruce-peninsula-county-park", "hemlock-ridge-state-park", "laurel-cliff-lakeside-camp", "hickory-lake-nature-preserve-camp", "sunny-beach-wildlife-area-camp", "maple-rock-municipal-campground", "sleeping-bear-dunes-d-h-day", "crystal-swamp-wilderness-camp", "beech-branch-municipal-campground"]}, {"city": "Petoskey", "state": "MI", "state_name": "Michigan", "slug": "petoskey-mi", "latitude": 45.3733, "longitude": -84.9553, "campground_count": 6, "strong_signal": 0, "avg_rws": 7.9, "campground_slugs": ["petoskey-state-park", "big-bend-campground", "hickory-timber-lakeside-camp", "wilderness-state-park", "birch-rock-lakeside-camp", "hemlock-run-lakeside-camp"]}, {"city": "Mackinaw City", "state": "MI", "state_name": "Michigan", "slug": "mackinaw-city-mi", "latitude": 45.7836, "longitude": -84.7267, "campground_count": 7, "strong_signal": 0, "avg_rws": 7.8, "campground_slugs": ["hemlock-run-lakeside-camp", "wilderness-state-park", "hickory-timber-lakeside-camp", "big-bend-campground", "birch-rock-lakeside-camp", "marsh-wilderness-camp", "petoskey-state-park"]}, {"city": "Houghton", "state": "MI", "state_name": "Michigan", "slug": "houghton-mi", "latitude": 47.1211, "longitude": -88.5694, "campground_count": 2, "strong_signal": 0, "avg_rws": 7.0, "campground_slugs": ["mclain-state-park", "walnut-boulder-campground"]}, {"city": "Ludington", "state": "MI", "state_name": "Michigan", "slug": "ludington-mi", "latitude": 43.9531, "longitude": -86.4528, "campground_count": 7, "strong_signal": 0, "avg_rws": 7.3, "campground_slugs": ["ludington-state-park", "pine-rock-camp", "shady-pass-family-campground", "maple-lake-wilderness-camp", "willow-fork-campground", "sunny-glen-outdoor-resort", "hidden-gorge-municipal-campground"]}, {"city": "Manistee", "state": "MI", "state_name": "Michigan", "slug": "manistee-mi", "latitude": 44.2444, "longitude": -86.3242, "campground_count": 8, "strong_signal": 0, "avg_rws": 7.3, "campground_slugs": ["pine-rock-camp", "hidden-gorge-municipal-campground", "sunny-glen-outdoor-resort", "shady-pass-family-campground", "willow-fork-campground", "maple-lake-wilderness-camp", "ludington-state-park", "beech-branch-municipal-campground"]}, {"city": "Cadillac", "state": "MI", "state_name": "Michigan", "slug": "cadillac-mi", "latitude": 44.2514, "longitude": -85.4015, "campground_count": 6, "strong_signal": 0, "avg_rws": 7.2, "campground_slugs": ["sunny-beach-wildlife-area-camp", "crystal-swamp-wilderness-camp", "spruce-peninsula-county-park", "elm-dune-family-campground", "sunny-bay-national-forest-campground", "hemlock-ridge-state-park"]}, {"city": "Grayling", "state": "MI", "state_name": "Michigan", "slug": "grayling-mi", "latitude": 44.6614, "longitude": -84.7147, "campground_count": 3, "strong_signal": 0, "avg_rws": 7.4, "campground_slugs": ["little-cove-campground", "upper-stone-wildlife-area-camp", "big-bend-outdoor-resort"]}, {"city": "Oscoda", "state": "MI", "state_name": "Michigan", "slug": "oscoda-mi", "latitude": 44.4206, "longitude": -83.331, "campground_count": 9, "strong_signal": 0, "avg_rws": 7.9, "campground_slugs": ["cedar-bluff-riverside-camp", "hidden-cliff-county-park", "whispering-peninsula-koa", "little-dune-koa", "upper-branch-municipal-campground", "oak-spring-outdoor-resort", "silver-lake-state-park", "west-falls-camp", "emerald-timber-riverside-camp"]}, {"city": "Harrisville", "state": "MI", "state_name": "Michigan", "slug": "harrisville-mi", "latitude": 44.6564, "longitude": -83.2949, "campground_count": 8, "strong_signal": 0, "avg_rws": 8.1, "campground_slugs": ["little-dune-koa", "upper-branch-municipal-campground", "silver-lake-state-park", "oak-spring-outdoor-resort", "hidden-cliff-county-park", "whispering-peninsula-koa", "cedar-bluff-riverside-camp", "west-falls-camp"]}, {"city": "Muskegon", "state": "MI", "state_name": "Michigan", "slug": "muskegon-mi", "latitude": 43.2342, "longitude": -86.2484, "campground_count": 9, "strong_signal": 0, "avg_rws": 7.3, "campground_slugs": ["cedar-fork-municipal-campground", "fork-county-park", "big-forest-camp", "new-swamp-county-park", "big-pond-camping-resort", "aspen-dune-wildlife-area-camp", "aspen-river-wilderness-camp", "upper-falls-campground", "aspen-brook-recreation-area"]}, {"city": "Grand Haven", "state": "MI", "state_name": "Michigan", "slug": "grand-haven-mi", "latitude": 43.0631, "longitude": -86.2284, "campground_count": 9, "strong_signal": 0, "avg_rws": 7.3, "campground_slugs": ["cedar-fork-municipal-campground", "big-forest-camp", "new-swamp-county-park", "aspen-river-wilderness-camp", "upper-falls-campground", "fork-county-park", "aspen-brook-recreation-area", "aspen-dune-wildlife-area-camp", "big-pond-camping-resort"]}, {"city": "Holland", "state": "MI", "state_name": "Michigan", "slug": "holland-mi", "latitude": 42.7876, "longitude": -86.1089, "campground_count": 7, "strong_signal": 0, "avg_rws": 7.6, "campground_slugs": ["aspen-brook-recreation-area", "aspen-river-wilderness-camp", "upper-falls-campground", "new-swamp-county-park", "big-forest-camp", "cedar-fork-municipal-campground", "fork-county-park"]}, {"city": "Saugatuck", "state": "MI", "state_name": "Michigan", "slug": "saugatuck-mi", "latitude": 42.6553, "longitude": -86.2006, "campground_count": 6, "strong_signal": 0, "avg_rws": 7.7, "campground_slugs": ["upper-falls-campground", "aspen-brook-recreation-area", "aspen-river-wilderness-camp", "new-swamp-county-park", "big-forest-camp", "cedar-fork-municipal-campground"]}, {"city": "South Haven", "state": "MI", "state_name": "Michigan", "slug": "south-haven-mi", "latitude": 42.4031, "longitude": -86.2736, "campground_count": 3, "strong_signal": 0, "avg_rws": 7.8, "campground_slugs": ["upper-falls-campground", "aspen-brook-recreation-area", "aspen-river-wilderness-camp"]}, {"city": "Interlochen", "state": "MI", "state_name": "Michigan", "slug": "interlochen-mi", "latitude": 44.6375, "longitude": -85.7681, "campground_count": 15, "strong_signal": 0, "avg_rws": 7.8, "campground_slugs": ["interlochen-state-park", "north-ledge-camping-resort", "sunny-bay-national-forest-campground", "hickory-lake-nature-preserve-camp", "spruce-peninsula-county-park", "traverse-city-state-park", "laurel-cliff-lakeside-camp", "beech-branch-municipal-campground", "sunny-beach-wildlife-area-camp", "shady-marsh-riverside-camp", "elm-cliff-county-park", "sleeping-bear-dunes-d-h-day", "maple-rock-municipal-campground", "hemlock-ridge-state-park", "hidden-gorge-municipal-campground"]}, {"city": "Newberry", "state": "MI", "state_name": "Michigan", "slug": "newberry-mi", "latitude": 46.355, "longitude": -85.5094, "campground_count": 3, "strong_signal": 0, "avg_rws": 7.3, "campground_slugs": ["south-knob-wildlife-area-camp", "south-island-municipal-campground", "hemlock-ridge-family-campground"]}, {"city": "Munising", "state": "MI", "state_name": "Michigan", "slug": "munising-mi", "latitude": 46.4111, "longitude": -86.6486, "campground_count": 2, "strong_signal": 0, "avg_rws": 6.8, "campground_slugs": ["crystal-shore-municipal-campground", "pictured-rocks-twelvemile-beach"]}, {"city": "Alpena", "state": "MI", "state_name": "Michigan", "slug": "alpena-mi", "latitude": 45.0617, "longitude": -83.4327, "campground_count": 8, "strong_signal": 0, "avg_rws": 7.7, "campground_slugs": ["silver-lake-state-park", "west-falls-camp", "pine-canyon-state-park", "hidden-lake-camp", "upper-branch-municipal-campground", "little-dune-koa", "old-marsh-rv-park", "oak-spring-outdoor-resort"]}, {"city": "Tawas City", "state": "MI", "state_name": "Michigan", "slug": "tawas-city-mi", "latitude": 44.2689, "longitude": -83.5147, "campground_count": 8, "strong_signal": 0, "avg_rws": 7.8, "campground_slugs": ["cedar-bluff-riverside-camp", "hidden-cliff-county-park", "emerald-timber-riverside-camp", "whispering-peninsula-koa", "upper-branch-municipal-campground", "little-dune-koa", "emerald-bend-family-campground", "west-falls-camp"]}, {"city": "Bay City", "state": "MI", "state_name": "Michigan", "slug": "bay-city-mi", "latitude": 43.5945, "longitude": -83.8889, "campground_count": 1, "strong_signal": 0, "avg_rws": 7.8, "campground_slugs": ["little-grove-rv-park"]}, {"city": "Midland", "state": "MI", "state_name": "Michigan", "slug": "midland-mi", "latitude": 43.6156, "longitude": -84.2472, "campground_count": 5, "strong_signal": 0, "avg_rws": 7.2, "campground_slugs": ["hickory-shore-riverside-camp", "whispering-stone-rv-park", "spruce-grove-outdoor-resort", "little-grove-rv-park", "oak-pass-campground"]}, {"city": "Mt Pleasant", "state": "MI", "state_name": "Michigan", "slug": "mt-pleasant-mi", "latitude": 43.5978, "longitude": -84.7675, "campground_count": 6, "strong_signal": 0, "avg_rws": 7.2, "campground_slugs": ["elm-cove-wildlife-area-camp", "spruce-grove-outdoor-resort", "north-grove-state-park", "hickory-shore-riverside-camp", "oak-pass-campground", "whispering-stone-rv-park"]}, {"city": "Big Rapids", "state": "MI", "state_name": "Michigan", "slug": "big-rapids-mi", "latitude": 43.6981, "longitude": -85.4836, "campground_count": 3, "strong_signal": 0, "avg_rws": 7.3, "campground_slugs": ["emerald-bay-nature-preserve-camp", "elm-dune-family-campground", "big-pond-camping-resort"]}, {"city": "Hocking Hills", "state": "OH", "state_name": "Ohio", "slug": "hocking-hills-oh", "latitude": 39.44, "longitude": -82.54, "campground_count": 17, "strong_signal": 0, "avg_rws": 7.9, "campground_slugs": ["hocking-hills-state-park", "crystal-bend-wilderness-camp", "big-canyon-nature-preserve-camp", "spruce-stone-camp", "rolling-gap-lakeside-camp", "cherry-shore-koa", "aspen-hollow-camping-resort", "willow-peninsula-recreation-area", "silver-forest-wildlife-area-camp", "pine-glen-wilderness-camp", "silver-shore-campground", "hidden-meadow-state-forest", "hidden-brook-camping-resort", "aspen-river-state-forest", "whispering-branch-outdoor-resort", "silver-lake-nature-preserve-camp", "east-pond-state-park"]}, {"city": "Cleveland", "state": "OH", "state_name": "Ohio", "slug": "cleveland-oh", "latitude": 41.4993, "longitude": -81.6944, "campground_count": 1, "strong_signal": 0, "avg_rws": 8.7, "campground_slugs": ["hidden-ravine-lakeside-camp"]}, {"city": "Columbus", "state": "OH", "state_name": "Ohio", "slug": "columbus-oh", "latitude": 39.9612, "longitude": -82.9988, "campground_count": 4, "strong_signal": 0, "avg_rws": 8.0, "campground_slugs": ["old-glen-family-campground", "crystal-cove-state-park", "birch-cove-campground", "deer-creek-state-park"]}, {"city": "Cincinnati", "state": "OH", "state_name": "Ohio", "slug": "cincinnati-oh", "latitude": 39.1031, "longitude": -84.512, "campground_count": 3, "strong_signal": 0, "avg_rws": 7.7, "campground_slugs": ["oak-knob-camping-resort", "upper-run-riverside-camp", "spruce-river-family-campground"]}, {"city": "Toledo", "state": "OH", "state_name": "Ohio", "slug": "toledo-oh", "latitude": 41.6528, "longitude": -83.5379, "campground_count": 2, "strong_signal": 0, "avg_rws": 8.1, "campground_slugs": ["maumee-bay-state-park", "hemlock-timber-recreation-area"]}, {"city": "Akron", "state": "OH", "state_name": "Ohio", "slug": "akron-oh", "latitude": 41.0814, "longitude": -81.519, "campground_count": 1, "strong_signal": 0, "avg_rws": 9.6, "campground_slugs": ["hickory-hollow-koa"]}, {"city": "Zanesville", "state": "OH", "state_name": "Ohio", "slug": "zanesville-oh", "latitude": 39.9403, "longitude": -82.0132, "campground_count": 17, "strong_signal": 0, "avg_rws": 8.0, "campground_slugs": ["emerald-brook-wilderness-camp", "west-cove-municipal-campground", "field-rv-park", "hidden-pond-lakeside-camp", "south-falls-lakeside-camp", "silver-grove-riverside-camp", "east-pond-state-park", "pine-gap-outdoor-resort", "willow-swamp-state-park", "pine-timber-recreation-area", "lower-ravine-camp", "whispering-branch-outdoor-resort", "pine-glen-wilderness-camp", "whispering-rock-wildlife-area-camp", "cherry-shore-koa", "spruce-stone-camp", "silver-forest-wildlife-area-camp"]}, {"city": "Cambridge", "state": "OH", "state_name": "Ohio", "slug": "cambridge-oh", "latitude": 40.0312, "longitude": -81.5884, "campground_count": 6, "strong_signal": 0, "avg_rws": 8.2, "campground_slugs": ["pine-timber-recreation-area", "salt-fork-state-park", "south-falls-lakeside-camp", "emerald-brook-wilderness-camp", "field-rv-park", "silver-grove-riverside-camp"]}, {"city": "Marietta", "state": "OH", "state_name": "Ohio", "slug": "marietta-oh", "latitude": 39.4143, "longitude": -81.4549, "campground_count": 2, "strong_signal": 0, "avg_rws": 9.1, "campground_slugs": ["walnut-prairie-camp", "maple-run-state-park"]}, {"city": "Sandusky", "state": "OH", "state_name": "Ohio", "slug": "sandusky-oh", "latitude": 41.4489, "longitude": -82.7079, "campground_count": 6, "strong_signal": 0, "avg_rws": 7.3, "campground_slugs": ["east-harbor-state-park", "east-cove-wilderness-camp", "emerald-stone-camping-resort", "beech-bluff-camping-resort", "marsh-koa", "hidden-bay-camping-resort"]}, {"city": "Put-in-Bay", "state": "OH", "state_name": "Ohio", "slug": "put-in-bay-oh", "latitude": 41.6528, "longitude": -82.8213, "campground_count": 4, "strong_signal": 0, "avg_rws": 7.1, "campground_slugs": ["east-harbor-state-park", "emerald-stone-camping-resort", "east-cove-wilderness-camp", "beech-bluff-camping-resort"]}, {"city": "Geneva", "state": "OH", "state_name": "Ohio", "slug": "geneva-oh", "latitude": 41.8031, "longitude": -80.9487, "campground_count": 5, "strong_signal": 0, "avg_rws": 7.5, "campground_slugs": ["geneva-state-park", "oak-bluff-wilderness-camp", "hickory-glen-camp", "walnut-ravine-wildlife-area-camp", "west-pond-family-campground"]}, {"city": "Logan", "state": "OH", "state_name": "Ohio", "slug": "logan-oh", "latitude": 39.5401, "longitude": -82.4071, "campground_count": 16, "strong_signal": 0, "avg_rws": 8.0, "campground_slugs": ["spruce-stone-camp", "cherry-shore-koa", "hocking-hills-state-park", "rolling-gap-lakeside-camp", "aspen-hollow-camping-resort", "silver-forest-wildlife-area-camp", "pine-glen-wilderness-camp", "willow-peninsula-recreation-area", "east-pond-state-park", "whispering-branch-outdoor-resort", "crystal-bend-wilderness-camp", "big-canyon-nature-preserve-camp", "whispering-rock-wildlife-area-camp", "hidden-pond-lakeside-camp", "pine-gap-outdoor-resort", "silver-grove-riverside-camp"]}, {"city": "Nelsonville", "state": "OH", "state_name": "Ohio", "slug": "nelsonville-oh", "latitude": 39.4589, "longitude": -82.2318, "campground_count": 16, "strong_signal": 0, "avg_rws": 8.0, "campground_slugs": ["rolling-gap-lakeside-camp", "silver-forest-wildlife-area-camp", "cherry-shore-koa", "pine-glen-wilderness-camp", "whispering-branch-outdoor-resort", "willow-peninsula-recreation-area", "spruce-stone-camp", "east-pond-state-park", "pine-gap-outdoor-resort", "hocking-hills-state-park", "laurel-valley-municipal-campground", "silver-grove-riverside-camp", "aspen-hollow-camping-resort", "aspen-river-state-forest", "crystal-bend-wilderness-camp", "hidden-pond-lakeside-camp"]}, {"city": "Athens", "state": "OH", "state_name": "Ohio", "slug": "athens-oh", "latitude": 39.3292, "longitude": -82.1013, "campground_count": 14, "strong_signal": 0, "avg_rws": 8.2, "campground_slugs": ["silver-forest-wildlife-area-camp", "whispering-branch-outdoor-resort", "pine-glen-wilderness-camp", "laurel-valley-municipal-campground", "rolling-gap-lakeside-camp", "willow-peninsula-recreation-area", "pine-gap-outdoor-resort", "cherry-shore-koa", "aspen-river-state-forest", "east-pond-state-park", "maple-run-state-park", "silver-grove-riverside-camp", "spruce-stone-camp", "hocking-hills-state-park"]}, {"city": "Delaware", "state": "OH", "state_name": "Ohio", "slug": "delaware-oh", "latitude": 40.2987, "longitude": -83.068, "campground_count": 4, "strong_signal": 0, "avg_rws": 7.8, "campground_slugs": ["birch-cove-campground", "crystal-cove-state-park", "upper-rock-wilderness-camp", "old-glen-family-campground"]}, {"city": "Wooster", "state": "OH", "state_name": "Ohio", "slug": "wooster-oh", "latitude": 40.8051, "longitude": -81.9351, "campground_count": 5, "strong_signal": 0, "avg_rws": 8.1, "campground_slugs": ["hickory-hollow-koa", "walnut-hollow-family-campground", "spruce-point-wildlife-area-camp", "mohican-state-park", "birch-branch-family-campground"]}, {"city": "Mansfield", "state": "OH", "state_name": "Ohio", "slug": "mansfield-oh", "latitude": 40.7584, "longitude": -82.5154, "campground_count": 10, "strong_signal": 0, "avg_rws": 7.8, "campground_slugs": ["rolling-bog-camp", "birch-branch-family-campground", "laurel-field-lakeside-camp", "cedar-peak-county-park", "mohican-state-park", "hidden-bay-camping-resort", "marsh-koa", "walnut-hollow-family-campground", "upper-rock-wilderness-camp", "spruce-point-wildlife-area-camp"]}, {"city": "Dayton", "state": "OH", "state_name": "Ohio", "slug": "dayton-oh", "latitude": 39.7589, "longitude": -84.1916, "campground_count": 1, "strong_signal": 0, "avg_rws": 7.6, "campground_slugs": ["spruce-river-family-campground"]}, {"city": "Lima", "state": "OH", "state_name": "Ohio", "slug": "lima-oh", "latitude": 40.7428, "longitude": -84.1052, "campground_count": 1, "strong_signal": 0, "avg_rws": 8.3, "campground_slugs": ["lower-bay-nature-preserve-camp"]}, {"city": "Canton", "state": "OH", "state_name": "Ohio", "slug": "canton-oh", "latitude": 40.7989, "longitude": -81.3784, "campground_count": 1, "strong_signal": 0, "avg_rws": 9.6, "campground_slugs": ["hickory-hollow-koa"]}, {"city": "Youngstown", "state": "OH", "state_name": "Ohio", "slug": "youngstown-oh", "latitude": 41.0998, "longitude": -80.6495, "campground_count": 1, "strong_signal": 0, "avg_rws": 6.8, "campground_slugs": ["west-pond-family-campground"]}, {"city": "Chillicothe", "state": "OH", "state_name": "Ohio", "slug": "chillicothe-oh", "latitude": 39.3331, "longitude": -82.9824, "campground_count": 8, "strong_signal": 0, "avg_rws": 7.8, "campground_slugs": ["hidden-brook-camping-resort", "silver-shore-campground", "hidden-meadow-state-forest", "big-canyon-nature-preserve-camp", "cedar-bluff-municipal-campground", "deer-creek-state-park", "crystal-bend-wilderness-camp", "hocking-hills-state-park"]}, {"city": "Lancaster", "state": "OH", "state_name": "Ohio", "slug": "lancaster-oh", "latitude": 39.7137, "longitude": -82.5993, "campground_count": 13, "strong_signal": 0, "avg_rws": 7.9, "campground_slugs": ["aspen-hollow-camping-resort", "spruce-stone-camp", "whispering-rock-wildlife-area-camp", "hocking-hills-state-park", "big-canyon-nature-preserve-camp", "cherry-shore-koa", "rolling-gap-lakeside-camp", "hidden-pond-lakeside-camp", "silver-shore-campground", "lower-ravine-camp", "crystal-bend-wilderness-camp", "east-pond-state-park", "hidden-brook-camping-resort"]}], "carrier_pages": [{"carrier": "Verizon", "carrier_slug": "verizon", "state": "MI", "state_name": "Michigan", "slug": "verizon-michigan", "total": 81, "strong": 66, "moderate": 15, "coverage_pct": 100.0}, {"carrier": "Verizon", "carrier_slug": "verizon", "state": "OH", "state_name": "Ohio", "slug": "verizon-ohio", "total": 69, "strong": 58, "moderate": 11, "coverage_pct": 100.0}, {"carrier": "AT&T", "carrier_slug": "at-t", "state": "MI", "state_name": "Michigan", "slug": "at-t-michigan", "total": 81, "strong": 36, "moderate": 42, "coverage_pct": 96.3}, {"carrier": "AT&T", "carrier_slug": "at-t", "state": "OH", "state_name": "Ohio", "slug": "at-t-ohio", "total": 69, "strong": 50, "moderate": 17, "coverage_pct": 97.1}, {"carrier": "T-Mobile", "carrier_slug": "t-mobile", "state": "MI", "state_name": "Michigan", "slug": "t-mobile-michigan", "total": 81, "strong": 30, "moderate": 46, "coverage_pct": 93.8}, {"carrier": "T-Mobile", "carrier_slug": "t-mobile", "state": "OH", "state_name": "Ohio", "slug": "t-mobile-ohio", "total": 69, "strong": 47, "moderate": 22, "coverage_pct": 100.0}, {"carrier": "Verizon", "carrier_slug": "verizon", "state": "ALL", "state_name": "Great Lakes", "slug": "verizon-great-lakes", "total": 150, "strong": 124, "moderate": 26, "coverage_pct": 100.0}, {"carrier": "AT&T", "carrier_slug": "at-t", "state": "ALL", "state_name": "Great Lakes", "slug": "at-t-great-lakes", "total": 150, "strong": 86, "moderate": 59, "coverage_pct": 96.7}, {"carrier": "T-Mobile", "carrier_slug": "t-mobile", "state": "ALL", "state_name": "Great Lakes", "slug": "t-mobile-great-lakes", "total": 150, "strong": 77, "moderate": 68, "coverage_pct": 96.7}, {"carrier": "Verizon", "carrier_slug": "verizon", "state": "MI", "state_name": "Michigan", "slug": "verizon-waterfront-michigan", "total": 67, "strong": 52, "moderate": 15, "coverage_pct": 100.0, "amenity_filter": "waterfront"}, {"carrier": "Verizon", "carrier_slug": "verizon", "state": "OH", "state_name": "Ohio", "slug": "verizon-waterfront-ohio", "total": 67, "strong": 56, "moderate": 11, "coverage_pct": 100.0, "amenity_filter": "waterfront"}, {"carrier": "AT&T", "carrier_slug": "at-t", "state": "MI", "state_name": "Michigan", "slug": "at-t-waterfront-michigan", "total": 64, "strong": 32, "moderate": 32, "coverage_pct": 100.0, "amenity_filter": "waterfront"}, {"carrier": "AT&T", "carrier_slug": "at-t", "state": "OH", "state_name": "Ohio", "slug": "at-t-waterfront-ohio", "total": 65, "strong": 48, "moderate": 17, "coverage_pct": 100.0, "amenity_filter": "waterfront"}, {"carrier": "T-Mobile", "carrier_slug": "t-mobile", "state": "MI", "state_name": "Michigan", "slug": "t-mobile-waterfront-michigan", "total": 63, "strong": 27, "moderate": 36, "coverage_pct": 100.0, "amenity_filter": "waterfront"}, {"carrier": "T-Mobile", "carrier_slug": "t-mobile", "state": "OH", "state_name": "Ohio", "slug": "t-mobile-waterfront-ohio", "total": 67, "strong": 46, "moderate": 21, "coverage_pct": 100.0, "amenity_filter": "waterfront"}], "remote_work_pages": [{"state": "MI", "state_name": "Michigan", "slug": "remote-work-michigan", "total": 81, "excellent": 12, "good": 45, "usable": 24, "avg_rws": 7.4, "type": "state"}, {"state": "OH", "state_name": "Ohio", "slug": "remote-work-ohio", "total": 69, "excellent": 16, "good": 42, "usable": 11, "avg_rws": 7.9, "type": "state"}, {"state": "MI", "state_name": "Michigan", "slug": "remote-work-waterfront-michigan", "total": 51, "excellent": 9, "good": 42, "usable": 0, "avg_rws": 7.8, "type": "waterfront"}, {"state": "OH", "state_name": "Ohio", "slug": "remote-work-waterfront-ohio", "total": 56, "excellent": 15, "good": 41, "usable": 0, "avg_rws": 8.1, "type": "waterfront"}, {"state": "MI", "state_name": "Michigan", "slug": "remote-work-electric-michigan", "total": 57, "excellent": 12, "good": 45, "usable": 0, "avg_rws": 7.8, "type": "electric"}, {"state": "OH", "state_name": "Ohio", "slug": "remote-work-electric-ohio", "total": 56, "excellent": 16, "good": 40, "usable": 0, "avg_rws": 8.2, "type": "electric"}, {"state": "MI", "state_name": "Michigan", "slug": "remote-work-state-park-michigan", "total": 66, "excellent": 9, "good": 37, "usable": 20, "avg_rws": 7.5, "type": "type-state-park"}, {"state": "OH", "state_name": "Ohio", "slug": "remote-work-state-park-ohio", "total": 62, "excellent": 13, "good": 38, "usable": 11, "avg_rws": 7.8, "type": "type-state-park"}, {"state": "MI", "state_name": "Michigan", "slug": "remote-work-private-michigan", "total": 12, "excellent": 3, "good": 8, "usable": 1, "avg_rws": 7.7, "type": "type-private"}, {"state": "OH", "state_name": "Ohio", "slug": "remote-work-private-ohio", "total": 7, "excellent": 3, "good": 4, "usable": 0, "avg_rws": 8.4, "type": "type-private"}, {"state": "MI", "state_name": "Michigan", "slug": "remote-work-national-forest-michigan", "total": 1, "excellent": 0, "good": 0, "usable": 1, "avg_rws": 6.9, "type": "type-national-forest"}, {"state": "MI", "state_name": "Michigan", "slug": "remote-work-near-traverse-city-mi", "total": 10, "excellent": 5, "good": 5, "usable": 0, "avg_rws": 8.3, "type": "city-traverse-city", "city": "Traverse City"}, {"state": "MI", "state_name": "Michigan", "slug": "remote-work-near-petoskey-mi", "total": 6, "excellent": 1, "good": 5, "usable": 0, "avg_rws": 7.9, "type": "city-petoskey", "city": "Petoskey"}, {"state": "MI", "state_name": "Michigan", "slug": "remote-work-near-mackinaw-city-mi", "total": 7, "excellent": 1, "good": 6, "usable": 0, "avg_rws": 7.8, "type": "city-mackinaw-city", "city": "Mackinaw City"}, {"state": "MI", "state_name": "Michigan", "slug": "remote-work-near-houghton-mi", "total": 1, "excellent": 1, "good": 0, "usable": 0, "avg_rws": 9.4, "type": "city-houghton", "city": "Houghton"}, {"state": "OH", "state_name": "Ohio", "slug": "remote-work-near-hocking-hills-oh", "total": 17, "excellent": 2, "good": 15, "usable": 0, "avg_rws": 7.9, "type": "city-hocking-hills", "city": "Hocking Hills"}, {"state": "OH", "state_name": "Ohio", "slug": "remote-work-near-cleveland-oh", "total": 1, "excellent": 0, "good": 1, "usable": 0, "avg_rws": 8.7, "type": "city-cleveland", "city": "Cleveland"}, {"state": "OH", "state_name": "Ohio", "slug": "remote-work-near-columbus-oh", "total": 3, "excellent": 2, "good": 1, "usable": 0, "avg_rws": 8.6, "type": "city-columbus", "city": "Columbus"}, {"state": "OH", "state_name": "Ohio", "slug": "remote-work-near-cincinnati-oh", "total": 3, "excellent": 0, "good": 3, "usable": 0, "avg_rws": 7.7, "type": "city-cincinnati", "city": "Cincinnati"}, {"state": "OH", "state_name": "Ohio", "slug": "remote-work-near-toledo-oh", "total": 1, "excellent": 1, "good": 0, "usable": 0, "avg_rws": 9.4, "type": "city-toledo", "city": "Toledo"}], "amenity_pages": [{"amenity": "lakefront", "amenity_label": "Lakefront", "state": "MI", "state_name": "Michigan", "slug": "lakefront-michigan", "total": 1, "strong_signal": 0, "avg_rws": 7.6}, {"amenity": "lakefront", "amenity_label": "Lakefront", "state": "OH", "state_name": "Ohio", "slug": "lakefront-ohio", "total": 1, "strong_signal": 0, "avg_rws": 7.4}, {"amenity": "waterfront", "amenity_label": "Waterfront", "state": "MI", "state_name": "Michigan", "slug": "waterfront-michigan", "total": 67, "strong_signal": 0, "avg_rws": 7.4}, {"amenity": "waterfront", "amenity_label": "Waterfront", "state": "OH", "state_name": "Ohio", "slug": "waterfront-ohio", "total": 67, "strong_signal": 0, "avg_rws": 7.9}, {"amenity": "tent-camping", "amenity_label": "Tent Camping", "state": "MI", "state_name": "Michigan", "slug": "tent-camping-michigan", "total": 79, "strong_signal": 0, "avg_rws": 7.5}, {"amenity": "tent-camping", "amenity_label": "Tent Camping", "state": "OH", "state_name": "Ohio", "slug": "tent-camping-ohio", "total": 69, "strong_signal": 0, "avg_rws": 7.9}, {"amenity": "rv-camping", "amenity_label": "Rv Camping", "state": "MI", "state_name": "Michigan", "slug": "rv-camping-michigan", "total": 68, "strong_signal": 0, "avg_rws": 7.5}, {"amenity": "rv-camping", "amenity_label": "Rv Camping", "state": "OH", "state_name": "Ohio", "slug": "rv-camping-ohio", "total": 59, "strong_signal": 0, "avg_rws": 7.9}, {"amenity": "electric-hookups", "amenity_label": "Electric Hookups", "state": "MI", "state_name": "Michigan", "slug": "electric-hookups-michigan", "total": 81, "strong_signal": 0, "avg_rws": 7.4}, {"amenity": "electric-hookups", "amenity_label": "Electric Hookups", "state": "OH", "state_name": "Ohio", "slug": "electric-hookups-ohio", "total": 67, "strong_signal": 0, "avg_rws": 7.9}, {"amenity": "forest", "amenity_label": "Forest", "state": "MI", "state_name": "Michigan", "slug": "forest-michigan", "total": 58, "strong_signal": 0, "avg_rws": 7.4}, {"amenity": "forest", "amenity_label": "Forest", "state": "OH", "state_name": "Ohio", "slug": "forest-ohio", "total": 51, "strong_signal": 0, "avg_rws": 7.8}, {"amenity": "near-town", "amenity_label": "Near Town", "state": "MI", "state_name": "Michigan", "slug": "near-town-michigan", "total": 16, "strong_signal": 0, "avg_rws": 8.4}, {"amenity": "near-town", "amenity_label": "Near Town", "state": "OH", "state_name": "Ohio", "slug": "near-town-ohio", "total": 15, "strong_signal": 0, "avg_rws": 8.6}, {"amenity": "high-elevation", "amenity_label": "High Elevation", "state": "MI", "state_name": "Michigan", "slug": "high-elevation-michigan", "total": 23, "strong_signal": 0, "avg_rws": 7.8}, {"amenity": "remote-wilderness", "amenity_label": "Remote Wilderness", "state": "MI", "state_name": "Michigan", "slug": "remote-wilderness-michigan", "total": 7, "strong_signal": 0, "avg_rws": 6.1}, {"amenity": "remote-wilderness", "amenity_label": "Remote Wilderness", "state": "OH", "state_name": "Ohio", "slug": "remote-wilderness-ohio", "total": 4, "strong_signal": 0, "avg_rws": 7.5}, {"amenity": "full-amenity", "amenity_label": "Full Amenity", "state": "MI", "state_name": "Michigan", "slug": "full-amenity-michigan", "total": 56, "strong_signal": 0, "avg_rws": 7.5}, {"amenity": "full-amenity", "amenity_label": "Full Amenity", "state": "OH", "state_name": "Ohio", "slug": "full-amenity-ohio", "total": 56, "strong_signal": 0, "avg_rws": 7.9}], "trip_route_pages": [{"origin": "Cleveland", "origin_state": "OH", "destination": "Traverse City", "dest_state": "MI", "slug": "cleveland-to-traverse-city", "distance_miles": 290, "campground_count": 62, "strong_signal": 0, "avg_rws": 7.5}, {"origin": "Detroit", "origin_state": "MI", "destination": "Upper Peninsula", "dest_state": "MI", "slug": "detroit-to-upper-peninsula", "distance_miles": 450, "campground_count": 78, "strong_signal": 0, "avg_rws": 7.4}, {"origin": "Columbus", "origin_state": "OH", "destination": "Hocking Hills", "dest_state": "OH", "slug": "columbus-to-hocking-hills", "distance_miles": 60, "campground_count": 28, "strong_signal": 0, "avg_rws": 7.9}, {"origin": "Pittsburgh", "origin_state": "PA", "destination": "Erie", "dest_state": "PA", "slug": "pittsburgh-to-erie", "distance_miles": 130, "campground_count": 0, "strong_signal": 0, "avg_rws": 0.0}, {"origin": "Toledo", "origin_state": "OH", "destination": "Mackinaw City", "dest_state": "MI", "slug": "toledo-to-mackinaw-city", "distance_miles": 280, "campground_count": 41, "strong_signal": 0, "avg_rws": 7.5}, {"origin": "Cincinnati", "origin_state": "OH", "destination": "Hocking Hills", "dest_state": "OH", "slug": "cincinnati-to-hocking-hills", "distance_miles": 120, "campground_count": 30, "strong_signal": 0, "avg_rws": 7.8}, {"origin": "Ann Arbor", "origin_state": "MI", "destination": "Sleeping Bear Dunes", "dest_state": "MI", "slug": "ann-arbor-to-sleeping-bear-dunes", "distance_miles": 230, "campground_count": 59, "strong_signal": 0, "avg_rws": 7.5}, {"origin": "Grand Rapids", "origin_state": "MI", "destination": "Pictured Rocks", "dest_state": "MI", "slug": "grand-rapids-to-pictured-rocks", "distance_miles": 350, "campground_count": 38, "strong_signal": 0, "avg_rws": 7.5}, {"origin": "Akron", "origin_state": "OH", "destination": "Geneva on the Lake", "dest_state": "OH", "slug": "akron-to-geneva-on-the-lake", "distance_miles": 80, "campground_count": 7, "strong_signal": 0, "avg_rws": 8.0}, {"origin": "Dayton", "origin_state": "OH", "destination": "Wayne National Forest", "dest_state": "OH", "slug": "dayton-to-wayne-national-forest", "distance_miles": 150, "campground_count": 40, "strong_signal": 0, "avg_rws": 7.9}], "summary": {"total_campgrounds": 150, "city_page_count": 48, "carrier_page_count": 15, "remote_work_page_count": 20, "amenity_page_count": 19, "trip_route_page_count": 10, "campground_page_count": 150, "state_page_count": 2, "total_seo_pages": 264}}
+[
+  {
+    "type": "state",
+    "slug": "campgrounds/mi",
+    "title": "Best Campgrounds with Cell Service in Michigan",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 20
+  },
+  {
+    "type": "state",
+    "slug": "campgrounds/oh",
+    "title": "Best Campgrounds with Cell Service in Ohio",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 12
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/naubinway",
+    "title": "Campgrounds near Naubinway, MI with Cell Service",
+    "city": "Naubinway",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/glen-arbor",
+    "title": "Campgrounds near Glen Arbor, MI with Cell Service",
+    "city": "Glen Arbor",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/hancock",
+    "title": "Campgrounds near Hancock, MI with Cell Service",
+    "city": "Hancock",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/harrisville",
+    "title": "Campgrounds near Harrisville, MI with Cell Service",
+    "city": "Harrisville",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/cadillac",
+    "title": "Campgrounds near Cadillac, MI with Cell Service",
+    "city": "Cadillac",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/interlochen",
+    "title": "Campgrounds near Interlochen, MI with Cell Service",
+    "city": "Interlochen",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/traverse-city",
+    "title": "Campgrounds near Traverse City, MI with Cell Service",
+    "city": "Traverse City",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/ludington",
+    "title": "Campgrounds near Ludington, MI with Cell Service",
+    "city": "Ludington",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/brutus",
+    "title": "Campgrounds near Brutus, MI with Cell Service",
+    "city": "Brutus",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/munising",
+    "title": "Campgrounds near Munising, MI with Cell Service",
+    "city": "Munising",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/muskegon",
+    "title": "Campgrounds near Muskegon, MI with Cell Service",
+    "city": "Muskegon",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/oscoda",
+    "title": "Campgrounds near Oscoda, MI with Cell Service",
+    "city": "Oscoda",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/ferrysburg",
+    "title": "Campgrounds near Ferrysburg, MI with Cell Service",
+    "city": "Ferrysburg",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/petoskey",
+    "title": "Campgrounds near Petoskey, MI with Cell Service",
+    "city": "Petoskey",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/grand-marais",
+    "title": "Campgrounds near Grand Marais, MI with Cell Service",
+    "city": "Grand Marais",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/ontonagon",
+    "title": "Campgrounds near Ontonagon, MI with Cell Service",
+    "city": "Ontonagon",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/mears",
+    "title": "Campgrounds near Mears, MI with Cell Service",
+    "city": "Mears",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/paradise",
+    "title": "Campgrounds near Paradise, MI with Cell Service",
+    "city": "Paradise",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/sawyer",
+    "title": "Campgrounds near Sawyer, MI with Cell Service",
+    "city": "Sawyer",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/carp-lake",
+    "title": "Campgrounds near Carp Lake, MI with Cell Service",
+    "city": "Carp Lake",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/delaware",
+    "title": "Campgrounds near Delaware, OH with Cell Service",
+    "city": "Delaware",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/glouster",
+    "title": "Campgrounds near Glouster, OH with Cell Service",
+    "city": "Glouster",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/mount-sterling",
+    "title": "Campgrounds near Mount Sterling, OH with Cell Service",
+    "city": "Mount Sterling",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/lakeside-marblehead",
+    "title": "Campgrounds near Lakeside Marblehead, OH with Cell Service",
+    "city": "Lakeside Marblehead",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/geneva",
+    "title": "Campgrounds near Geneva, OH with Cell Service",
+    "city": "Geneva",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/logan",
+    "title": "Campgrounds near Logan, OH with Cell Service",
+    "city": "Logan",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/mcarthur",
+    "title": "Campgrounds near McArthur, OH with Cell Service",
+    "city": "McArthur",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/oregon",
+    "title": "Campgrounds near Oregon, OH with Cell Service",
+    "city": "Oregon",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/loudonville",
+    "title": "Campgrounds near Loudonville, OH with Cell Service",
+    "city": "Loudonville",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/hillsboro",
+    "title": "Campgrounds near Hillsboro, OH with Cell Service",
+    "city": "Hillsboro",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 1
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/lore-city",
+    "title": "Campgrounds near Lore City, OH with Cell Service",
+    "city": "Lore City",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 1
+  },
+  {
+    "type": "carrier",
+    "slug": "carrier/verizon",
+    "title": "Best Campgrounds for Verizon Coverage",
+    "carrier": "Verizon",
+    "count": 32
+  },
+  {
+    "type": "carrier",
+    "slug": "carrier/att",
+    "title": "Best Campgrounds for AT&T Coverage",
+    "carrier": "AT&T",
+    "count": 32
+  },
+  {
+    "type": "carrier",
+    "slug": "carrier/tmobile",
+    "title": "Best Campgrounds for T-Mobile Coverage",
+    "carrier": "T-Mobile",
+    "count": 32
+  },
+  {
+    "type": "amenity",
+    "slug": "amenity/waterfront",
+    "title": "Waterfront Campgrounds with Cell Service",
+    "amenity": "waterfront",
+    "count": 32
+  },
+  {
+    "type": "amenity",
+    "slug": "amenity/tent",
+    "title": "Tent Camping with Cell Service",
+    "amenity": "tent",
+    "count": 32
+  },
+  {
+    "type": "amenity",
+    "slug": "amenity/rv",
+    "title": "RV Campgrounds with Cell Service",
+    "amenity": "rv",
+    "count": 32
+  },
+  {
+    "type": "amenity",
+    "slug": "amenity/electric",
+    "title": "Campgrounds with Electric Hookups and Cell Service",
+    "amenity": "electric",
+    "count": 32
+  },
+  {
+    "type": "remote_work",
+    "slug": "remote-work/best",
+    "title": "Best Campgrounds for Remote Work in the Great Lakes",
+    "count": 32
+  }
+]
