@@ -9,6 +9,7 @@ import CampgroundLanding from "./pages/CampgroundLanding";
 import TopCampgrounds from "./pages/TopCampgrounds";
 import StateLanding from "./pages/StateLanding";
 import BuildSpec from "./pages/BuildSpec";
+import MvpLaunch from "./pages/MvpLaunch";
 
 function Router() {
   return (
@@ -18,6 +19,7 @@ function Router() {
       <Route path={"/top-campgrounds"} component={TopCampgrounds} />
       <Route path={"/campgrounds/:state"} component={StateLanding} />
       <Route path={"/build-spec"} component={BuildSpec} />
+      <Route path={"/mvp-launch"} component={MvpLaunch} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

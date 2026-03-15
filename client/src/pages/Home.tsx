@@ -370,6 +370,7 @@ export default function Home() {
               <ul className="space-y-1.5 text-sm">
                 <li><Link href="/top-campgrounds" className="hover:text-green-400 transition">Top 100 Campgrounds</Link></li>
                 <li><Link href="/build-spec" className="hover:text-green-400 transition">v1 Build Spec</Link></li>
+                <li><Link href="/mvp-launch" className="hover:text-green-400 transition">MVP Launch Package</Link></li>
                 <li><span className="text-gray-500">GeoJSON map-ready format</span></li>
               </ul>
               <p className="text-xs text-gray-500 mt-3">Scalable to 13,000+ U.S. campgrounds</p>
@@ -406,6 +407,11 @@ function Header() {
             <Link href="/build-spec">
               <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden sm:inline-flex">
                 Build Spec
+              </Button>
+            </Link>
+            <Link href="/mvp-launch">
+              <Button variant="ghost" size="sm" className="text-xs text-amber-700 hover:text-amber-800 hidden sm:inline-flex">
+                MVP Launch
               </Button>
             </Link>
             <Badge variant="outline" className="text-xs hidden sm:inline-flex border-green-200 text-green-700 bg-green-50">
