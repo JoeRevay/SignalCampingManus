@@ -30,7 +30,9 @@
     "elevation_ft": 1115,
     "forest_cover_percent": 57,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.1,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 2,
@@ -63,7 +65,9 @@
     "elevation_ft": 1286,
     "forest_cover_percent": 79,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.4,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 3,
@@ -96,7 +100,9 @@
     "elevation_ft": 1507,
     "forest_cover_percent": 76,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.4,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 4,
@@ -129,7 +135,9 @@
     "elevation_ft": 903,
     "forest_cover_percent": 62,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.4,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 5,
@@ -162,7 +170,9 @@
     "elevation_ft": 842,
     "forest_cover_percent": 61,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.1,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 6,
@@ -195,7 +205,9 @@
     "elevation_ft": 1369,
     "forest_cover_percent": 65,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.9,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 7,
@@ -228,7 +240,9 @@
     "elevation_ft": 659,
     "forest_cover_percent": 52,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 8,
@@ -261,7 +275,9 @@
     "elevation_ft": 930,
     "forest_cover_percent": 61,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 9,
@@ -294,7 +310,9 @@
     "elevation_ft": 1630,
     "forest_cover_percent": 58,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 10,
@@ -327,7 +345,9 @@
     "elevation_ft": 1519,
     "forest_cover_percent": 59,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 11,
@@ -360,7 +380,9 @@
     "elevation_ft": 1504,
     "forest_cover_percent": 63,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 12,
@@ -393,7 +415,9 @@
     "elevation_ft": 975,
     "forest_cover_percent": 71,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 13,
@@ -426,7 +450,9 @@
     "elevation_ft": 1053,
     "forest_cover_percent": 59,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 14,
@@ -459,7 +485,9 @@
     "elevation_ft": 1354,
     "forest_cover_percent": 54,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 15,
@@ -492,7 +520,9 @@
     "elevation_ft": 990,
     "forest_cover_percent": 64,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.5,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 16,
@@ -525,7 +555,9 @@
     "elevation_ft": 1431,
     "forest_cover_percent": 73,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.4,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 17,
@@ -558,7 +590,9 @@
     "elevation_ft": 1353,
     "forest_cover_percent": 69,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.4,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 18,
@@ -591,7 +625,9 @@
     "elevation_ft": 1329,
     "forest_cover_percent": 70,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 19,
@@ -624,7 +660,9 @@
     "elevation_ft": 1444,
     "forest_cover_percent": 61,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 4.9,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 20,
@@ -657,7 +695,9 @@
     "elevation_ft": 1217,
     "forest_cover_percent": 78,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.9,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 21,
@@ -690,7 +730,9 @@
     "elevation_ft": 1239,
     "forest_cover_percent": 71,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.4,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 22,
@@ -723,7 +765,9 @@
     "elevation_ft": 1395,
     "forest_cover_percent": 57,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.1,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 23,
@@ -756,7 +800,9 @@
     "elevation_ft": 1558,
     "forest_cover_percent": 68,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.1,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 24,
@@ -789,7 +835,9 @@
     "elevation_ft": 1304,
     "forest_cover_percent": 65,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 8.7,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 25,
@@ -822,7 +870,9 @@
     "elevation_ft": 797,
     "forest_cover_percent": 55,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 8.3,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 26,
@@ -855,7 +905,9 @@
     "elevation_ft": 878,
     "forest_cover_percent": 61,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 8.7,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 27,
@@ -888,7 +940,9 @@
     "elevation_ft": 851,
     "forest_cover_percent": 69,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.4,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 28,
@@ -921,7 +975,9 @@
     "elevation_ft": 749,
     "forest_cover_percent": 71,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.1,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 29,
@@ -954,7 +1010,9 @@
     "elevation_ft": 865,
     "forest_cover_percent": 58,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.1,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 30,
@@ -987,7 +1045,9 @@
     "elevation_ft": 883,
     "forest_cover_percent": 69,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.4,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 31,
@@ -1020,7 +1080,9 @@
     "elevation_ft": 1096,
     "forest_cover_percent": 63,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 8.7,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 32,
@@ -1053,7 +1115,9 @@
     "elevation_ft": 882,
     "forest_cover_percent": 62,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 8.7,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 33,
@@ -1086,7 +1150,9 @@
     "elevation_ft": 587,
     "forest_cover_percent": 47,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 8.7,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 34,
@@ -1119,7 +1185,9 @@
     "elevation_ft": 616,
     "forest_cover_percent": 54,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 8.3,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 35,
@@ -1152,7 +1220,9 @@
     "elevation_ft": 756,
     "forest_cover_percent": 71,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.1,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 36,
@@ -1185,7 +1255,9 @@
     "elevation_ft": 982,
     "forest_cover_percent": 65,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.4,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 37,
@@ -1218,7 +1290,9 @@
     "elevation_ft": 943,
     "forest_cover_percent": 64,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.4,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 38,
@@ -1251,7 +1325,9 @@
     "elevation_ft": 866,
     "forest_cover_percent": 62,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.1,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 39,
@@ -1284,7 +1360,9 @@
     "elevation_ft": 910,
     "forest_cover_percent": 69,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.4,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 40,
@@ -1317,7 +1395,9 @@
     "elevation_ft": 982,
     "forest_cover_percent": 72,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.1,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 41,
@@ -1350,7 +1430,9 @@
     "elevation_ft": 946,
     "forest_cover_percent": 72,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 8.7,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 42,
@@ -1383,7 +1465,9 @@
     "elevation_ft": 859,
     "forest_cover_percent": 60,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 8.3,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 43,
@@ -1416,7 +1500,9 @@
     "elevation_ft": 826,
     "forest_cover_percent": 59,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 8.3,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 44,
@@ -1449,7 +1535,9 @@
     "elevation_ft": 933,
     "forest_cover_percent": 67,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.1,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 45,
@@ -1482,7 +1570,9 @@
     "elevation_ft": 824,
     "forest_cover_percent": 48,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.4,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 46,
@@ -1515,7 +1605,9 @@
     "elevation_ft": 1399,
     "forest_cover_percent": 64,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.9,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 47,
@@ -1548,7 +1640,9 @@
     "elevation_ft": 1671,
     "forest_cover_percent": 59,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.9,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 48,
@@ -1581,7 +1675,9 @@
     "elevation_ft": 1262,
     "forest_cover_percent": 60,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 49,
@@ -1614,7 +1710,9 @@
     "elevation_ft": 1367,
     "forest_cover_percent": 68,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 50,
@@ -1647,7 +1745,9 @@
     "elevation_ft": 1343,
     "forest_cover_percent": 71,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 51,
@@ -1680,7 +1780,9 @@
     "elevation_ft": 1529,
     "forest_cover_percent": 77,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 52,
@@ -1713,7 +1815,9 @@
     "elevation_ft": 1465,
     "forest_cover_percent": 52,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 53,
@@ -1746,7 +1850,9 @@
     "elevation_ft": 1504,
     "forest_cover_percent": 71,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 54,
@@ -1779,7 +1885,9 @@
     "elevation_ft": 1446,
     "forest_cover_percent": 65,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 55,
@@ -1812,7 +1920,9 @@
     "elevation_ft": 1527,
     "forest_cover_percent": 66,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 56,
@@ -1845,7 +1955,9 @@
     "elevation_ft": 1122,
     "forest_cover_percent": 62,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 57,
@@ -1878,7 +1990,9 @@
     "elevation_ft": 1233,
     "forest_cover_percent": 62,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.9,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 58,
@@ -1911,7 +2025,9 @@
     "elevation_ft": 1302,
     "forest_cover_percent": 73,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 59,
@@ -1944,7 +2060,9 @@
     "elevation_ft": 1240,
     "forest_cover_percent": 64,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 60,
@@ -1977,7 +2095,9 @@
     "elevation_ft": 1235,
     "forest_cover_percent": 49,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 61,
@@ -2010,7 +2130,9 @@
     "elevation_ft": 1211,
     "forest_cover_percent": 59,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 62,
@@ -2043,7 +2165,9 @@
     "elevation_ft": 1586,
     "forest_cover_percent": 68,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 63,
@@ -2076,7 +2200,9 @@
     "elevation_ft": 1453,
     "forest_cover_percent": 64,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 64,
@@ -2109,7 +2235,9 @@
     "elevation_ft": 1328,
     "forest_cover_percent": 62,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 65,
@@ -2142,7 +2270,9 @@
     "elevation_ft": 1328,
     "forest_cover_percent": 69,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 66,
@@ -2175,7 +2305,9 @@
     "elevation_ft": 1311,
     "forest_cover_percent": 53,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 67,
@@ -2208,7 +2340,9 @@
     "elevation_ft": 974,
     "forest_cover_percent": 73,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 68,
@@ -2241,7 +2375,9 @@
     "elevation_ft": 810,
     "forest_cover_percent": 62,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 69,
@@ -2274,7 +2410,9 @@
     "elevation_ft": 990,
     "forest_cover_percent": 55,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 70,
@@ -2307,7 +2445,9 @@
     "elevation_ft": 900,
     "forest_cover_percent": 64,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 71,
@@ -2340,7 +2480,9 @@
     "elevation_ft": 972,
     "forest_cover_percent": 55,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 72,
@@ -2373,7 +2515,9 @@
     "elevation_ft": 811,
     "forest_cover_percent": 60,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 73,
@@ -2406,7 +2550,9 @@
     "elevation_ft": 911,
     "forest_cover_percent": 56,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 74,
@@ -2439,7 +2585,9 @@
     "elevation_ft": 1041,
     "forest_cover_percent": 70,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 75,
@@ -2472,7 +2620,9 @@
     "elevation_ft": 1011,
     "forest_cover_percent": 74,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 76,
@@ -2505,7 +2655,9 @@
     "elevation_ft": 971,
     "forest_cover_percent": 80,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 77,
@@ -2538,7 +2690,9 @@
     "elevation_ft": 944,
     "forest_cover_percent": 71,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 78,
@@ -2571,7 +2725,9 @@
     "elevation_ft": 874,
     "forest_cover_percent": 63,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 79,
@@ -2604,7 +2760,9 @@
     "elevation_ft": 986,
     "forest_cover_percent": 57,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 80,
@@ -2637,7 +2795,9 @@
     "elevation_ft": 971,
     "forest_cover_percent": 75,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 81,
@@ -2670,7 +2830,9 @@
     "elevation_ft": 832,
     "forest_cover_percent": 60,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 82,
@@ -2703,7 +2865,9 @@
     "elevation_ft": 961,
     "forest_cover_percent": 66,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 83,
@@ -2736,7 +2900,9 @@
     "elevation_ft": 1617,
     "forest_cover_percent": 82,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 84,
@@ -2769,7 +2935,9 @@
     "elevation_ft": 1486,
     "forest_cover_percent": 64,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.4,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 85,
@@ -2802,7 +2970,9 @@
     "elevation_ft": 1353,
     "forest_cover_percent": 64,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.4,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 86,
@@ -2835,7 +3005,9 @@
     "elevation_ft": 1550,
     "forest_cover_percent": 63,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 87,
@@ -2868,7 +3040,9 @@
     "elevation_ft": 1449,
     "forest_cover_percent": 63,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.5,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 88,
@@ -2901,7 +3075,9 @@
     "elevation_ft": 993,
     "forest_cover_percent": 77,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.4,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 89,
@@ -2934,7 +3110,9 @@
     "elevation_ft": 1216,
     "forest_cover_percent": 68,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 90,
@@ -2967,7 +3145,9 @@
     "elevation_ft": 951,
     "forest_cover_percent": 65,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 91,
@@ -3000,7 +3180,9 @@
     "elevation_ft": 1093,
     "forest_cover_percent": 60,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.4,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 92,
@@ -3033,7 +3215,9 @@
     "elevation_ft": 1006,
     "forest_cover_percent": 69,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.4,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 93,
@@ -3066,7 +3250,9 @@
     "elevation_ft": 902,
     "forest_cover_percent": 70,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 94,
@@ -3099,7 +3285,9 @@
     "elevation_ft": 765,
     "forest_cover_percent": 67,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.4,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 95,
@@ -3132,7 +3320,9 @@
     "elevation_ft": 797,
     "forest_cover_percent": 60,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 96,
@@ -3165,7 +3355,9 @@
     "elevation_ft": 1390,
     "forest_cover_percent": 76,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.4,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 97,
@@ -3198,7 +3390,9 @@
     "elevation_ft": 1308,
     "forest_cover_percent": 58,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.4,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 98,
@@ -3231,7 +3425,9 @@
     "elevation_ft": 1409,
     "forest_cover_percent": 63,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 99,
@@ -3264,7 +3460,9 @@
     "elevation_ft": 1155,
     "forest_cover_percent": 67,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 4.5,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 100,
@@ -3297,7 +3495,9 @@
     "elevation_ft": 1345,
     "forest_cover_percent": 68,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.1,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 101,
@@ -3330,7 +3530,9 @@
     "elevation_ft": 1202,
     "forest_cover_percent": 55,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.6,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 102,
@@ -3363,7 +3565,9 @@
     "elevation_ft": 1676,
     "forest_cover_percent": 64,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.4,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 103,
@@ -3396,7 +3600,9 @@
     "elevation_ft": 1142,
     "forest_cover_percent": 63,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.4,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 104,
@@ -3429,7 +3635,9 @@
     "elevation_ft": 1569,
     "forest_cover_percent": 51,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.3,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 105,
@@ -3462,7 +3670,9 @@
     "elevation_ft": 1664,
     "forest_cover_percent": 36,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.3,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 106,
@@ -3495,7 +3705,9 @@
     "elevation_ft": 925,
     "forest_cover_percent": 32,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.3,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 107,
@@ -3528,7 +3740,9 @@
     "elevation_ft": 884,
     "forest_cover_percent": 41,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.6,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 108,
@@ -3561,7 +3775,9 @@
     "elevation_ft": 880,
     "forest_cover_percent": 61,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.1,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 109,
@@ -3594,7 +3810,9 @@
     "elevation_ft": 723,
     "forest_cover_percent": 55,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 9.3,
+    "remote_work_label": "excellent"
   },
   {
     "mvp_rank": 110,
@@ -3627,7 +3845,9 @@
     "elevation_ft": 1377,
     "forest_cover_percent": 55,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.0,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 111,
@@ -3660,7 +3880,9 @@
     "elevation_ft": 1550,
     "forest_cover_percent": 72,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.4,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 112,
@@ -3693,7 +3915,9 @@
     "elevation_ft": 1039,
     "forest_cover_percent": 49,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.8,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 113,
@@ -3726,7 +3950,9 @@
     "elevation_ft": 1397,
     "forest_cover_percent": 62,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.9,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 114,
@@ -3759,7 +3985,9 @@
     "elevation_ft": 1664,
     "forest_cover_percent": 56,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.8,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 115,
@@ -3792,7 +4020,9 @@
     "elevation_ft": 1003,
     "forest_cover_percent": 65,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.9,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 116,
@@ -3825,7 +4055,9 @@
     "elevation_ft": 842,
     "forest_cover_percent": 47,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.8,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 117,
@@ -3858,7 +4090,9 @@
     "elevation_ft": 931,
     "forest_cover_percent": 53,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 8.1,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 118,
@@ -3891,7 +4125,9 @@
     "elevation_ft": 1272,
     "forest_cover_percent": 53,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.6,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 119,
@@ -3924,7 +4160,9 @@
     "elevation_ft": 1341,
     "forest_cover_percent": 81,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 120,
@@ -3957,7 +4195,9 @@
     "elevation_ft": 1168,
     "forest_cover_percent": 66,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 121,
@@ -3990,7 +4230,9 @@
     "elevation_ft": 1288,
     "forest_cover_percent": 74,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 122,
@@ -4023,7 +4265,9 @@
     "elevation_ft": 1471,
     "forest_cover_percent": 64,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 123,
@@ -4056,7 +4300,9 @@
     "elevation_ft": 1457,
     "forest_cover_percent": 38,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.0,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 124,
@@ -4089,7 +4335,9 @@
     "elevation_ft": 1473,
     "forest_cover_percent": 65,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.0,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 125,
@@ -4122,7 +4370,9 @@
     "elevation_ft": 1458,
     "forest_cover_percent": 77,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 126,
@@ -4155,7 +4405,9 @@
     "elevation_ft": 1688,
     "forest_cover_percent": 75,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 127,
@@ -4188,7 +4440,9 @@
     "elevation_ft": 1559,
     "forest_cover_percent": 80,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.5,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 128,
@@ -4221,7 +4475,9 @@
     "elevation_ft": 1102,
     "forest_cover_percent": 37,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.0,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 129,
@@ -4254,7 +4510,9 @@
     "elevation_ft": 1144,
     "forest_cover_percent": 66,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 130,
@@ -4287,7 +4545,9 @@
     "elevation_ft": 1231,
     "forest_cover_percent": 75,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.5,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 131,
@@ -4320,7 +4580,9 @@
     "elevation_ft": 1729,
     "forest_cover_percent": 62,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.0,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 132,
@@ -4353,7 +4615,9 @@
     "elevation_ft": 855,
     "forest_cover_percent": 41,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.7,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 133,
@@ -4386,7 +4650,9 @@
     "elevation_ft": 1303,
     "forest_cover_percent": 62,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 134,
@@ -4419,7 +4685,9 @@
     "elevation_ft": 1101,
     "forest_cover_percent": 43,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.0,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 135,
@@ -4452,7 +4720,9 @@
     "elevation_ft": 1446,
     "forest_cover_percent": 70,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 136,
@@ -4485,7 +4755,9 @@
     "elevation_ft": 953,
     "forest_cover_percent": 69,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.9,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 137,
@@ -4518,7 +4790,9 @@
     "elevation_ft": 832,
     "forest_cover_percent": 72,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 138,
@@ -4551,7 +4825,9 @@
     "elevation_ft": 1022,
     "forest_cover_percent": 64,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 139,
@@ -4584,7 +4860,9 @@
     "elevation_ft": 782,
     "forest_cover_percent": 61,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.8,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 140,
@@ -4617,7 +4895,9 @@
     "elevation_ft": 746,
     "forest_cover_percent": 63,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.6,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 141,
@@ -4650,7 +4930,9 @@
     "elevation_ft": 1042,
     "forest_cover_percent": 68,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 142,
@@ -4683,7 +4965,9 @@
     "elevation_ft": 648,
     "forest_cover_percent": 63,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.9,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 143,
@@ -4716,7 +5000,9 @@
     "elevation_ft": 841,
     "forest_cover_percent": 68,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.9,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 144,
@@ -4749,7 +5035,9 @@
     "elevation_ft": 704,
     "forest_cover_percent": 66,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 145,
@@ -4782,7 +5070,9 @@
     "elevation_ft": 1459,
     "forest_cover_percent": 56,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.4,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 146,
@@ -4815,7 +5105,9 @@
     "elevation_ft": 1592,
     "forest_cover_percent": 67,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.5,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 147,
@@ -4848,7 +5140,9 @@
     "elevation_ft": 1502,
     "forest_cover_percent": 57,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.5,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 148,
@@ -4881,7 +5175,9 @@
     "elevation_ft": 1336,
     "forest_cover_percent": 68,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   },
   {
     "mvp_rank": 149,
@@ -4914,7 +5210,9 @@
     "elevation_ft": 1393,
     "forest_cover_percent": 66,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 6.4,
+    "remote_work_label": "usable"
   },
   {
     "mvp_rank": 150,
@@ -4947,6 +5245,8 @@
     "elevation_ft": 1551,
     "forest_cover_percent": 60,
     "data_completeness": 100.0,
-    "needs_review": false
+    "needs_review": false,
+    "remote_work_score": 7.2,
+    "remote_work_label": "good"
   }
 ]
