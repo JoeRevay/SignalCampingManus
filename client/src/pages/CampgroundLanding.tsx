@@ -23,6 +23,8 @@ import {
 } from "lucide-react";
 
 import top100Data from "@/data/top100_seo.json";
+import mvpData from "@/data/mvp_campgrounds.json";
+import { MapView } from "@/components/Map";
 
 /* ── Types ── */
 interface Campground {
@@ -53,13 +55,34 @@ interface Campground {
   slug: string;
 }
 
-const campgrounds = (top100Data as Campground[]).map(cg => ({
-  ...cg,
-  tent_sites: cg.tent_sites === true || (cg.tent_sites as any) === "True",
-  rv_sites: cg.rv_sites === true || (cg.rv_sites as any) === "True",
-  electric_hookups: cg.electric_hookups === true || (cg.electric_hookups as any) === "True",
-  waterfront: cg.waterfront === true || (cg.waterfront as any) === "True",
-}));
+interface MvpCampground extends Campground {
+  remote_work_score?: number;
+  best_signal_strength?: string;
+}
+
+const parseBool = (v: any) => v === true || v === "True" || v === "Yes";
+
+// Merge top100 and MVP data, preferring MVP (has remote_work_score)
+const allCampgrounds: MvpCampground[] = (() => {
+  const mvp = (mvpData as any[]).map(cg => ({
+    ...cg,
+    tent_sites: parseBool(cg.tent_sites),
+    rv_sites: parseBool(cg.rv_sites),
+    electric_hookups: parseBool(cg.electric_hookups),
+    waterfront: parseBool(cg.waterfront),
+  }));
+  const mvpSlugs = new Set(mvp.map((c: any) => c.slug));
+  const top100Only = (top100Data as any[]).filter(c => !mvpSlugs.has(c.slug)).map(cg => ({
+    ...cg,
+    tent_sites: parseBool(cg.tent_sites),
+    rv_sites: parseBool(cg.rv_sites),
+    electric_hookups: parseBool(cg.electric_hookups),
+    waterfront: parseBool(cg.waterfront),
+  }));
+  return [...mvp, ...top100Only] as MvpCampground[];
+})();
+
+const campgrounds = allCampgrounds;
 
 const STATE_NAMES: Record<string, string> = {
   MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin", WV: "West Virginia",
@@ -490,32 +513,105 @@ export default function CampgroundLanding() {
               </CardContent>
             </Card>
 
-            {/* GPS Coordinates */}
-            <Card>
-              <CardHeader className="pb-3">
+            {/* Mini Map */}
+            <Card className="overflow-hidden">
+              <CardHeader className="pb-2">
                 <CardTitle className="text-base flex items-center gap-2">
-                  <Compass className="w-4 h-4 text-green-700" /> GPS Coordinates
+                  <MapPin className="w-4 h-4 text-green-700" /> Location
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3 bg-gray-50 rounded-lg text-center">
-                    <p className="text-xs text-gray-500">Latitude</p>
-                    <p className="text-sm font-mono font-bold text-gray-800">{cg.latitude.toFixed(4)}</p>
-                  </div>
-                  <div className="p-3 bg-gray-50 rounded-lg text-center">
-                    <p className="text-xs text-gray-500">Longitude</p>
-                    <p className="text-sm font-mono font-bold text-gray-800">{cg.longitude.toFixed(4)}</p>
-                  </div>
+              <CardContent className="p-0">
+                <div className="h-[200px] w-full">
+                  <MapView
+                    onMapReady={(map) => {
+                      const pos = { lat: cg.latitude, lng: cg.longitude };
+                      map.setCenter(pos);
+                      map.setZoom(11);
+                      new google.maps.Marker({
+                        position: pos,
+                        map,
+                        title: cg.campground_name,
+                        icon: {
+                          path: google.maps.SymbolPath.CIRCLE,
+                          scale: 10,
+                          fillColor: cg.marker_color === "green" ? "#16a34a" : cg.marker_color === "yellow" ? "#eab308" : cg.marker_color === "red" ? "#dc2626" : "#1f2937",
+                          fillOpacity: 1,
+                          strokeColor: "#fff",
+                          strokeWeight: 2,
+                        },
+                      });
+                    }}
+                  />
                 </div>
-                <a href={`https://www.google.com/maps?q=${cg.latitude},${cg.longitude}`}
-                  target="_blank" rel="noopener noreferrer" className="block">
-                  <Button variant="outline" size="sm" className="w-full text-green-700 border-green-200 hover:bg-green-50">
-                    <ExternalLink className="w-3.5 h-3.5 mr-2" /> Open in Google Maps
-                  </Button>
-                </a>
+                <div className="p-3 space-y-2">
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="p-2 bg-gray-50 rounded text-center">
+                      <p className="text-[10px] text-gray-500">Latitude</p>
+                      <p className="text-xs font-mono font-bold text-gray-800">{cg.latitude.toFixed(4)}</p>
+                    </div>
+                    <div className="p-2 bg-gray-50 rounded text-center">
+                      <p className="text-[10px] text-gray-500">Longitude</p>
+                      <p className="text-xs font-mono font-bold text-gray-800">{cg.longitude.toFixed(4)}</p>
+                    </div>
+                  </div>
+                  <a href={`https://www.google.com/maps?q=${cg.latitude},${cg.longitude}`}
+                    target="_blank" rel="noopener noreferrer" className="block">
+                    <Button variant="outline" size="sm" className="w-full text-green-700 border-green-200 hover:bg-green-50">
+                      <ExternalLink className="w-3.5 h-3.5 mr-2" /> Open in Google Maps
+                    </Button>
+                  </a>
+                </div>
               </CardContent>
             </Card>
+
+            {/* Recommended Carrier */}
+            <Card className="bg-green-50/50 border-green-100">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-green-700" /> Recommended Carrier
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-2">
+                  <p className="text-2xl font-bold text-green-800" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{best}</p>
+                  <p className="text-xs text-green-600 mt-1">Strongest signal at this campground</p>
+                  <div className="mt-3 flex items-center justify-center gap-1">
+                    {Array.from({ length: 4 }).map((_, i) => (
+                      <div key={i} className={`w-3 rounded-sm ${
+                        i === 0 ? 'h-3' : i === 1 ? 'h-5' : i === 2 ? 'h-7' : 'h-9'
+                      } ${i < (cg.verizon_signal === 'Strong' || cg.att_signal === 'Strong' || cg.tmobile_signal === 'Strong' ? 4 : 2) ? 'bg-green-600' : 'bg-green-200'}`} />
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Remote Work Score */}
+            {(cg as MvpCampground).remote_work_score !== undefined && (
+              <Card className="bg-violet-50/50 border-violet-100">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-violet-700" /> Remote Work Score
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center py-2">
+                    <p className="text-3xl font-bold text-violet-800" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                      {(cg as MvpCampground).remote_work_score}/10
+                    </p>
+                    <p className="text-xs text-violet-600 mt-1">
+                      {((cg as MvpCampground).remote_work_score || 0) >= 8 ? "Excellent — Video calls work" :
+                       ((cg as MvpCampground).remote_work_score || 0) >= 5 ? "Good — Calls & email" :
+                       "Usable — Basic texting"}
+                    </p>
+                    <div className="mt-3 w-full bg-violet-200 rounded-full h-2">
+                      <div className="bg-violet-600 h-2 rounded-full transition-all" style={{ width: `${((cg as MvpCampground).remote_work_score || 0) * 10}%` }} />
+                    </div>
+                    <p className="text-[10px] text-violet-500 mt-2">Based on signal strength, carrier diversity & proximity to town</p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Signal Tips */}
             <Card className="bg-amber-50/50 border-amber-100">
@@ -673,6 +769,11 @@ function LandingHeader() {
             </div>
           </Link>
           <div className="ml-auto flex items-center gap-2">
+            <Link href="/lists">
+              <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden sm:inline-flex">
+                Lists
+              </Button>
+            </Link>
             <Link href="/top-campgrounds">
               <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden sm:inline-flex">
                 Top 100
@@ -680,7 +781,7 @@ function LandingHeader() {
             </Link>
             <Link href="/">
               <Button variant="outline" size="sm" className="text-xs border-green-200 text-green-700 hover:bg-green-50">
-                <MapPin className="w-3.5 h-3.5 mr-1" /> Discovery Map
+                <MapPin className="w-3.5 h-3.5 mr-1" /> Map
               </Button>
             </Link>
           </div>

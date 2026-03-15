@@ -1,8 +1,9 @@
 /**
- * Home — SignalCamping Discovery Platform
+ * Home — SignalCamping MVP Homepage
  *
- * Design: Map-driven campground discovery with sidebar filters.
- * Layout: Left sidebar (filters) + main area (search, stats, map/list toggle, detail view).
+ * Design: Outdoor-themed, polished landing page with hero, map preview,
+ * featured lists, route search, signal explanation, and internal links.
+ * Style: Space Grotesk headings, DM Sans body, green/earth palette.
  */
 import { useState, useMemo, useCallback } from "react";
 import { Link } from "wouter";
@@ -13,7 +14,9 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import {
   Signal, Map as MapIcon, List, BarChart3, Download, Search,
-  ChevronLeft, ChevronRight, Menu, X
+  ChevronLeft, ChevronRight, Menu, X, ArrowRight, Waves, Tent,
+  Zap, Laptop, MapPin, Trophy, Navigation, Star, Trees, Mountain,
+  Smartphone, Wifi, CheckCircle2, Car
 } from "lucide-react";
 import {
   BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis,
@@ -28,9 +31,14 @@ import CampgroundDetail from "@/components/CampgroundDetail";
 import StatsPanel from "@/components/StatsPanel";
 
 import rawData from "@/data/campgrounds.json";
+import listsData from "@/data/shareable_lists.json";
+
+const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663440718528/7Ys6UrtVjk2wmoMCZVS2Yg/hero-camping-signal-EzwZHRaoseAjvWPQqMZuz7.webp";
+const MAP_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663440718528/7Ys6UrtVjk2wmoMCZVS2Yg/hero-map-discovery-Piy6xvKVyz6pBgBrequccc.webp";
+const REMOTE_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663440718528/7Ys6UrtVjk2wmoMCZVS2Yg/hero-remote-work-mrZqPsVQjqLzkvMFxnj3qc.webp";
+const ROUTE_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663440718528/7Ys6UrtVjk2wmoMCZVS2Yg/hero-route-trip-fFHyNfqxYJZ2WSdcvmnYF7.webp";
 
 /* ──────────────────────────── Data normalisation ──────────────────────────── */
-
 const allCampgrounds = (rawData as any[]).map(cg => ({
   ...cg,
   tent_sites: cg.tent_sites === true || cg.tent_sites === "True",
@@ -39,23 +47,20 @@ const allCampgrounds = (rawData as any[]).map(cg => ({
   waterfront: cg.waterfront === true || cg.waterfront === "True",
 }));
 
-/* ──────────────────────────── Component ──────────────────────────── */
-
+/* ──────────────────────────── Main Component ──────────────────────────── */
 export default function Home() {
+  const [view, setView] = useState<"landing" | "explorer">("landing");
   const [filters, setFilters] = useState<Filters>({ ...DEFAULT_FILTERS });
   const [selectedCampground, setSelectedCampground] = useState<any | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileSidebar, setMobileSidebar] = useState(false);
 
-  /* ── Filtered data ── */
   const filtered = useMemo(() => applyFilters(allCampgrounds, filters), [filters]);
 
-  /* ── Search handler (updates filters.searchTerm) ── */
   const handleSearch = useCallback((term: string) => {
     setFilters(f => ({ ...f, searchTerm: term }));
   }, []);
 
-  /* ── CSV download ── */
   const downloadCSV = useCallback(() => {
     const headers = [
       "campground_name", "city", "state", "latitude", "longitude", "campground_type",
@@ -78,7 +83,7 @@ export default function Home() {
     URL.revokeObjectURL(url);
   }, [filtered]);
 
-  /* ── Analytics data for charts ── */
+  /* Analytics data */
   const stateStats = useMemo(() => {
     const m: Record<string, { count: number; sig: number; elev: number; forest: number }> = {};
     filtered.forEach(cg => {
@@ -110,20 +115,13 @@ export default function Home() {
     return [5, 4, 3, 2, 1].map(s => ({ score: `${s}★`, count: d[s] || 0 }));
   }, [filtered]);
 
-  const elevSignalScatter = useMemo(() =>
-    filtered.slice(0, 500).map(cg => ({
-      elevation: cg.elevation_ft, signal: cg.signal_confidence_score,
-      forest: cg.forest_cover_percent, name: cg.campground_name,
-    })),
-  [filtered]);
-
   const COLORS = ["#16a34a", "#2563eb", "#d97706", "#dc2626", "#7c3aed"];
 
-  /* ── Detail view ── */
+  /* Detail view */
   if (selectedCampground) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
-        <Header />
+        <Header onExplore={() => setView("explorer")} />
         <div className="container py-6">
           <CampgroundDetail campground={selectedCampground} onBack={() => setSelectedCampground(null)} />
         </div>
@@ -131,307 +129,493 @@ export default function Home() {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
-      <Header />
-
-      {/* Mobile sidebar toggle */}
-      <div className="lg:hidden container pt-4">
-        <Button variant="outline" size="sm" onClick={() => setMobileSidebar(!mobileSidebar)}>
-          {mobileSidebar ? <X className="w-4 h-4 mr-1" /> : <Menu className="w-4 h-4 mr-1" />}
-          {mobileSidebar ? "Hide Filters" : "Show Filters"}
-        </Button>
-      </div>
-
-      <div className="container py-4">
-        <div className="flex gap-6">
-          {/* ── Sidebar ── */}
-          <aside className={`
-            ${sidebarOpen ? "w-72 min-w-[288px]" : "w-0 min-w-0 overflow-hidden"}
-            hidden lg:block transition-all duration-300 shrink-0
-          `}>
-            <div className="sticky top-4">
-              <FilterPanel
-                filters={filters}
-                onChange={setFilters}
-                totalCount={allCampgrounds.length}
-                filteredCount={filtered.length}
-              />
-            </div>
-          </aside>
-
-          {/* Mobile sidebar overlay */}
-          {mobileSidebar && (
-            <div className="fixed inset-0 z-50 lg:hidden">
-              <div className="absolute inset-0 bg-black/30" onClick={() => setMobileSidebar(false)} />
-              <div className="absolute left-0 top-0 bottom-0 w-80 bg-white overflow-y-auto p-4 shadow-xl">
-                <FilterPanel
-                  filters={filters}
-                  onChange={(f) => { setFilters(f); }}
-                  totalCount={allCampgrounds.length}
-                  filteredCount={filtered.length}
-                />
+  /* Explorer view */
+  if (view === "explorer") {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
+        <Header onExplore={() => setView("explorer")} />
+        <div className="lg:hidden container pt-4">
+          <Button variant="outline" size="sm" onClick={() => setMobileSidebar(!mobileSidebar)}>
+            {mobileSidebar ? <X className="w-4 h-4 mr-1" /> : <Menu className="w-4 h-4 mr-1" />}
+            {mobileSidebar ? "Hide Filters" : "Show Filters"}
+          </Button>
+        </div>
+        <div className="container py-4">
+          <div className="flex gap-6">
+            <aside className={`${sidebarOpen ? "w-72 min-w-[288px]" : "w-0 min-w-0 overflow-hidden"} hidden lg:block transition-all duration-300 shrink-0`}>
+              <div className="sticky top-16">
+                <FilterPanel filters={filters} onChange={setFilters} totalCount={allCampgrounds.length} filteredCount={filtered.length} />
               </div>
-            </div>
-          )}
-
-          {/* ── Main content ── */}
-          <main className="flex-1 min-w-0 space-y-4">
-            {/* Search bar + actions */}
-            <div className="flex items-center gap-3">
-              <div className="hidden lg:block">
-                <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(!sidebarOpen)}
-                  className="text-gray-400 hover:text-gray-600">
-                  {sidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+            </aside>
+            {mobileSidebar && (
+              <div className="fixed inset-0 z-50 lg:hidden">
+                <div className="absolute inset-0 bg-black/30" onClick={() => setMobileSidebar(false)} />
+                <div className="absolute left-0 top-0 bottom-0 w-80 bg-white overflow-y-auto p-4 shadow-xl">
+                  <FilterPanel filters={filters} onChange={setFilters} totalCount={allCampgrounds.length} filteredCount={filtered.length} />
+                </div>
+              </div>
+            )}
+            <main className="flex-1 min-w-0 space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="hidden lg:block">
+                  <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(!sidebarOpen)} className="text-gray-400 hover:text-gray-600">
+                    {sidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                  </Button>
+                </div>
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Input placeholder="Search campgrounds, cities, lakes..." value={filters.searchTerm} onChange={(e) => handleSearch(e.target.value)} className="pl-10 h-10" />
+                </div>
+                <Button variant="outline" size="sm" onClick={downloadCSV} className="shrink-0">
+                  <Download className="w-4 h-4 mr-1" /> CSV
                 </Button>
               </div>
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <Input
-                  placeholder="Search campgrounds, cities, lakes, or towns..."
-                  value={filters.searchTerm}
-                  onChange={(e) => handleSearch(e.target.value)}
-                  className="pl-10 h-10"
-                />
-              </div>
-              <Button variant="outline" size="sm" onClick={downloadCSV} className="shrink-0">
-                <Download className="w-4 h-4 mr-1" /> CSV
-              </Button>
-            </div>
-
-            {/* Stats */}
-            <StatsPanel campgrounds={filtered} totalCount={allCampgrounds.length} />
-
-            {/* Tabs: Map / List / Analytics */}
-            <Tabs defaultValue="map" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="map" className="flex items-center gap-1.5">
-                  <MapIcon className="w-4 h-4" /> Map
-                </TabsTrigger>
-                <TabsTrigger value="list" className="flex items-center gap-1.5">
-                  <List className="w-4 h-4" /> List
-                </TabsTrigger>
-                <TabsTrigger value="analytics" className="flex items-center gap-1.5">
-                  <BarChart3 className="w-4 h-4" /> Analytics
-                </TabsTrigger>
-              </TabsList>
-
-              {/* ── Map Tab ── */}
-              <TabsContent value="map" className="mt-4">
-                <CampgroundMap
-                  campgrounds={filtered}
-                  onCampgroundClick={setSelectedCampground}
-                />
-              </TabsContent>
-
-              {/* ── List Tab ── */}
-              <TabsContent value="list" className="mt-4">
-                <CampgroundList campgrounds={filtered} onSelect={setSelectedCampground} />
-              </TabsContent>
-
-              {/* ── Analytics Tab ── */}
-              <TabsContent value="analytics" className="mt-4 space-y-6">
-                {/* State breakdown */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-base">Campgrounds by State</CardTitle>
-                    <CardDescription>Count and average signal score for filtered results</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <BarChart data={stateStats}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="state" />
-                        <YAxis yAxisId="left" />
-                        <YAxis yAxisId="right" orientation="right" />
-                        <Tooltip />
-                        <Legend />
-                        <Bar yAxisId="left" dataKey="campgrounds" fill="#16a34a" name="Campgrounds" radius={[4, 4, 0, 0]} />
-                        <Bar yAxisId="right" dataKey="avgSignal" fill="#2563eb" name="Avg Signal" radius={[4, 4, 0, 0]} />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </CardContent>
-                </Card>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  {/* Type pie */}
+              <StatsPanel campgrounds={filtered} totalCount={allCampgrounds.length} />
+              <Tabs defaultValue="map" className="w-full">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="map" className="flex items-center gap-1.5"><MapIcon className="w-4 h-4" /> Map</TabsTrigger>
+                  <TabsTrigger value="list" className="flex items-center gap-1.5"><List className="w-4 h-4" /> List</TabsTrigger>
+                  <TabsTrigger value="analytics" className="flex items-center gap-1.5"><BarChart3 className="w-4 h-4" /> Analytics</TabsTrigger>
+                </TabsList>
+                <TabsContent value="map" className="mt-4">
+                  <CampgroundMap campgrounds={filtered} onCampgroundClick={setSelectedCampground} />
+                </TabsContent>
+                <TabsContent value="list" className="mt-4">
+                  <CampgroundList campgrounds={filtered} onSelect={setSelectedCampground} />
+                </TabsContent>
+                <TabsContent value="analytics" className="mt-4 space-y-6">
                   <Card>
-                    <CardHeader>
-                      <CardTitle className="text-base">Campground Types</CardTitle>
-                    </CardHeader>
+                    <CardHeader><CardTitle className="text-base">Campgrounds by State</CardTitle></CardHeader>
                     <CardContent>
-                      <ResponsiveContainer width="100%" height={250}>
-                        <PieChart>
-                          <Pie data={typeDistribution} cx="50%" cy="50%" outerRadius={80} dataKey="value"
-                            label={({ name, value }) => `${name}: ${value}`} labelLine={false}>
-                            {typeDistribution.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
-                          </Pie>
-                          <Tooltip />
-                        </PieChart>
-                      </ResponsiveContainer>
-                    </CardContent>
-                  </Card>
-
-                  {/* Signal distribution */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-base">Signal Score Distribution</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <ResponsiveContainer width="100%" height={250}>
-                        <BarChart data={signalDist}>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <BarChart data={stateStats}>
                           <CartesianGrid strokeDasharray="3 3" />
-                          <XAxis dataKey="score" />
-                          <YAxis />
-                          <Tooltip formatter={(v: number) => `${v} campgrounds`} />
-                          <Bar dataKey="count" fill="#16a34a" radius={[4, 4, 0, 0]} />
+                          <XAxis dataKey="state" /><YAxis yAxisId="left" /><YAxis yAxisId="right" orientation="right" />
+                          <Tooltip /><Legend />
+                          <Bar yAxisId="left" dataKey="campgrounds" fill="#16a34a" name="Campgrounds" radius={[4, 4, 0, 0]} />
+                          <Bar yAxisId="right" dataKey="avgSignal" fill="#2563eb" name="Avg Signal" radius={[4, 4, 0, 0]} />
                         </BarChart>
                       </ResponsiveContainer>
                     </CardContent>
                   </Card>
-                </div>
-
-                {/* Elevation vs Signal scatter */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-base">Elevation vs. Signal Confidence</CardTitle>
-                    <CardDescription>Bubble size represents forest cover percentage</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ResponsiveContainer width="100%" height={350}>
-                      <ScatterChart margin={{ top: 10, right: 20, bottom: 10, left: 10 }}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="elevation" name="Elevation" unit=" ft" type="number" />
-                        <YAxis dataKey="signal" name="Signal" domain={[0, 6]} />
-                        <ZAxis dataKey="forest" range={[20, 200]} name="Forest Cover" />
-                        <Tooltip cursor={{ strokeDasharray: "3 3" }}
-                          formatter={(value: number, name: string) => [
-                            name === "Elevation" ? `${value.toLocaleString()} ft` :
-                            name === "Signal" ? `${value}/5` :
-                            `${value}%`, name
-                          ]} />
-                        <Scatter data={elevSignalScatter} fill="#16a34a" fillOpacity={0.4} />
-                      </ScatterChart>
-                    </ResponsiveContainer>
-                  </CardContent>
-                </Card>
-
-                {/* State elevation + forest comparison */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-base">State Comparison: Elevation & Forest Cover</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <BarChart data={stateStats}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="state" />
-                        <YAxis yAxisId="left" />
-                        <YAxis yAxisId="right" orientation="right" />
-                        <Tooltip />
-                        <Legend />
-                        <Bar yAxisId="left" dataKey="avgElevation" fill="#7c3aed" name="Avg Elevation (ft)" radius={[4, 4, 0, 0]} />
-                        <Bar yAxisId="right" dataKey="avgForest" fill="#16a34a" name="Avg Forest Cover (%)" radius={[4, 4, 0, 0]} />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
-          </main>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <Card>
+                      <CardHeader><CardTitle className="text-base">Campground Types</CardTitle></CardHeader>
+                      <CardContent>
+                        <ResponsiveContainer width="100%" height={250}>
+                          <PieChart>
+                            <Pie data={typeDistribution} cx="50%" cy="50%" outerRadius={80} dataKey="value" label={({ name, value }) => `${name}: ${value}`} labelLine={false}>
+                              {typeDistribution.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                            </Pie>
+                            <Tooltip />
+                          </PieChart>
+                        </ResponsiveContainer>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardHeader><CardTitle className="text-base">Signal Score Distribution</CardTitle></CardHeader>
+                      <CardContent>
+                        <ResponsiveContainer width="100%" height={250}>
+                          <BarChart data={signalDist}>
+                            <CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="score" /><YAxis />
+                            <Tooltip formatter={(v: number) => `${v} campgrounds`} />
+                            <Bar dataKey="count" fill="#16a34a" radius={[4, 4, 0, 0]} />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </main>
+          </div>
         </div>
+        <Footer />
       </div>
+    );
+  }
 
-      {/* Footer */}
-      <footer className="bg-gradient-to-b from-gray-900 to-gray-950 text-gray-400 py-10 mt-8">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-7 h-7 rounded-md bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center">
-                  <Signal className="w-4 h-4 text-white" />
-                </div>
-                <h3 className="font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>SignalCamping</h3>
-              </div>
-              <p className="text-sm leading-relaxed">Map-driven campground discovery with cellular signal analysis. {allCampgrounds.length.toLocaleString()} campgrounds across the Great Lakes region.</p>
+  /* ──────────────────────────── Landing Page ──────────────────────────── */
+  const featuredLists = (listsData as any[]).slice(0, 6);
+
+  return (
+    <div className="min-h-screen">
+      <Header onExplore={() => setView("explorer")} />
+
+      {/* ── Hero Section ── */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0">
+          <img src={HERO_IMG} alt="Campground with cell signal" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/30" />
+        </div>
+        <div className="container relative z-10 py-20 sm:py-28 lg:py-36">
+          <div className="max-w-2xl">
+            <Badge className="bg-green-600/90 text-white border-green-500 mb-4 text-xs">
+              {allCampgrounds.length.toLocaleString()} Campgrounds &middot; 5 States &middot; 3 Carriers
+            </Badge>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+              Find Campgrounds Where Your Phone{" "}
+              <span className="text-green-400">Actually Works</span>
+            </h1>
+            <p className="text-lg sm:text-xl text-white/80 mb-8 leading-relaxed">
+              Verified cellular coverage data for campgrounds across Michigan, Ohio, Pennsylvania, Wisconsin, and West Virginia. Never lose signal at camp again.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white shadow-lg" onClick={() => setView("explorer")}>
+                <MapIcon className="w-5 h-5 mr-2" /> Explore the Map
+              </Button>
+              <Link href="/lists">
+                <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm">
+                  <Trophy className="w-5 h-5 mr-2" /> Browse Top Lists
+                </Button>
+              </Link>
             </div>
-            <div>
-              <h4 className="font-semibold text-white mb-3">Browse by State</h4>
-              <ul className="space-y-1.5 text-sm">
-                <li><Link href="/campgrounds/mi" className="hover:text-green-400 transition">Michigan Campgrounds</Link></li>
-                <li><Link href="/campgrounds/oh" className="hover:text-green-400 transition">Ohio Campgrounds</Link></li>
-                <li><Link href="/campgrounds/pa" className="hover:text-green-400 transition">Pennsylvania Campgrounds</Link></li>
-                <li><Link href="/campgrounds/wi" className="hover:text-green-400 transition">Wisconsin Campgrounds</Link></li>
-                <li><Link href="/campgrounds/wv" className="hover:text-green-400 transition">West Virginia Campgrounds</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-3">Resources</h4>
-              <ul className="space-y-1.5 text-sm">
-                <li><Link href="/top-campgrounds" className="hover:text-green-400 transition">Top 100 Campgrounds</Link></li>
-                <li><Link href="/build-spec" className="hover:text-green-400 transition">v1 Build Spec</Link></li>
-                <li><Link href="/mvp-launch" className="hover:text-green-400 transition">MVP Launch Package</Link></li>
-                <li><Link href="/product-v1" className="hover:text-green-400 transition">Product v1 Definition</Link></li>
-                <li><span className="text-gray-500">GeoJSON map-ready format</span></li>
-              </ul>
-              <p className="text-xs text-gray-500 mt-3">Scalable to 13,000+ U.S. campgrounds</p>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-6 text-sm text-center text-gray-500">
-            &copy; 2026 SignalCamping &mdash; Research dataset and system architecture for campground discovery.
           </div>
         </div>
-      </footer>
+      </section>
+
+      {/* ── Stats Bar ── */}
+      <section className="bg-gradient-to-r from-green-800 to-emerald-900 py-6">
+        <div className="container">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-white">
+            {[
+              { value: allCampgrounds.length.toLocaleString(), label: "Campgrounds", icon: Tent },
+              { value: "5", label: "States Covered", icon: MapPin },
+              { value: "3", label: "Carriers Tracked", icon: Signal },
+              { value: (listsData as any[]).length.toString(), label: "Curated Lists", icon: Star },
+            ].map(stat => (
+              <div key={stat.label} className="flex flex-col items-center">
+                <stat.icon className="w-5 h-5 text-green-300 mb-1" />
+                <div className="text-2xl sm:text-3xl font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{stat.value}</div>
+                <div className="text-xs text-green-200">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Map Preview ── */}
+      <section className="py-16 bg-white">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <Badge className="bg-green-100 text-green-800 border-green-200 mb-3">Interactive Map</Badge>
+              <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                See Signal Strength at Every Campground
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Our interactive map shows cellular coverage for Verizon, AT&T, and T-Mobile at every campground. Color-coded markers make it easy to find spots with strong signal.
+              </p>
+              <div className="space-y-3 mb-6">
+                {[
+                  { color: "bg-green-500", label: "Strong Signal", desc: "Reliable calls, texts, and data" },
+                  { color: "bg-amber-500", label: "Moderate Signal", desc: "Calls and texts work, data may be slow" },
+                  { color: "bg-red-500", label: "Weak Signal", desc: "Intermittent coverage" },
+                  { color: "bg-gray-800", label: "No Signal", desc: "No cellular coverage detected" },
+                ].map(item => (
+                  <div key={item.label} className="flex items-center gap-3">
+                    <div className={`w-4 h-4 rounded-full ${item.color} shrink-0`} />
+                    <div>
+                      <span className="font-medium text-sm">{item.label}</span>
+                      <span className="text-xs text-muted-foreground ml-2">{item.desc}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <Button className="bg-green-700 hover:bg-green-800" onClick={() => setView("explorer")}>
+                Open Map Explorer <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
+            </div>
+            <div className="relative rounded-xl overflow-hidden shadow-2xl cursor-pointer group" onClick={() => setView("explorer")}>
+              <img src={MAP_IMG} alt="Great Lakes signal coverage map" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                <div className="bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg flex items-center gap-2 font-semibold text-green-800">
+                  <MapIcon className="w-5 h-5" /> Click to Explore
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Featured Lists ── */}
+      <section className="py-16 bg-gradient-to-b from-stone-50 to-white">
+        <div className="container">
+          <div className="text-center mb-10">
+            <Badge className="bg-amber-100 text-amber-800 border-amber-200 mb-3">Curated Lists</Badge>
+            <h2 className="text-3xl font-bold mb-3" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+              Top Campground Lists
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Shareable, ranked lists of the best campgrounds for every type of camper. Perfect for planning your next trip.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {featuredLists.map((list: any) => (
+              <Link key={list.slug} href={`/list/${list.slug}`}>
+                <Card className="h-full hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer group">
+                  <CardContent className="p-5">
+                    <h3 className="font-bold text-sm mb-2 group-hover:text-green-700 transition-colors leading-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                      {list.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground line-clamp-2 mb-3">{list.description}</p>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline" className="text-[10px]">{list.count} campgrounds</Badge>
+                      <Badge variant="outline" className="text-[10px] border-green-200 text-green-700">{list.avg_signal}/5 signal</Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link href="/lists">
+              <Button variant="outline" className="border-green-200 text-green-700 hover:bg-green-50">
+                View All {(listsData as any[]).length} Lists <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Route Discovery ── */}
+      <section className="py-16 bg-white">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div className="relative rounded-xl overflow-hidden shadow-2xl order-2 lg:order-1">
+              <img src={ROUTE_IMG} alt="Road trip through fall foliage" className="w-full h-auto" />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                <div className="text-white text-sm font-medium">Popular: Cleveland → Traverse City</div>
+              </div>
+            </div>
+            <div className="order-1 lg:order-2">
+              <Badge className="bg-orange-100 text-orange-800 border-orange-200 mb-3">Route Discovery</Badge>
+              <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                Find Campgrounds Along Your Road Trip
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Planning a road trip? Our route finder shows campgrounds with cell service along your travel corridor. Never be stuck without signal on a long drive.
+              </p>
+              <div className="space-y-2 mb-6">
+                {["Cleveland → Traverse City", "Detroit → Mackinaw City", "Columbus → Hocking Hills", "Pittsburgh → Erie"].map(route => (
+                  <div key={route} className="flex items-center gap-2 text-sm">
+                    <Car className="w-4 h-4 text-orange-600" />
+                    <span>{route}</span>
+                  </div>
+                ))}
+              </div>
+              <Link href="/route-finder">
+                <Button className="bg-orange-600 hover:bg-orange-700 text-white">
+                  <Navigation className="w-4 h-4 mr-2" /> Plan Your Route
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Remote Work Section ── */}
+      <section className="py-16 bg-gradient-to-b from-stone-50 to-white">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <Badge className="bg-purple-100 text-purple-800 border-purple-200 mb-3">Remote Work</Badge>
+              <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                Work From the Woods
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Our RemoteWorkScore rates each campground on a 1-10 scale based on signal strength, carrier diversity, and proximity to town. Find the perfect spot to take your next Zoom call from nature.
+              </p>
+              <div className="grid grid-cols-3 gap-3 mb-6">
+                {[
+                  { score: "8-10", label: "Excellent", desc: "Video calls work", color: "bg-emerald-100 text-emerald-800 border-emerald-200" },
+                  { score: "5-7", label: "Good", desc: "Calls & email", color: "bg-amber-100 text-amber-800 border-amber-200" },
+                  { score: "1-4", label: "Usable", desc: "Basic texting", color: "bg-red-100 text-red-800 border-red-200" },
+                ].map(item => (
+                  <div key={item.label} className={`rounded-lg border p-3 text-center ${item.color}`}>
+                    <div className="font-bold text-lg" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{item.score}</div>
+                    <div className="text-xs font-medium">{item.label}</div>
+                    <div className="text-[10px] opacity-70">{item.desc}</div>
+                  </div>
+                ))}
+              </div>
+              <Link href="/list/best-remote-work-campgrounds-great-lakes">
+                <Button className="bg-purple-700 hover:bg-purple-800 text-white">
+                  <Laptop className="w-4 h-4 mr-2" /> View Remote Work Campgrounds
+                </Button>
+              </Link>
+            </div>
+            <div className="relative rounded-xl overflow-hidden shadow-2xl">
+              <img src={REMOTE_IMG} alt="Remote work at campground" className="w-full h-auto" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── How It Works ── */}
+      <section className="py-16 bg-white">
+        <div className="container">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold mb-3" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+              How Signal Ratings Work
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              We combine data from multiple sources to give you the most accurate picture of cellular coverage at each campground.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: Signal, title: "Carrier Maps", desc: "We analyze official coverage maps from Verizon, AT&T, and T-Mobile for each campground location.", step: "1" },
+              { icon: Smartphone, title: "Crowdsourced Data", desc: "Real-world signal reports from OpenSignal, CellMapper, and camper communities.", step: "2" },
+              { icon: Mountain, title: "Terrain Analysis", desc: "Elevation, forest cover, and distance to cell towers affect signal quality.", step: "3" },
+              { icon: CheckCircle2, title: "Confidence Score", desc: "We combine all sources into a 1-5 confidence score so you know how reliable the data is.", step: "4" },
+            ].map(item => (
+              <Card key={item.title} className="text-center">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+                    <item.icon className="w-6 h-6 text-green-700" />
+                  </div>
+                  <div className="text-xs text-green-600 font-bold mb-1">Step {item.step}</div>
+                  <h3 className="font-bold mb-2" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{item.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Browse by State ── */}
+      <section className="py-16 bg-gradient-to-b from-stone-50 to-white">
+        <div className="container">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold mb-3" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+              Browse by State
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            {[
+              { state: "Michigan", code: "mi", count: allCampgrounds.filter(c => c.state === "MI").length },
+              { state: "Ohio", code: "oh", count: allCampgrounds.filter(c => c.state === "OH").length },
+              { state: "Pennsylvania", code: "pa", count: allCampgrounds.filter(c => c.state === "PA").length },
+              { state: "Wisconsin", code: "wi", count: allCampgrounds.filter(c => c.state === "WI").length },
+              { state: "West Virginia", code: "wv", count: allCampgrounds.filter(c => c.state === "WV").length },
+            ].map(s => (
+              <Link key={s.code} href={`/campgrounds/${s.code}`}>
+                <Card className="hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer text-center">
+                  <CardContent className="p-5">
+                    <Trees className="w-8 h-8 text-green-600 mx-auto mb-2" />
+                    <h3 className="font-bold text-sm mb-1" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{s.state}</h3>
+                    <p className="text-xs text-muted-foreground">{s.count} campgrounds</p>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 }
 
-/* ── Header component ── */
-function Header() {
+/* ── Header ── */
+function Header({ onExplore }: { onExplore?: () => void }) {
   return (
     <header className="border-b border-border bg-white/90 backdrop-blur-md sticky top-0 z-40">
       <div className="container py-3">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center shadow-sm">
-            <Signal className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold tracking-tight" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>SignalCamping</h1>
-            <p className="text-xs text-muted-foreground">Great Lakes Campground Signal Discovery</p>
-          </div>
-          <div className="ml-auto flex items-center gap-2">
-            <Link href="/top-campgrounds">
+          <Link href="/">
+            <div className="flex items-center gap-2">
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center shadow-sm">
+                <Signal className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</h1>
+                <p className="text-[10px] text-muted-foreground leading-none">Great Lakes Campground Signal Discovery</p>
+              </div>
+            </div>
+          </Link>
+          <div className="ml-auto flex items-center gap-1">
+            <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden sm:inline-flex" onClick={onExplore}>
+              <MapIcon className="w-3.5 h-3.5 mr-1" /> Map
+            </Button>
+            <Link href="/lists">
               <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden sm:inline-flex">
+                <Trophy className="w-3.5 h-3.5 mr-1" /> Lists
+              </Button>
+            </Link>
+            <Link href="/route-finder">
+              <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden sm:inline-flex">
+                <Navigation className="w-3.5 h-3.5 mr-1" /> Routes
+              </Button>
+            </Link>
+            <Link href="/top-campgrounds">
+              <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden md:inline-flex">
                 Top 100
               </Button>
             </Link>
-            <Link href="/build-spec">
-              <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden sm:inline-flex">
-                Build Spec
-              </Button>
-            </Link>
-            <Link href="/mvp-launch">
-              <Button variant="ghost" size="sm" className="text-xs text-amber-700 hover:text-amber-800 hidden sm:inline-flex">
-                MVP Launch
-              </Button>
-            </Link>
-            <Link href="/product-v1">
-              <Button variant="ghost" size="sm" className="text-xs text-purple-700 hover:text-purple-800 hidden sm:inline-flex">
-                Product v1
-              </Button>
-            </Link>
             <Link href="/seo-directory">
-              <Button variant="ghost" size="sm" className="text-xs text-gray-700 hover:text-gray-800 hidden sm:inline-flex">
+              <Button variant="ghost" size="sm" className="text-xs text-gray-600 hover:text-gray-800 hidden lg:inline-flex">
                 SEO Pages
               </Button>
             </Link>
             <Badge variant="outline" className="text-xs hidden sm:inline-flex border-green-200 text-green-700 bg-green-50">
-              {allCampgrounds.length.toLocaleString()} Campgrounds
+              {(rawData as any[]).length.toLocaleString()} Sites
             </Badge>
-            <Badge variant="outline" className="text-xs hidden md:inline-flex border-blue-200 text-blue-700 bg-blue-50">5 States</Badge>
           </div>
         </div>
       </div>
     </header>
+  );
+}
+
+/* ── Footer ── */
+function Footer() {
+  return (
+    <footer className="bg-gradient-to-b from-gray-900 to-gray-950 text-gray-400 py-10">
+      <div className="container">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-7 h-7 rounded-md bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center">
+                <Signal className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="font-bold text-white" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</h3>
+            </div>
+            <p className="text-sm leading-relaxed">Find campgrounds where your phone actually works. Verified cellular coverage data for the Great Lakes region.</p>
+          </div>
+          <div>
+            <h4 className="font-semibold text-white mb-3">Browse by State</h4>
+            <ul className="space-y-1.5 text-sm">
+              {["mi", "oh", "pa", "wi", "wv"].map(s => (
+                <li key={s}><Link href={`/campgrounds/${s}`} className="hover:text-green-400 transition">{s.toUpperCase()} Campgrounds</Link></li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold text-white mb-3">Features</h4>
+            <ul className="space-y-1.5 text-sm">
+              <li><Link href="/lists" className="hover:text-green-400 transition">Shareable Lists</Link></li>
+              <li><Link href="/route-finder" className="hover:text-green-400 transition">Route Finder</Link></li>
+              <li><Link href="/top-campgrounds" className="hover:text-green-400 transition">Top 100 Campgrounds</Link></li>
+              <li><Link href="/seo-directory" className="hover:text-green-400 transition">All SEO Pages</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold text-white mb-3">Documentation</h4>
+            <ul className="space-y-1.5 text-sm">
+              <li><Link href="/build-spec" className="hover:text-green-400 transition">Build Spec</Link></li>
+              <li><Link href="/mvp-launch" className="hover:text-green-400 transition">MVP Launch</Link></li>
+              <li><Link href="/product-v1" className="hover:text-green-400 transition">Product v1</Link></li>
+            </ul>
+          </div>
+        </div>
+        <div className="border-t border-gray-800 pt-6 text-sm text-center text-gray-500">
+          &copy; 2026 SignalCamping &mdash; Campground discovery with verified cellular coverage data.
+        </div>
+      </div>
+    </footer>
   );
 }

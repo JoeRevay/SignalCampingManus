@@ -17,6 +17,9 @@ import RemoteWorkLanding from "./pages/RemoteWorkLanding";
 import AmenityLanding from "./pages/AmenityLanding";
 import TripRouteLanding from "./pages/TripRouteLanding";
 import SeoDirectory from "./pages/SeoDirectory";
+import ShareableList from "./pages/ShareableList";
+import ListsDirectory from "./pages/ListsDirectory";
+import RouteFinder from "./pages/RouteFinder";
 
 function Router() {
   return (
@@ -53,6 +56,13 @@ function Router() {
 
       {/* Trip route pages */}
       <Route path={"/camping-trip/:slug"} component={TripRouteLanding} />
+
+      {/* Shareable lists */}
+      <Route path={"/lists"} component={ListsDirectory} />
+      <Route path={"/list/:slug"} component={ShareableList} />
+
+      {/* Route finder */}
+      <Route path={"/route-finder"} component={RouteFinder} />
 
       {/* SEO directory */}
       <Route path={"/seo-directory"} component={SeoDirectory} />

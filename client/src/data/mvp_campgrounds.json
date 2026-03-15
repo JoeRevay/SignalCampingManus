@@ -32,7 +32,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.1,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "cedar-fork-municipal-campground"
   },
   {
     "mvp_rank": 2,
@@ -67,7 +68,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.4,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "interlochen-state-park"
   },
   {
     "mvp_rank": 3,
@@ -102,7 +104,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.4,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "traverse-city-state-park"
   },
   {
     "mvp_rank": 4,
@@ -137,7 +140,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.4,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "maumee-bay-state-park"
   },
   {
     "mvp_rank": 5,
@@ -172,7 +176,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.1,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "salt-fork-state-park"
   },
   {
     "mvp_rank": 6,
@@ -207,7 +212,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.9,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "ludington-state-park"
   },
   {
     "mvp_rank": 7,
@@ -242,7 +248,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "hocking-hills-state-park"
   },
   {
     "mvp_rank": 8,
@@ -277,7 +284,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "walnut-ravine-wildlife-area-camp"
   },
   {
     "mvp_rank": 9,
@@ -312,7 +320,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "elm-cliff-county-park"
   },
   {
     "mvp_rank": 10,
@@ -347,7 +356,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "wilderness-state-park"
   },
   {
     "mvp_rank": 11,
@@ -382,7 +392,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "porcupine-mountains-wilderness-state-park"
   },
   {
     "mvp_rank": 12,
@@ -417,7 +428,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "west-pond-family-campground"
   },
   {
     "mvp_rank": 13,
@@ -452,7 +464,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "big-forest-camp"
   },
   {
     "mvp_rank": 14,
@@ -487,7 +500,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "silver-lake-state-park"
   },
   {
     "mvp_rank": 15,
@@ -522,7 +536,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.5,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "geneva-state-park"
   },
   {
     "mvp_rank": 16,
@@ -557,7 +572,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.4,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "big-pond-camping-resort"
   },
   {
     "mvp_rank": 17,
@@ -592,7 +608,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.4,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "pictured-rocks-twelvemile-beach"
   },
   {
     "mvp_rank": 18,
@@ -627,7 +644,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "pine-rock-camp"
   },
   {
     "mvp_rank": 19,
@@ -662,7 +680,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 4.9,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "tahquamenon-falls-state-park"
   },
   {
     "mvp_rank": 20,
@@ -697,7 +716,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.9,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "sunny-bay-national-forest-campground"
   },
   {
     "mvp_rank": 21,
@@ -732,7 +752,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.4,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "big-bend-campground"
   },
   {
     "mvp_rank": 22,
@@ -767,7 +788,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.1,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "elm-dune-family-campground"
   },
   {
     "mvp_rank": 23,
@@ -802,7 +824,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.1,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "maple-rock-municipal-campground"
   },
   {
     "mvp_rank": 24,
@@ -837,7 +860,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 8.7,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "willow-marsh-wildlife-area-camp"
   },
   {
     "mvp_rank": 25,
@@ -872,7 +896,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 8.3,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "aspen-river-state-forest"
   },
   {
     "mvp_rank": 26,
@@ -907,7 +932,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 8.7,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "big-canyon-nature-preserve-camp"
   },
   {
     "mvp_rank": 27,
@@ -942,7 +968,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.4,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "birch-cove-campground"
   },
   {
     "mvp_rank": 28,
@@ -977,7 +1004,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.1,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "deer-creek-state-park"
   },
   {
     "mvp_rank": 29,
@@ -1012,7 +1040,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.1,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "east-brook-riverside-camp"
   },
   {
     "mvp_rank": 30,
@@ -1047,7 +1076,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.4,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "emerald-brook-wilderness-camp"
   },
   {
     "mvp_rank": 31,
@@ -1082,7 +1112,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 8.7,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "hidden-bay-camping-resort"
   },
   {
     "mvp_rank": 32,
@@ -1117,7 +1148,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 8.7,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "hidden-ravine-lakeside-camp"
   },
   {
     "mvp_rank": 33,
@@ -1152,7 +1184,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 8.7,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "laurel-valley-municipal-campground"
   },
   {
     "mvp_rank": 34,
@@ -1187,7 +1220,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 8.3,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "lower-bay-nature-preserve-camp"
   },
   {
     "mvp_rank": 35,
@@ -1222,7 +1256,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.1,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "maple-run-state-park"
   },
   {
     "mvp_rank": 36,
@@ -1257,7 +1292,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.4,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "mohican-state-park"
   },
   {
     "mvp_rank": 37,
@@ -1292,7 +1328,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.4,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "pine-timber-recreation-area"
   },
   {
     "mvp_rank": 38,
@@ -1327,7 +1364,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.1,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "rolling-bog-camp"
   },
   {
     "mvp_rank": 39,
@@ -1362,7 +1400,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.4,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "rolling-gap-lakeside-camp"
   },
   {
     "mvp_rank": 40,
@@ -1397,7 +1436,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.1,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "silver-lake-nature-preserve-camp"
   },
   {
     "mvp_rank": 41,
@@ -1432,7 +1472,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 8.7,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "spruce-point-wildlife-area-camp"
   },
   {
     "mvp_rank": 42,
@@ -1467,7 +1508,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 8.3,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "upper-rock-wilderness-camp"
   },
   {
     "mvp_rank": 43,
@@ -1502,7 +1544,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 8.3,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "upper-run-riverside-camp"
   },
   {
     "mvp_rank": 44,
@@ -1537,7 +1580,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.1,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "walnut-prairie-camp"
   },
   {
     "mvp_rank": 45,
@@ -1572,7 +1616,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.4,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "west-cove-municipal-campground"
   },
   {
     "mvp_rank": 46,
@@ -1607,7 +1652,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.9,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "aspen-brook-recreation-area"
   },
   {
     "mvp_rank": 47,
@@ -1642,7 +1688,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.9,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "aspen-river-wilderness-camp"
   },
   {
     "mvp_rank": 48,
@@ -1677,7 +1724,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "beech-branch-municipal-campground"
   },
   {
     "mvp_rank": 49,
@@ -1712,7 +1760,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "elm-cove-wildlife-area-camp"
   },
   {
     "mvp_rank": 50,
@@ -1747,7 +1796,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "hemlock-ridge-family-campground"
   },
   {
     "mvp_rank": 51,
@@ -1782,7 +1832,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "hemlock-run-lakeside-camp"
   },
   {
     "mvp_rank": 52,
@@ -1817,7 +1868,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "hickory-shore-riverside-camp"
   },
   {
     "mvp_rank": 53,
@@ -1852,7 +1904,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "hickory-timber-lakeside-camp"
   },
   {
     "mvp_rank": 54,
@@ -1887,7 +1940,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "hidden-cliff-county-park"
   },
   {
     "mvp_rank": 55,
@@ -1922,7 +1976,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "hidden-gorge-municipal-campground"
   },
   {
     "mvp_rank": 56,
@@ -1957,7 +2012,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "laurel-cliff-lakeside-camp"
   },
   {
     "mvp_rank": 57,
@@ -1992,7 +2048,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.9,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "little-cove-campground"
   },
   {
     "mvp_rank": 58,
@@ -2027,7 +2084,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "maple-lake-recreation-area"
   },
   {
     "mvp_rank": 59,
@@ -2062,7 +2120,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "oak-pass-campground"
   },
   {
     "mvp_rank": 60,
@@ -2097,7 +2156,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "pine-canyon-state-park"
   },
   {
     "mvp_rank": 61,
@@ -2132,7 +2192,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "shady-pass-family-campground"
   },
   {
     "mvp_rank": 62,
@@ -2167,7 +2228,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "south-island-municipal-campground"
   },
   {
     "mvp_rank": 63,
@@ -2202,7 +2264,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "south-knob-wildlife-area-camp"
   },
   {
     "mvp_rank": 64,
@@ -2237,7 +2300,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "sunny-beach-wildlife-area-camp"
   },
   {
     "mvp_rank": 65,
@@ -2272,7 +2336,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "upper-branch-municipal-campground"
   },
   {
     "mvp_rank": 66,
@@ -2307,7 +2372,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "upper-stone-wildlife-area-camp"
   },
   {
     "mvp_rank": 67,
@@ -2342,7 +2408,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "birch-falls-wilderness-camp"
   },
   {
     "mvp_rank": 68,
@@ -2377,7 +2444,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "cedar-bluff-municipal-campground"
   },
   {
     "mvp_rank": 69,
@@ -2412,7 +2480,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "east-pond-state-park"
   },
   {
     "mvp_rank": 70,
@@ -2447,7 +2516,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "hemlock-timber-recreation-area"
   },
   {
     "mvp_rank": 71,
@@ -2482,7 +2552,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "hickory-glen-camp"
   },
   {
     "mvp_rank": 72,
@@ -2517,7 +2588,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "lake-lakeside-camp"
   },
   {
     "mvp_rank": 73,
@@ -2552,7 +2624,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "laurel-field-lakeside-camp"
   },
   {
     "mvp_rank": 74,
@@ -2587,7 +2660,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "lower-ravine-camp"
   },
   {
     "mvp_rank": 75,
@@ -2622,7 +2696,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "oak-knob-camping-resort"
   },
   {
     "mvp_rank": 76,
@@ -2657,7 +2732,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "old-glen-family-campground"
   },
   {
     "mvp_rank": 77,
@@ -2692,7 +2768,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "silver-shore-campground"
   },
   {
     "mvp_rank": 78,
@@ -2727,7 +2804,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "spruce-river-family-campground"
   },
   {
     "mvp_rank": 79,
@@ -2762,7 +2840,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "spruce-stone-camp"
   },
   {
     "mvp_rank": 80,
@@ -2797,7 +2876,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "walnut-hollow-family-campground"
   },
   {
     "mvp_rank": 81,
@@ -2832,7 +2912,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "whispering-rock-wildlife-area-camp"
   },
   {
     "mvp_rank": 82,
@@ -2867,7 +2948,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "willow-peninsula-recreation-area"
   },
   {
     "mvp_rank": 83,
@@ -2902,7 +2984,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "crystal-shore-municipal-campground"
   },
   {
     "mvp_rank": 84,
@@ -2937,7 +3020,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.4,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "crystal-swamp-wilderness-camp"
   },
   {
     "mvp_rank": 85,
@@ -2972,7 +3056,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.4,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "hickory-woods-recreation-area"
   },
   {
     "mvp_rank": 86,
@@ -3007,7 +3092,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "marsh-wilderness-camp"
   },
   {
     "mvp_rank": 87,
@@ -3042,7 +3128,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.5,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "upper-falls-campground"
   },
   {
     "mvp_rank": 88,
@@ -3077,7 +3164,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.4,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "beech-bluff-camping-resort"
   },
   {
     "mvp_rank": 89,
@@ -3112,7 +3200,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "birch-branch-family-campground"
   },
   {
     "mvp_rank": 90,
@@ -3147,7 +3236,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "cedar-peak-county-park"
   },
   {
     "mvp_rank": 91,
@@ -3182,7 +3272,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.4,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "crystal-cove-state-park"
   },
   {
     "mvp_rank": 92,
@@ -3217,7 +3308,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.4,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "hickory-cove-riverside-camp"
   },
   {
     "mvp_rank": 93,
@@ -3252,7 +3344,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "hidden-brook-camping-resort"
   },
   {
     "mvp_rank": 94,
@@ -3287,7 +3380,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.4,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "silver-grove-riverside-camp"
   },
   {
     "mvp_rank": 95,
@@ -3322,7 +3416,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "willow-swamp-state-park"
   },
   {
     "mvp_rank": 96,
@@ -3357,7 +3452,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.4,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "beech-branch-county-park"
   },
   {
     "mvp_rank": 97,
@@ -3392,7 +3488,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.4,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "emerald-bay-nature-preserve-camp"
   },
   {
     "mvp_rank": 98,
@@ -3427,7 +3524,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "west-falls-camp"
   },
   {
     "mvp_rank": 99,
@@ -3462,7 +3560,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 4.5,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "walnut-boulder-campground"
   },
   {
     "mvp_rank": 100,
@@ -3497,7 +3596,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.1,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "hickory-lake-nature-preserve-camp"
   },
   {
     "mvp_rank": 101,
@@ -3532,7 +3632,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.6,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "little-dune-koa"
   },
   {
     "mvp_rank": 102,
@@ -3567,7 +3668,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.4,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "mclain-state-park"
   },
   {
     "mvp_rank": 103,
@@ -3602,7 +3704,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.4,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "north-ledge-camping-resort"
   },
   {
     "mvp_rank": 104,
@@ -3637,7 +3740,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.3,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "oak-spring-outdoor-resort"
   },
   {
     "mvp_rank": 105,
@@ -3672,7 +3776,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.3,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "whispering-peninsula-koa"
   },
   {
     "mvp_rank": 106,
@@ -3707,7 +3812,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.3,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "cherry-shore-koa"
   },
   {
     "mvp_rank": 107,
@@ -3742,7 +3848,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.6,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "hickory-hollow-koa"
   },
   {
     "mvp_rank": 108,
@@ -3777,7 +3884,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.1,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "oak-bluff-wilderness-camp"
   },
   {
     "mvp_rank": 109,
@@ -3812,7 +3920,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 9.3,
-    "remote_work_label": "excellent"
+    "remote_work_label": "excellent",
+    "slug": "pine-gap-outdoor-resort"
   },
   {
     "mvp_rank": 110,
@@ -3847,7 +3956,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.0,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "elm-cove-rv-park"
   },
   {
     "mvp_rank": 111,
@@ -3882,7 +3992,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.4,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "elm-gap-koa"
   },
   {
     "mvp_rank": 112,
@@ -3917,7 +4028,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.8,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "little-grove-rv-park"
   },
   {
     "mvp_rank": 113,
@@ -3952,7 +4064,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.9,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "petoskey-state-park"
   },
   {
     "mvp_rank": 114,
@@ -3987,7 +4100,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.8,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "sunny-glen-outdoor-resort"
   },
   {
     "mvp_rank": 115,
@@ -4022,7 +4136,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.9,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "east-harbor-state-park"
   },
   {
     "mvp_rank": 116,
@@ -4057,7 +4172,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.8,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "west-summit-outdoor-resort"
   },
   {
     "mvp_rank": 117,
@@ -4092,7 +4208,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 8.1,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "whispering-branch-outdoor-resort"
   },
   {
     "mvp_rank": 118,
@@ -4127,7 +4244,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.6,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "big-bend-outdoor-resort"
   },
   {
     "mvp_rank": 119,
@@ -4162,7 +4280,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "fork-county-park"
   },
   {
     "mvp_rank": 120,
@@ -4197,7 +4316,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "hemlock-ridge-state-park"
   },
   {
     "mvp_rank": 121,
@@ -4232,7 +4352,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "maple-lake-wilderness-camp"
   },
   {
     "mvp_rank": 122,
@@ -4267,7 +4388,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "new-swamp-county-park"
   },
   {
     "mvp_rank": 123,
@@ -4302,7 +4424,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.0,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "north-summit-outdoor-resort"
   },
   {
     "mvp_rank": 124,
@@ -4337,7 +4460,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.0,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "old-marsh-rv-park"
   },
   {
     "mvp_rank": 125,
@@ -4372,7 +4496,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "shady-marsh-riverside-camp"
   },
   {
     "mvp_rank": 126,
@@ -4407,7 +4532,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "silver-lake-campground"
   },
   {
     "mvp_rank": 127,
@@ -4442,7 +4568,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.5,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "sleeping-bear-dunes-dh-day"
   },
   {
     "mvp_rank": 128,
@@ -4477,7 +4604,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.0,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "spruce-grove-outdoor-resort"
   },
   {
     "mvp_rank": 129,
@@ -4512,7 +4640,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "spruce-peninsula-county-park"
   },
   {
     "mvp_rank": 130,
@@ -4547,7 +4676,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.5,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "warren-dunes-state-park"
   },
   {
     "mvp_rank": 131,
@@ -4582,7 +4712,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.0,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "whispering-stone-rv-park"
   },
   {
     "mvp_rank": 132,
@@ -4617,7 +4748,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.7,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "field-rv-park"
   },
   {
     "mvp_rank": 133,
@@ -4652,7 +4784,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "willow-fork-campground"
   },
   {
     "mvp_rank": 134,
@@ -4687,7 +4820,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.0,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "marsh-koa"
   },
   {
     "mvp_rank": 135,
@@ -4722,7 +4856,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "north-grove-state-park"
   },
   {
     "mvp_rank": 136,
@@ -4757,7 +4892,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.9,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "aspen-hollow-camping-resort"
   },
   {
     "mvp_rank": 137,
@@ -4792,7 +4928,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "crystal-bend-wilderness-camp"
   },
   {
     "mvp_rank": 138,
@@ -4827,7 +4964,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "east-cove-wilderness-camp"
   },
   {
     "mvp_rank": 139,
@@ -4862,7 +5000,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.8,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "emerald-stone-camping-resort"
   },
   {
     "mvp_rank": 140,
@@ -4897,7 +5036,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.6,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "hidden-meadow-state-forest"
   },
   {
     "mvp_rank": 141,
@@ -4932,7 +5072,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "hidden-pond-lakeside-camp"
   },
   {
     "mvp_rank": 142,
@@ -4967,7 +5108,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.9,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "pine-glen-wilderness-camp"
   },
   {
     "mvp_rank": 143,
@@ -5002,7 +5144,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.9,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "silver-forest-wildlife-area-camp"
   },
   {
     "mvp_rank": 144,
@@ -5037,7 +5180,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "south-falls-lakeside-camp"
   },
   {
     "mvp_rank": 145,
@@ -5072,7 +5216,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.4,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "aspen-dune-wildlife-area-camp"
   },
   {
     "mvp_rank": 146,
@@ -5107,7 +5252,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.5,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "birch-rock-lakeside-camp"
   },
   {
     "mvp_rank": 147,
@@ -5142,7 +5288,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.5,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "cedar-bluff-riverside-camp"
   },
   {
     "mvp_rank": 148,
@@ -5177,7 +5324,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "emerald-bend-family-campground"
   },
   {
     "mvp_rank": 149,
@@ -5212,7 +5360,8 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 6.4,
-    "remote_work_label": "usable"
+    "remote_work_label": "usable",
+    "slug": "emerald-timber-riverside-camp"
   },
   {
     "mvp_rank": 150,
@@ -5247,6 +5396,7 @@
     "data_completeness": 100.0,
     "needs_review": false,
     "remote_work_score": 7.2,
-    "remote_work_label": "good"
+    "remote_work_label": "good",
+    "slug": "hidden-lake-camp"
   }
 ]
