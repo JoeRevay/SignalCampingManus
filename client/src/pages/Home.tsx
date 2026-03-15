@@ -5,6 +5,7 @@
  * Layout: Left sidebar (filters) + main area (search, stats, map/list toggle, detail view).
  */
 import { useState, useMemo, useCallback } from "react";
+import { Link } from "wouter";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -355,13 +356,23 @@ export default function Home() {
               <p className="text-sm leading-relaxed">Map-driven campground discovery with cellular signal analysis. {allCampgrounds.length.toLocaleString()} campgrounds across the Great Lakes region.</p>
             </div>
             <div>
-              <h4 className="font-semibold text-white mb-3">Dataset</h4>
-              <p className="text-sm leading-relaxed">23 fields per campground including signal coverage, elevation, forest cover, nearest lake, and distance to town. GeoJSON map-ready format included.</p>
+              <h4 className="font-semibold text-white mb-3">Browse by State</h4>
+              <ul className="space-y-1.5 text-sm">
+                <li><Link href="/campgrounds/mi" className="hover:text-green-400 transition">Michigan Campgrounds</Link></li>
+                <li><Link href="/campgrounds/oh" className="hover:text-green-400 transition">Ohio Campgrounds</Link></li>
+                <li><Link href="/campgrounds/pa" className="hover:text-green-400 transition">Pennsylvania Campgrounds</Link></li>
+                <li><Link href="/campgrounds/wi" className="hover:text-green-400 transition">Wisconsin Campgrounds</Link></li>
+                <li><Link href="/campgrounds/wv" className="hover:text-green-400 transition">West Virginia Campgrounds</Link></li>
+              </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-white mb-3">States Covered</h4>
-              <p className="text-sm">Michigan &bull; Ohio &bull; Pennsylvania &bull; West Virginia &bull; Wisconsin</p>
-              <p className="text-xs text-gray-500 mt-2">Scalable architecture for 13,000+ U.S. campgrounds</p>
+              <h4 className="font-semibold text-white mb-3">Resources</h4>
+              <ul className="space-y-1.5 text-sm">
+                <li><Link href="/top-campgrounds" className="hover:text-green-400 transition">Top 100 Campgrounds</Link></li>
+                <li><span className="text-gray-500">23 fields per campground</span></li>
+                <li><span className="text-gray-500">GeoJSON map-ready format</span></li>
+              </ul>
+              <p className="text-xs text-gray-500 mt-3">Scalable to 13,000+ U.S. campgrounds</p>
             </div>
           </div>
           <div className="border-t border-gray-800 pt-6 text-sm text-center text-gray-500">
@@ -387,11 +398,15 @@ function Header() {
             <p className="text-xs text-muted-foreground">Great Lakes Campground Signal Discovery</p>
           </div>
           <div className="ml-auto flex items-center gap-2">
+            <Link href="/top-campgrounds">
+              <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden sm:inline-flex">
+                Top 100
+              </Button>
+            </Link>
             <Badge variant="outline" className="text-xs hidden sm:inline-flex border-green-200 text-green-700 bg-green-50">
               {allCampgrounds.length.toLocaleString()} Campgrounds
             </Badge>
-            <Badge variant="outline" className="text-xs hidden sm:inline-flex border-blue-200 text-blue-700 bg-blue-50">5 States</Badge>
-            <Badge variant="outline" className="text-xs hidden md:inline-flex border-amber-200 text-amber-700 bg-amber-50">23 Fields</Badge>
+            <Badge variant="outline" className="text-xs hidden md:inline-flex border-blue-200 text-blue-700 bg-blue-50">5 States</Badge>
           </div>
         </div>
       </div>
