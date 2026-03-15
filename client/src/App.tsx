@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import CampgroundLanding from "./pages/CampgroundLanding";
 import TopCampgrounds from "./pages/TopCampgrounds";
 import StateLanding from "./pages/StateLanding";
+import BuildSpec from "./pages/BuildSpec";
 
 function Router() {
   return (
@@ -16,6 +17,7 @@ function Router() {
       <Route path={"/campground/:slug"} component={CampgroundLanding} />
       <Route path={"/top-campgrounds"} component={TopCampgrounds} />
       <Route path={"/campgrounds/:state"} component={StateLanding} />
+      <Route path={"/build-spec"} component={BuildSpec} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
