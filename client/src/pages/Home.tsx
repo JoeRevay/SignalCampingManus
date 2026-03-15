@@ -420,6 +420,11 @@ function Header() {
                 Product v1
               </Button>
             </Link>
+            <Link href="/seo-directory">
+              <Button variant="ghost" size="sm" className="text-xs text-gray-700 hover:text-gray-800 hidden sm:inline-flex">
+                SEO Pages
+              </Button>
+            </Link>
             <Badge variant="outline" className="text-xs hidden sm:inline-flex border-green-200 text-green-700 bg-green-50">
               {allCampgrounds.length.toLocaleString()} Campgrounds
             </Badge>
