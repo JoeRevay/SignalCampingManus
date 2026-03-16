@@ -20,6 +20,7 @@ import SeoDirectory from "./pages/SeoDirectory";
 import ShareableList from "./pages/ShareableList";
 import ListsDirectory from "./pages/ListsDirectory";
 import RouteFinder from "./pages/RouteFinder";
+import BestRemoteWork from "./pages/BestRemoteWork";
 
 function Router() {
   return (
@@ -63,6 +64,9 @@ function Router() {
 
       {/* Route finder */}
       <Route path={"/route-finder"} component={RouteFinder} />
+
+      {/* Best remote work campgrounds */}
+      <Route path={"/best-remote-work-campgrounds"} component={BestRemoteWork} />
 
       {/* SEO directory */}
       <Route path={"/seo-directory"} component={SeoDirectory} />
