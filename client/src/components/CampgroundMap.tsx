@@ -1,9 +1,10 @@
 /**
  * CampgroundMap — Google Maps with verified (green) vs OSM (blue) markers.
- * Handles 3000+ campgrounds with clustering and info-window previews.
+ * Uses @googlemaps/markerclusterer for efficient rendering of 3000+ campgrounds.
  */
 import { useRef, useCallback, useEffect, useState } from "react";
 import { MapView } from "@/components/Map";
+import { MarkerClusterer, SuperClusterAlgorithm } from "@googlemaps/markerclusterer";
 
 interface CampgroundData {
   campground_name: string;
@@ -85,9 +86,46 @@ function createInfoContent(cg: CampgroundData) {
   `;
 }
 
+/** Custom cluster renderer that shows count with green styling */
+class ClusterRenderer {
+  render(
+    { count, position }: { count: number; position: google.maps.LatLng },
+    _stats: any,
+    map: google.maps.Map
+  ): google.maps.marker.AdvancedMarkerElement {
+    const size = count < 50 ? 40 : count < 200 ? 50 : 60;
+    const fontSize = count < 50 ? 13 : count < 200 ? 14 : 15;
+
+    const el = document.createElement("div");
+    el.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      border: 3px solid rgba(255,255,255,0.9);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 700; font-size: ${fontSize}px;
+      font-family: system-ui, sans-serif;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    `;
+    el.textContent = count >= 1000 ? `${(count / 1000).toFixed(1)}k` : String(count);
+    el.addEventListener("mouseenter", () => { el.style.transform = "scale(1.12)"; });
+    el.addEventListener("mouseleave", () => { el.style.transform = "scale(1)"; });
+
+    return new google.maps.marker.AdvancedMarkerElement({
+      map,
+      position,
+      content: el,
+      zIndex: 1000 + count,
+    });
+  }
+}
+
 export default function CampgroundMap({ campgrounds, onCampgroundClick, className }: CampgroundMapProps) {
   const mapRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
+  const clustererRef = useRef<MarkerClusterer | null>(null);
   const infoWindowRef = useRef<google.maps.InfoWindow | null>(null);
   const [mapReady, setMapReady] = useState(false);
 
@@ -108,6 +146,11 @@ export default function CampgroundMap({ campgrounds, onCampgroundClick, classNam
     if (!mapReady || !mapRef.current) return;
     const map = mapRef.current;
 
+    // Clean up previous markers and clusterer
+    if (clustererRef.current) {
+      clustererRef.current.clearMarkers();
+      clustererRef.current = null;
+    }
     markersRef.current.forEach(m => { m.map = null; });
     markersRef.current = [];
 
@@ -124,10 +167,10 @@ export default function CampgroundMap({ campgrounds, onCampgroundClick, classNam
       el.title = cg.campground_name;
 
       const marker = new google.maps.marker.AdvancedMarkerElement({
-        map,
         position: pos,
         content: el,
         title: cg.campground_name,
+        // Don't set map here — the clusterer will manage map assignment
       });
 
       marker.addListener("click", () => {
@@ -142,9 +185,24 @@ export default function CampgroundMap({ campgrounds, onCampgroundClick, classNam
 
     markersRef.current = newMarkers;
 
+    // Create clusterer with SuperCluster algorithm for performance
+    clustererRef.current = new MarkerClusterer({
+      map,
+      markers: newMarkers,
+      algorithm: new SuperClusterAlgorithm({ radius: 80, maxZoom: 14 }),
+      renderer: new ClusterRenderer(),
+    });
+
     if (campgrounds.length > 0) {
       map.fitBounds(bounds, { top: 50, right: 50, bottom: 50, left: 50 });
     }
+
+    return () => {
+      if (clustererRef.current) {
+        clustererRef.current.clearMarkers();
+        clustererRef.current = null;
+      }
+    };
   }, [campgrounds, mapReady]);
 
   const verifiedCount = campgrounds.filter(c => c.is_verified).length;
@@ -161,7 +219,13 @@ export default function CampgroundMap({ campgrounds, onCampgroundClick, classNam
           <div className="w-3 h-3 rounded-full border border-gray-200" style={{ backgroundColor: OSM_COLOR }} />
           <span className="text-xs text-gray-600">OpenStreetMap ({osmCount})</span>
         </div>
-        <span className="text-xs text-gray-400 ml-auto">{campgrounds.length} campgrounds</span>
+        <div className="flex items-center gap-1.5">
+          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-green-600 to-green-700 flex items-center justify-center">
+            <span className="text-[8px] text-white font-bold">N</span>
+          </div>
+          <span className="text-xs text-gray-600">Cluster</span>
+        </div>
+        <span className="text-xs text-gray-400 ml-auto">{campgrounds.length.toLocaleString()} campgrounds</span>
       </div>
       <MapView
         className="w-full h-[550px] rounded-lg border border-gray-200 shadow-sm"

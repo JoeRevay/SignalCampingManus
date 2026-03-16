@@ -1,8 +1,8 @@
 /**
- * TopCampgrounds — Browse all campgrounds with search and state filter.
- * Uses OSM data (3127 campgrounds). No signal fields.
+ * TopCampgrounds — Browse all campgrounds with search, state filter, and pagination.
+ * Uses OSM data (3100+ campgrounds). Paginated at 50 per page for performance.
  */
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useCallback } from "react";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,9 +10,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Signal, MapPin, Search, ChevronRight, CheckCircle2,
-  Tent, Truck, Zap, Waves, ArrowUpDown
+  Tent, Truck, Zap, Waves, ArrowUpDown, ChevronLeft,
+  ChevronsLeft, ChevronsRight, Filter
 } from "lucide-react";
 import top100Data from "@/data/top100_seo.json";
+
+const PER_PAGE = 50;
 
 const campgrounds = (top100Data as any[]).map(cg => ({
   ...cg,
@@ -29,7 +32,9 @@ const STATE_NAMES: Record<string, string> = {
 export default function TopCampgrounds() {
   const [search, setSearch] = useState("");
   const [stateFilter, setStateFilter] = useState<string | null>(null);
+  const [verifiedOnly, setVerifiedOnly] = useState(false);
   const [sortBy, setSortBy] = useState<"campground_name" | "state">("campground_name");
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     document.title = "All Campgrounds | SignalCamping";
@@ -38,14 +43,19 @@ export default function TopCampgrounds() {
     meta.content = `Browse ${campgrounds.length.toLocaleString()} campgrounds across Michigan, Ohio, Pennsylvania, West Virginia, and Wisconsin. Real locations from OpenStreetMap.`;
   }, []);
 
+  // Reset page when filters change
+  useEffect(() => { setPage(1); }, [search, stateFilter, verifiedOnly, sortBy]);
+
   const filtered = useMemo(() => {
     let data = [...campgrounds];
     if (stateFilter) data = data.filter(c => c.state === stateFilter);
+    if (verifiedOnly) data = data.filter(c => c.is_verified);
     if (search) {
       const term = search.toLowerCase();
       data = data.filter(c =>
         c.campground_name.toLowerCase().includes(term) ||
         (c.city || "").toLowerCase().includes(term) ||
+        (c.campground_type || "").toLowerCase().includes(term) ||
         (c.operator || "").toLowerCase().includes(term)
       );
     }
@@ -54,13 +64,47 @@ export default function TopCampgrounds() {
       return a.state.localeCompare(b.state) || a.campground_name.localeCompare(b.campground_name);
     });
     return data;
-  }, [search, stateFilter, sortBy]);
+  }, [search, stateFilter, verifiedOnly, sortBy]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+  const safePage = Math.min(page, totalPages);
+  const pageStart = (safePage - 1) * PER_PAGE;
+  const pageEnd = pageStart + PER_PAGE;
+  const pageData = filtered.slice(pageStart, pageEnd);
 
   const stateCounts = useMemo(() => {
     const c: Record<string, number> = {};
     campgrounds.forEach((cg: any) => { c[cg.state] = (c[cg.state] || 0) + 1; });
     return c;
   }, []);
+
+  const verifiedCount = useMemo(() => campgrounds.filter(c => c.is_verified).length, []);
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  const goToPage = useCallback((p: number) => {
+    setPage(p);
+    scrollToTop();
+  }, [scrollToTop]);
+
+  // Generate page numbers for pagination
+  const pageNumbers = useMemo(() => {
+    const pages: (number | "...")[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (safePage > 3) pages.push("...");
+      for (let i = Math.max(2, safePage - 1); i <= Math.min(totalPages - 1, safePage + 1); i++) {
+        pages.push(i);
+      }
+      if (safePage < totalPages - 2) pages.push("...");
+      pages.push(totalPages);
+    }
+    return pages;
+  }, [safePage, totalPages]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-stone-50 to-white">
@@ -87,7 +131,8 @@ export default function TopCampgrounds() {
             All Campgrounds
           </h1>
           <p className="text-green-100 max-w-2xl">
-            Browse {campgrounds.length.toLocaleString()} campground locations across the Great Lakes region. Data sourced from OpenStreetMap.
+            Browse {campgrounds.length.toLocaleString()} campground locations across the Great Lakes region.
+            {" "}<span className="text-green-300 font-medium">{verifiedCount} verified</span> against official records.
           </p>
           <div className="flex flex-wrap gap-3 mt-4">
             {Object.entries(STATE_NAMES).map(([code, name]) => (
@@ -101,7 +146,7 @@ export default function TopCampgrounds() {
 
       {/* Filters */}
       <section className="container py-6">
-        <div className="flex flex-wrap gap-3 items-center mb-6">
+        <div className="flex flex-wrap gap-3 items-center mb-4">
           <div className="relative flex-1 min-w-[200px] max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <Input placeholder="Search campgrounds..." value={search} onChange={e => setSearch(e.target.value)} className="pl-10" />
@@ -117,24 +162,43 @@ export default function TopCampgrounds() {
               </Button>
             ))}
           </div>
+          <Button variant={verifiedOnly ? "default" : "outline"} size="sm"
+            className={`text-xs ${verifiedOnly ? "bg-green-700 hover:bg-green-800" : "border-green-200 text-green-700"}`}
+            onClick={() => setVerifiedOnly(!verifiedOnly)}>
+            <CheckCircle2 className="w-3 h-3 mr-1" /> Verified Only
+          </Button>
           <Button variant="ghost" size="sm" className="text-xs" onClick={() => setSortBy(s => s === "campground_name" ? "state" : "campground_name")}>
             <ArrowUpDown className="w-3 h-3 mr-1" /> Sort by {sortBy === "campground_name" ? "Name" : "State"}
           </Button>
         </div>
 
-        <p className="text-sm text-gray-500 mb-4">{filtered.length.toLocaleString()} campgrounds</p>
+        {/* Results count and pagination info */}
+        <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <p className="text-sm text-gray-500">
+            {filtered.length.toLocaleString()} campgrounds
+            {filtered.length > PER_PAGE && (
+              <span className="text-gray-400"> &middot; Page {safePage} of {totalPages}</span>
+            )}
+          </p>
+          {filtered.length > PER_PAGE && (
+            <p className="text-xs text-gray-400">
+              Showing {pageStart + 1}&ndash;{Math.min(pageEnd, filtered.length)} of {filtered.length.toLocaleString()}
+            </p>
+          )}
+        </div>
 
         {/* Results */}
         <div className="space-y-2">
-          {filtered.map((cg: any, i: number) => {
+          {pageData.map((cg: any, i: number) => {
             const slug = cg.slug || cg.campground_name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+            const globalIndex = pageStart + i;
             return (
-              <Link key={slug + i} href={`/campground/${slug}`}>
+              <Link key={slug + globalIndex} href={`/campground/${slug}`}>
                 <Card className="hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer">
                   <CardContent className="p-4">
                     <div className="flex items-start gap-3">
                       <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center shrink-0 text-sm font-bold text-green-700">
-                        {i + 1}
+                        {globalIndex + 1}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
@@ -167,6 +231,35 @@ export default function TopCampgrounds() {
             );
           })}
         </div>
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-1 mt-8 flex-wrap">
+            <Button variant="outline" size="sm" className="text-xs" disabled={safePage <= 1} onClick={() => goToPage(1)}>
+              <ChevronsLeft className="w-3.5 h-3.5" />
+            </Button>
+            <Button variant="outline" size="sm" className="text-xs" disabled={safePage <= 1} onClick={() => goToPage(safePage - 1)}>
+              <ChevronLeft className="w-3.5 h-3.5" />
+            </Button>
+            {pageNumbers.map((p, idx) =>
+              p === "..." ? (
+                <span key={`ellipsis-${idx}`} className="px-2 text-gray-400 text-sm">&hellip;</span>
+              ) : (
+                <Button key={p} variant={p === safePage ? "default" : "outline"} size="sm"
+                  className={`text-xs min-w-[36px] ${p === safePage ? "bg-green-700 hover:bg-green-800" : ""}`}
+                  onClick={() => goToPage(p as number)}>
+                  {p}
+                </Button>
+              )
+            )}
+            <Button variant="outline" size="sm" className="text-xs" disabled={safePage >= totalPages} onClick={() => goToPage(safePage + 1)}>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Button>
+            <Button variant="outline" size="sm" className="text-xs" disabled={safePage >= totalPages} onClick={() => goToPage(totalPages)}>
+              <ChevronsRight className="w-3.5 h-3.5" />
+            </Button>
+          </div>
+        )}
       </section>
 
       {/* Back to Map CTA */}
