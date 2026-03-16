@@ -14,7 +14,7 @@ const campgrounds = mvpData as any[];
 const allCampgrounds = allData as any[];
 
 const STATE_NAMES: Record<string, string> = {
-  MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin", WV: "West Virginia",
+  MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin",
 };
 
 export default function MvpLaunch() {

@@ -25,7 +25,7 @@ const STATE_MAP: Record<string, { code: string; name: string; desc: string }> = 
   oh: { code: "OH", name: "Ohio", desc: "Discover Ohio's state parks and campgrounds in the rolling hills of Appalachian country and along Lake Erie." },
   pa: { code: "PA", name: "Pennsylvania", desc: "Find campgrounds in Pennsylvania's Allegheny Mountains, state forests, and lakeside parks." },
   wi: { code: "WI", name: "Wisconsin", desc: "Camp in Wisconsin's Northwoods, Door County, and along the shores of Lake Superior." },
-  wv: { code: "WV", name: "West Virginia", desc: "Explore West Virginia's mountain campgrounds in the Monongahela National Forest and New River Gorge region." },
+
 };
 
 export default function StateLanding() {

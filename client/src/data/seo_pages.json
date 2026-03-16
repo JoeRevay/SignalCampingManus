@@ -1,112 +1,121 @@
 [
   {
     "type": "state",
-    "slug": "mi",
-    "title": "Campgrounds in Michigan",
+    "slug": "campgrounds/mi",
+    "title": "Michigan Campgrounds",
     "description": "Explore 958 campgrounds in Michigan",
-    "campground_count": 958,
-    "verified_count": 229
+    "count": 958
   },
   {
     "type": "state",
-    "slug": "oh",
-    "title": "Campgrounds in Ohio",
+    "slug": "campgrounds/oh",
+    "title": "Ohio Campgrounds",
     "description": "Explore 387 campgrounds in Ohio",
-    "campground_count": 387,
-    "verified_count": 47
+    "count": 387
   },
   {
     "type": "state",
-    "slug": "pa",
-    "title": "Campgrounds in Pennsylvania",
+    "slug": "campgrounds/pa",
+    "title": "Pennsylvania Campgrounds",
     "description": "Explore 766 campgrounds in Pennsylvania",
-    "campground_count": 766,
-    "verified_count": 23
+    "count": 766
   },
   {
     "type": "state",
-    "slug": "wi",
-    "title": "Campgrounds in Wisconsin",
+    "slug": "campgrounds/wi",
+    "title": "Wisconsin Campgrounds",
     "description": "Explore 1003 campgrounds in Wisconsin",
-    "campground_count": 1003,
-    "verified_count": 180
-  },
-  {
-    "type": "state",
-    "slug": "wv",
-    "title": "Campgrounds in West Virginia",
-    "description": "Explore 42 campgrounds in West Virginia",
-    "campground_count": 42,
-    "verified_count": 2
+    "count": 1003
   },
   {
     "type": "campground_type",
-    "slug": "campground",
-    "title": "Campground Campgrounds in the Great Lakes",
-    "description": "Browse 2209 campground campgrounds across the Great Lakes region",
-    "campground_count": 2209
+    "slug": "type/campground",
+    "title": "Campground Campgrounds",
+    "description": "2178 campground campgrounds in the Great Lakes region",
+    "count": 2178
   },
   {
     "type": "campground_type",
-    "slug": "state-park",
-    "title": "State Park Campgrounds in the Great Lakes",
-    "description": "Browse 238 state park campgrounds across the Great Lakes region",
-    "campground_count": 238
+    "slug": "type/state-park",
+    "title": "State Park Campgrounds",
+    "description": "237 state park campgrounds in the Great Lakes region",
+    "count": 237
   },
   {
     "type": "campground_type",
-    "slug": "state-forest",
-    "title": "State Forest Campgrounds in the Great Lakes",
-    "description": "Browse 228 state forest campgrounds across the Great Lakes region",
-    "campground_count": 228
+    "slug": "type/state-forest",
+    "title": "State Forest Campgrounds",
+    "description": "225 state forest campgrounds in the Great Lakes region",
+    "count": 225
   },
   {
     "type": "campground_type",
-    "slug": "private",
-    "title": "Private Campgrounds in the Great Lakes",
-    "description": "Browse 177 private campgrounds across the Great Lakes region",
-    "campground_count": 177
+    "slug": "type/private",
+    "title": "Private Campgrounds",
+    "description": "176 private campgrounds in the Great Lakes region",
+    "count": 176
   },
   {
     "type": "campground_type",
-    "slug": "county-park",
-    "title": "County Park Campgrounds in the Great Lakes",
-    "description": "Browse 125 county park campgrounds across the Great Lakes region",
-    "campground_count": 125
+    "slug": "type/county-park",
+    "title": "County Park Campgrounds",
+    "description": "124 county park campgrounds in the Great Lakes region",
+    "count": 124
   },
   {
     "type": "campground_type",
-    "slug": "national-forest",
-    "title": "National Forest Campgrounds in the Great Lakes",
-    "description": "Browse 97 national forest campgrounds across the Great Lakes region",
-    "campground_count": 97
+    "slug": "type/national-forest",
+    "title": "National Forest Campgrounds",
+    "description": "97 national forest campgrounds in the Great Lakes region",
+    "count": 97
   },
   {
     "type": "campground_type",
-    "slug": "scout-camp",
-    "title": "Scout Camp Campgrounds in the Great Lakes",
-    "description": "Browse 42 scout camp campgrounds across the Great Lakes region",
-    "campground_count": 42
+    "slug": "type/scout-camp",
+    "title": "Scout Camp Campgrounds",
+    "description": "39 scout camp campgrounds in the Great Lakes region",
+    "count": 39
   },
   {
     "type": "campground_type",
-    "slug": "private-koa",
-    "title": "Private (KOA) Campgrounds in the Great Lakes",
-    "description": "Browse 17 private (koa) campgrounds across the Great Lakes region",
-    "campground_count": 17
+    "slug": "type/private-koa",
+    "title": "Private (KOA) Campgrounds",
+    "description": "16 private (koa) campgrounds in the Great Lakes region",
+    "count": 16
   },
   {
     "type": "campground_type",
-    "slug": "national-park",
-    "title": "National Park Campgrounds in the Great Lakes",
-    "description": "Browse 16 national park campgrounds across the Great Lakes region",
-    "campground_count": 16
+    "slug": "type/national-park",
+    "title": "National Park Campgrounds",
+    "description": "15 national park campgrounds in the Great Lakes region",
+    "count": 15
   },
   {
     "type": "campground_type",
-    "slug": "army-corps",
-    "title": "Army Corps Campgrounds in the Great Lakes",
-    "description": "Browse 5 army corps campgrounds across the Great Lakes region",
-    "campground_count": 5
+    "slug": "type/army-corps",
+    "title": "Army Corps Campgrounds",
+    "description": "4 army corps campgrounds in the Great Lakes region",
+    "count": 4
+  },
+  {
+    "type": "campground_type",
+    "slug": "type/national-scenic-riverway",
+    "title": "National Scenic Riverway Campgrounds",
+    "description": "1 national scenic riverway campgrounds in the Great Lakes region",
+    "count": 1
+  },
+  {
+    "type": "campground_type",
+    "slug": "type/municipal",
+    "title": "Municipal Campgrounds",
+    "description": "1 municipal campgrounds in the Great Lakes region",
+    "count": 1
+  },
+  {
+    "type": "campground_type",
+    "slug": "type/national-lakeshore",
+    "title": "National Lakeshore Campgrounds",
+    "description": "1 national lakeshore campgrounds in the Great Lakes region",
+    "count": 1
   }
 ]

@@ -26,7 +26,7 @@ const campgrounds = (top100Data as any[]).map(cg => ({
 }));
 
 const STATE_NAMES: Record<string, string> = {
-  MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin", WV: "West Virginia",
+  MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin",
 };
 
 export default function TopCampgrounds() {
@@ -40,7 +40,7 @@ export default function TopCampgrounds() {
     document.title = "All Campgrounds | SignalCamping";
     let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement;
     if (!meta) { meta = document.createElement("meta"); meta.name = "description"; document.head.appendChild(meta); }
-    meta.content = `Browse ${campgrounds.length.toLocaleString()} campgrounds across Michigan, Ohio, Pennsylvania, West Virginia, and Wisconsin. Real locations from OpenStreetMap.`;
+    meta.content = `Browse ${campgrounds.length.toLocaleString()} campgrounds across Michigan, Ohio, Pennsylvania, and Wisconsin. Real locations from OpenStreetMap.`;
   }, []);
 
   // Reset page when filters change

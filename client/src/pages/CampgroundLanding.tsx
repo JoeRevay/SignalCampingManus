@@ -40,7 +40,7 @@ const allCampgrounds = (() => {
 })();
 
 const STATE_NAMES: Record<string, string> = {
-  MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin", WV: "West Virginia",
+  MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin",
 };
 
 function generateDescription(cg: any): string {

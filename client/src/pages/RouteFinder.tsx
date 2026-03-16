@@ -16,7 +16,7 @@ import {
 import campgroundsData from "@/data/campgrounds.json";
 
 const STATE_NAMES: Record<string, string> = {
-  MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin", WV: "West Virginia",
+  MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin",
 };
 
 const parseBool = (v: any) => v === true || v === "True" || v === "Yes";

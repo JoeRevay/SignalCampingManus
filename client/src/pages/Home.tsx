@@ -5,7 +5,7 @@
  * featured lists, route search, and internal links.
  * Style: Space Grotesk headings, DM Sans body, green/earth palette.
  *
- * Data: OSM base inventory (3127 campgrounds) + verified MVP subset (32).
+ * Data: OSM base inventory (3114 campgrounds, 4 states) + verified MVP subset (485).
  */
 import { useState, useMemo, useCallback } from "react";
 import { Link } from "wouter";
@@ -48,7 +48,7 @@ const allCampgrounds = (rawData as any[]).map(cg => ({
 }));
 
 const STATE_NAMES: Record<string, string> = {
-  MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin", WV: "West Virginia",
+  MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin",
 };
 
 /* ── Compute filter metadata (static, computed once at module load) ── */
@@ -248,14 +248,14 @@ export default function Home() {
         <div className="container relative z-10 py-20 sm:py-28 lg:py-36">
           <div className="max-w-2xl">
             <Badge className="bg-green-600/90 text-white border-green-500 mb-4 text-xs">
-              {allCampgrounds.length.toLocaleString()} Campgrounds &middot; 5 States &middot; OpenStreetMap Data
+              {allCampgrounds.length.toLocaleString()} Campgrounds &middot; 4 States &middot; OpenStreetMap Data
             </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
               Discover Real Campgrounds Across the{" "}
               <span className="text-green-400">Great Lakes</span>
             </h1>
             <p className="text-lg sm:text-xl text-white/80 mb-8 leading-relaxed">
-              Explore {allCampgrounds.length.toLocaleString()} verified campground locations from OpenStreetMap across Michigan, Ohio, Pennsylvania, Wisconsin, and West Virginia.
+              Explore {allCampgrounds.length.toLocaleString()} real campground locations from OpenStreetMap across Michigan, Ohio, Pennsylvania, and Wisconsin.
             </p>
             <div className="flex flex-wrap gap-3">
               <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white shadow-lg" onClick={() => setView("explorer")}>
@@ -277,7 +277,7 @@ export default function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-white">
             {[
               { value: allCampgrounds.length.toLocaleString(), label: "Campgrounds", icon: Tent },
-              { value: "5", label: "States Covered", icon: MapPin },
+              { value: "4", label: "States Covered", icon: MapPin },
               { value: allCampgrounds.filter(c => c.is_verified).length.toString(), label: "Verified Sites", icon: CheckCircle2 },
               { value: (listsData as any[]).length.toString(), label: "Curated Lists", icon: Star },
             ].map(stat => (
@@ -421,7 +421,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: MapPin, title: "OpenStreetMap", desc: "Our base inventory of 3,127 campgrounds comes from OSM, the world's largest open geographic database, maintained by a global community of contributors.", step: "1" },
+              { icon: MapPin, title: "OpenStreetMap", desc: `Our base inventory of ${allCampgrounds.length.toLocaleString()} campgrounds comes from OSM, the world's largest open geographic database, maintained by a global community of contributors.`, step: "1" },
               { icon: CheckCircle2, title: "Official Verification", desc: "We verify campgrounds against state DNR websites, Recreation.gov, NPS, and US Forest Service records to confirm names, locations, and details.", step: "2" },
               { icon: Star, title: "Curated Lists", desc: "Verified campgrounds are organized into curated lists by state, amenity type, and use case to help you find the perfect campsite.", step: "3" },
             ].map(item => (
@@ -448,13 +448,13 @@ export default function Home() {
               Browse by State
             </h2>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-4">
             {[
               { state: "Michigan", code: "mi", stateCode: "MI" },
               { state: "Ohio", code: "oh", stateCode: "OH" },
               { state: "Pennsylvania", code: "pa", stateCode: "PA" },
               { state: "Wisconsin", code: "wi", stateCode: "WI" },
-              { state: "West Virginia", code: "wv", stateCode: "WV" },
+
             ].map(s => (
               <Link key={s.code} href={`/campgrounds/${s.code}`}>
                 <Card className="hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer text-center">
@@ -539,7 +539,7 @@ function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-3">Browse by State</h4>
             <ul className="space-y-1.5 text-sm">
-              {["mi", "oh", "pa", "wi", "wv"].map(s => (
+              {["mi", "oh", "pa", "wi"].map(s => (
                 <li key={s}><Link href={`/campgrounds/${s}`} className="hover:text-green-400 transition">{s.toUpperCase()} Campgrounds</Link></li>
               ))}
             </ul>

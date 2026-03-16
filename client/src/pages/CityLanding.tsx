@@ -10,7 +10,7 @@ import { Signal, MapPin, ChevronRight, Tent, Truck, Waves, CheckCircle2 } from "
 import seoData from "@/data/seo_pages.json";
 import allData from "@/data/campgrounds.json";
 
-const STATE_NAMES: Record<string, string> = { MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin", WV: "West Virginia" };
+const STATE_NAMES: Record<string, string> = { MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin" };
 const parseBool = (v: any) => v === true || v === "True" || v === "Yes";
 const campgrounds = (allData as any[]).map(cg => ({ ...cg, tent_sites: parseBool(cg.tent_sites), rv_sites: parseBool(cg.rv_sites), electric_hookups: parseBool(cg.electric_hookups), waterfront: parseBool(cg.waterfront) }));
 
