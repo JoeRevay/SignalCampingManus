@@ -251,11 +251,11 @@ export default function Home() {
               {allCampgrounds.length.toLocaleString()} Campgrounds &middot; 4 States &middot; OpenStreetMap Data
             </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-              Discover Real Campgrounds Across the{" "}
-              <span className="text-green-400">Great Lakes</span>
+              Find campgrounds where your phone works{" "}
+              <span className="text-green-400">&mdash; or where it doesn&rsquo;t.</span>
             </h1>
             <p className="text-lg sm:text-xl text-white/80 mb-8 leading-relaxed">
-              Explore {allCampgrounds.length.toLocaleString()} real campground locations from OpenStreetMap across Michigan, Ohio, Pennsylvania, and Wisconsin.
+              Explore {allCampgrounds.length.toLocaleString()}+ campgrounds by cell signal, carrier coverage, and remote-work readiness.
             </p>
             <div className="flex flex-wrap gap-3">
               <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white shadow-lg" onClick={() => setView("explorer")}>
@@ -301,7 +301,7 @@ export default function Home() {
                 Explore {allCampgrounds.length.toLocaleString()} Campgrounds on the Map
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Our interactive map shows every campground from OpenStreetMap across the Great Lakes region. Filter by state, type, amenities, and more. Verified campgrounds are highlighted in green.
+                Whether you need reliable signal for remote work or want to find the most off-grid spot to disconnect, our interactive map shows every campground across the Great Lakes region. Filter by state, type, carrier coverage, and more.
               </p>
               <div className="space-y-3 mb-6">
                 {[
@@ -488,7 +488,7 @@ function Header({ onExplore }: { onExplore?: () => void }) {
               </div>
               <div>
                 <h1 className="text-xl font-bold tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</h1>
-                <p className="text-[10px] text-muted-foreground leading-none">Great Lakes Campground Discovery</p>
+                <p className="text-[10px] text-muted-foreground leading-none">Where your phone works &mdash; or doesn&rsquo;t</p>
               </div>
             </div>
           </Link>
@@ -534,7 +534,7 @@ function Footer() {
               </div>
               <h3 className="font-bold text-white" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</h3>
             </div>
-            <p className="text-sm leading-relaxed">Discover real campgrounds across the Great Lakes region. Data sourced from OpenStreetMap and verified against official state records.</p>
+            <p className="text-sm leading-relaxed">SignalCamping helps you discover campgrounds where you can stay connected in nature &mdash; and places where you can truly unplug. Data sourced from OpenStreetMap and verified against official state records.</p>
           </div>
           <div>
             <h4 className="font-semibold text-white mb-3">Browse by State</h4>
@@ -563,7 +563,7 @@ function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-800 pt-6 text-sm text-center text-gray-500">
-          &copy; 2026 SignalCamping &mdash; Campground discovery powered by OpenStreetMap data.
+          &copy; 2026 SignalCamping &mdash; Find campgrounds where your phone works, or where it doesn&rsquo;t.
         </div>
       </div>
     </footer>
