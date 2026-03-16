@@ -38,7 +38,7 @@ export default function ShareableList() {
   const list = useMemo(() => (listsData as any[]).find(l => (l.slug || l.id) === slug), [slug]);
   const campgrounds = useMemo(() => {
     if (!list) return [];
-    return (list.slugs || []).map((s: string) => slugLookup.get(s)).filter(Boolean);
+    return (list.campground_slugs || list.slugs || []).map((s: string) => slugLookup.get(s)).filter(Boolean);
   }, [list]);
 
   useEffect(() => {

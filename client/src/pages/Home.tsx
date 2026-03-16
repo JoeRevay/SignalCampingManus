@@ -355,7 +355,7 @@ export default function Home() {
                     </h3>
                     <p className="text-xs text-muted-foreground line-clamp-2 mb-3">{list.description}</p>
                     <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="text-[10px]">{list.count || list.slugs?.length || 0} campgrounds</Badge>
+                      <Badge variant="outline" className="text-[10px]">{list.count || list.campground_slugs?.length || list.slugs?.length || 0} campgrounds</Badge>
                     </div>
                   </CardContent>
                 </Card>
