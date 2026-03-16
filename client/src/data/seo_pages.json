@@ -1,121 +1,93 @@
 [
   {
     "type": "state",
-    "slug": "campgrounds/mi",
+    "slug": "mi",
     "title": "Michigan Campgrounds",
-    "description": "Explore 958 campgrounds in Michigan",
-    "count": 958
+    "description": "Explore 871 campgrounds across Michigan with signal coverage data.",
+    "count": 871
   },
   {
     "type": "state",
-    "slug": "campgrounds/oh",
+    "slug": "oh",
     "title": "Ohio Campgrounds",
-    "description": "Explore 387 campgrounds in Ohio",
-    "count": 387
+    "description": "Explore 370 campgrounds across Ohio with signal coverage data.",
+    "count": 370
   },
   {
     "type": "state",
-    "slug": "campgrounds/pa",
+    "slug": "pa",
     "title": "Pennsylvania Campgrounds",
-    "description": "Explore 766 campgrounds in Pennsylvania",
-    "count": 766
+    "description": "Explore 717 campgrounds across Pennsylvania with signal coverage data.",
+    "count": 717
   },
   {
     "type": "state",
-    "slug": "campgrounds/wi",
+    "slug": "wi",
     "title": "Wisconsin Campgrounds",
-    "description": "Explore 1003 campgrounds in Wisconsin",
-    "count": 1003
+    "description": "Explore 955 campgrounds across Wisconsin with signal coverage data.",
+    "count": 955
   },
   {
     "type": "campground_type",
-    "slug": "type/campground",
+    "slug": "campground",
     "title": "Campground Campgrounds",
-    "description": "2178 campground campgrounds in the Great Lakes region",
-    "count": 2178
+    "description": "Browse 1980 campground campgrounds with cellular coverage ratings.",
+    "count": 1980
   },
   {
     "type": "campground_type",
-    "slug": "type/state-park",
+    "slug": "state-park",
     "title": "State Park Campgrounds",
-    "description": "237 state park campgrounds in the Great Lakes region",
-    "count": 237
+    "description": "Browse 234 state park campgrounds with cellular coverage ratings.",
+    "count": 234
   },
   {
     "type": "campground_type",
-    "slug": "type/state-forest",
+    "slug": "state-forest",
     "title": "State Forest Campgrounds",
-    "description": "225 state forest campgrounds in the Great Lakes region",
+    "description": "Browse 225 state forest campgrounds with cellular coverage ratings.",
     "count": 225
   },
   {
     "type": "campground_type",
-    "slug": "type/private",
+    "slug": "private",
     "title": "Private Campgrounds",
-    "description": "176 private campgrounds in the Great Lakes region",
+    "description": "Browse 176 private campgrounds with cellular coverage ratings.",
     "count": 176
   },
   {
     "type": "campground_type",
-    "slug": "type/county-park",
+    "slug": "county-park",
     "title": "County Park Campgrounds",
-    "description": "124 county park campgrounds in the Great Lakes region",
+    "description": "Browse 124 county park campgrounds with cellular coverage ratings.",
     "count": 124
   },
   {
     "type": "campground_type",
-    "slug": "type/national-forest",
+    "slug": "national-forest",
     "title": "National Forest Campgrounds",
-    "description": "97 national forest campgrounds in the Great Lakes region",
+    "description": "Browse 97 national forest campgrounds with cellular coverage ratings.",
     "count": 97
   },
   {
     "type": "campground_type",
-    "slug": "type/scout-camp",
+    "slug": "scout-camp",
     "title": "Scout Camp Campgrounds",
-    "description": "39 scout camp campgrounds in the Great Lakes region",
+    "description": "Browse 39 scout camp campgrounds with cellular coverage ratings.",
     "count": 39
   },
   {
     "type": "campground_type",
-    "slug": "type/private-koa",
+    "slug": "private-koa",
     "title": "Private (KOA) Campgrounds",
-    "description": "16 private (koa) campgrounds in the Great Lakes region",
+    "description": "Browse 16 private (koa) campgrounds with cellular coverage ratings.",
     "count": 16
   },
   {
     "type": "campground_type",
-    "slug": "type/national-park",
+    "slug": "national-park",
     "title": "National Park Campgrounds",
-    "description": "15 national park campgrounds in the Great Lakes region",
+    "description": "Browse 15 national park campgrounds with cellular coverage ratings.",
     "count": 15
-  },
-  {
-    "type": "campground_type",
-    "slug": "type/army-corps",
-    "title": "Army Corps Campgrounds",
-    "description": "4 army corps campgrounds in the Great Lakes region",
-    "count": 4
-  },
-  {
-    "type": "campground_type",
-    "slug": "type/national-scenic-riverway",
-    "title": "National Scenic Riverway Campgrounds",
-    "description": "1 national scenic riverway campgrounds in the Great Lakes region",
-    "count": 1
-  },
-  {
-    "type": "campground_type",
-    "slug": "type/municipal",
-    "title": "Municipal Campgrounds",
-    "description": "1 municipal campgrounds in the Great Lakes region",
-    "count": 1
-  },
-  {
-    "type": "campground_type",
-    "slug": "type/national-lakeshore",
-    "title": "National Lakeshore Campgrounds",
-    "description": "1 national lakeshore campgrounds in the Great Lakes region",
-    "count": 1
   }
 ]

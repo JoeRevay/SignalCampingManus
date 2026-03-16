@@ -7,7 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   MapPin, Tent, Truck, Zap, Waves, ExternalLink, X,
-  CheckCircle2, Globe, Phone
+  CheckCircle2, Globe, Phone, Signal, Wifi, WifiOff,
+  Briefcase, Building2, Route
 } from "lucide-react";
 import { Link } from "wouter";
 
@@ -93,6 +94,85 @@ export default function CampgroundDetail({ campground: cg, onClose }: Campground
             </a>
           )}
           {cg.operator && <p className="text-xs text-gray-500">Operator: {cg.operator}</p>}
+        </CardContent>
+      </Card>
+
+      {/* Cell Signal & Remote Work */}
+      <Card className="border-indigo-100">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm flex items-center gap-2">
+            <Signal className="w-4 h-4 text-indigo-600" /> Cell Signal & Remote Work
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {/* Signal Score */}
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-500">Signal Score</span>
+            <span className={`text-sm font-bold ${
+              (cg.signal_score ?? 0) >= 70 ? 'text-green-600' :
+              (cg.signal_score ?? 0) >= 40 ? 'text-amber-500' : 'text-red-500'
+            }`}>
+              {cg.signal_score ?? '—'}/100
+              <span className="text-xs font-normal ml-1">
+                {(cg.signal_score ?? 0) >= 70 ? 'Good' : (cg.signal_score ?? 0) >= 40 ? 'Fair' : 'Poor'}
+              </span>
+            </span>
+          </div>
+
+          {/* Remote Work Score */}
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-500 flex items-center gap-1">
+              <Briefcase className="w-3 h-3" /> Remote Work
+            </span>
+            <span className="text-sm font-bold text-indigo-600">
+              {cg.remote_work_score != null ? Math.round(cg.remote_work_score) : '—'}/100
+            </span>
+          </div>
+
+          {/* Carrier Coverage */}
+          <div className="space-y-1.5">
+            <span className="text-xs text-gray-500">Carrier Coverage</span>
+            <div className="grid grid-cols-3 gap-1.5">
+              {[
+                { name: 'Verizon', has: cg.verizon_coverage },
+                { name: 'AT&T', has: cg.att_coverage },
+                { name: 'T-Mobile', has: cg.tmobile_coverage },
+              ].map(c => (
+                <div key={c.name} className={`flex items-center gap-1 text-xs px-2 py-1 rounded ${
+                  c.has ? 'bg-green-50 text-green-700' : 'bg-gray-50 text-gray-400'
+                }`}>
+                  {c.has ? <Wifi className="w-3 h-3" /> : <WifiOff className="w-3 h-3" />}
+                  <span className="truncate">{c.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Distance info */}
+          {(cg.nearest_town || cg.distance_to_highway_miles != null) && (
+            <div className="space-y-1.5 pt-1 border-t border-gray-100">
+              {cg.nearest_town && (
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500 flex items-center gap-1">
+                    <Building2 className="w-3 h-3" /> Nearest Town
+                  </span>
+                  <span className="text-xs font-medium text-gray-700">
+                    {cg.nearest_town}{cg.distance_to_town_miles != null ? ` (${cg.distance_to_town_miles.toFixed(1)} mi)` : ''}
+                  </span>
+                </div>
+              )}
+              {cg.distance_to_highway_miles != null && (
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500 flex items-center gap-1">
+                    <Route className="w-3 h-3" /> Nearest Highway
+                  </span>
+                  <span className="text-xs font-medium text-gray-700">
+                    {cg.distance_to_highway_miles.toFixed(1)} mi
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
         </CardContent>
       </Card>
 

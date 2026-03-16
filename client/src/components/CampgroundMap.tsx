@@ -21,6 +21,12 @@ interface CampgroundData {
   website?: string;
   slug?: string;
   operator?: string;
+  signal_score?: number;
+  carrier_count?: number;
+  remote_work_score?: number;
+  verizon_coverage?: boolean;
+  att_coverage?: boolean;
+  tmobile_coverage?: boolean;
 }
 
 interface CampgroundMapProps {
@@ -44,6 +50,20 @@ function createMarkerSvg(isVerified: boolean) {
   </svg>`;
 }
 
+function getSignalColor(score: number | undefined): string {
+  if (score == null) return '#9ca3af';
+  if (score >= 70) return '#16a34a';
+  if (score >= 40) return '#f59e0b';
+  return '#ef4444';
+}
+
+function getSignalLabel(score: number | undefined): string {
+  if (score == null) return 'Unknown';
+  if (score >= 70) return 'Good';
+  if (score >= 40) return 'Fair';
+  return 'Poor';
+}
+
 function createInfoContent(cg: CampgroundData) {
   const verified = cg.is_verified
     ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;color:#16a34a;background:#dcfce7;padding:2px 6px;border-radius:4px;font-weight:600">&#10003; Verified</span>`
@@ -61,6 +81,34 @@ function createInfoContent(cg: CampgroundData) {
       ).join("")}</div>`
     : "";
 
+  // Signal coverage section
+  const sigColor = getSignalColor(cg.signal_score);
+  const sigLabel = getSignalLabel(cg.signal_score);
+  const vz = cg.verizon_coverage ? '✓' : '✗';
+  const vzColor = cg.verizon_coverage ? '#16a34a' : '#d1d5db';
+  const att = cg.att_coverage ? '✓' : '✗';
+  const attColor = cg.att_coverage ? '#16a34a' : '#d1d5db';
+  const tm = cg.tmobile_coverage ? '✓' : '✗';
+  const tmColor = cg.tmobile_coverage ? '#16a34a' : '#d1d5db';
+
+  const signalHtml = `
+    <div style="background:#f8fafc;border-radius:6px;padding:8px;margin-bottom:8px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="font-size:11px;font-weight:600;color:#334155">Signal Score</span>
+        <span style="font-size:13px;font-weight:700;color:${sigColor}">${cg.signal_score ?? '—'} <span style="font-size:10px;font-weight:400">${sigLabel}</span></span>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:4px">
+        <span style="font-size:10px;color:${vzColor};font-weight:500">Verizon ${vz}</span>
+        <span style="font-size:10px;color:${attColor};font-weight:500">AT&T ${att}</span>
+        <span style="font-size:10px;color:${tmColor};font-weight:500">T-Mobile ${tm}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:10px;color:#64748b">Remote Work Score</span>
+        <span style="font-size:11px;font-weight:600;color:#6366f1">${cg.remote_work_score != null ? Math.round(cg.remote_work_score) : '—'}/100</span>
+      </div>
+    </div>
+  `;
+
   const websiteLink = cg.website
     ? `<a href="${cg.website}" target="_blank" rel="noopener" style="font-size:11px;color:#2563eb;text-decoration:none;margin-right:12px">Website &rarr;</a>`
     : "";
@@ -74,6 +122,7 @@ function createInfoContent(cg: CampgroundData) {
         ${verified}
       </div>
       <p style="margin:0 0 8px;font-size:12px;color:#64748b">${cg.city ? cg.city + ", " : ""}${cg.state} &middot; ${cg.campground_type}</p>
+      ${signalHtml}
       ${amenityHtml}
       <div style="display:flex;align-items:center;gap:8px;border-top:1px solid #e2e8f0;padding-top:6px">
         ${websiteLink}

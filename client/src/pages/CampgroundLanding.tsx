@@ -11,7 +11,8 @@ import {
   Signal, MapPin, Tent, Truck, Zap, Waves,
   Navigation, ArrowLeft, ExternalLink,
   ChevronRight, Compass, CheckCircle2,
-  XCircle, Info, Globe
+  XCircle, Info, Globe, Wifi, WifiOff,
+  Briefcase, Building2, Route
 } from "lucide-react";
 import top100Data from "@/data/top100_seo.json";
 import mvpData from "@/data/mvp_campgrounds.json";
@@ -276,6 +277,110 @@ export default function CampgroundLanding() {
                     </div>
                   </div>
                 )}
+              </CardContent>
+            </Card>
+
+            {/* Cell Signal & Remote Work */}
+            <Card className="border-indigo-100">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg flex items-center gap-2" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                  <Signal className="w-5 h-5 text-indigo-600" /> Cell Signal & Remote Work
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                  {/* Signal Score Card */}
+                  <div className={`p-4 rounded-xl border ${
+                    (cg.signal_score ?? 0) >= 70 ? 'bg-green-50 border-green-200' :
+                    (cg.signal_score ?? 0) >= 40 ? 'bg-amber-50 border-amber-200' : 'bg-red-50 border-red-200'
+                  }`}>
+                    <p className="text-xs text-gray-500 font-medium mb-1">Signal Score</p>
+                    <p className={`text-3xl font-bold ${
+                      (cg.signal_score ?? 0) >= 70 ? 'text-green-700' :
+                      (cg.signal_score ?? 0) >= 40 ? 'text-amber-600' : 'text-red-600'
+                    }`}>
+                      {cg.signal_score ?? '—'}<span className="text-lg">/100</span>
+                    </p>
+                    <p className={`text-xs mt-1 ${
+                      (cg.signal_score ?? 0) >= 70 ? 'text-green-600' :
+                      (cg.signal_score ?? 0) >= 40 ? 'text-amber-500' : 'text-red-500'
+                    }`}>
+                      {(cg.signal_score ?? 0) >= 70 ? 'Good coverage — 2+ carriers detected' :
+                       (cg.signal_score ?? 0) >= 40 ? 'Fair coverage — 1 carrier detected' :
+                       'Poor coverage — no carriers detected nearby'}
+                    </p>
+                  </div>
+
+                  {/* Remote Work Score Card */}
+                  <div className="p-4 rounded-xl border bg-indigo-50 border-indigo-200">
+                    <p className="text-xs text-gray-500 font-medium mb-1">Remote Work Score</p>
+                    <p className="text-3xl font-bold text-indigo-700">
+                      {cg.remote_work_score != null ? Math.round(cg.remote_work_score) : '—'}<span className="text-lg">/100</span>
+                    </p>
+                    <p className="text-xs text-indigo-500 mt-1">
+                      Based on signal, town proximity & highway access
+                    </p>
+                  </div>
+                </div>
+
+                {/* Carrier Coverage */}
+                <div className="mb-4">
+                  <p className="text-sm font-medium text-gray-700 mb-2">Carrier Coverage</p>
+                  <div className="grid grid-cols-3 gap-3">
+                    {[
+                      { name: 'Verizon', has: cg.verizon_coverage, color: 'red' },
+                      { name: 'AT&T', has: cg.att_coverage, color: 'blue' },
+                      { name: 'T-Mobile', has: cg.tmobile_coverage, color: 'pink' },
+                    ].map(c => (
+                      <div key={c.name} className={`flex items-center gap-2 p-3 rounded-lg border transition ${
+                        c.has
+                          ? 'bg-white border-green-200 hover:border-green-300'
+                          : 'bg-gray-50/50 border-gray-100 opacity-60'
+                      }`}>
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                          c.has ? 'bg-green-100' : 'bg-gray-100'
+                        }`}>
+                          {c.has
+                            ? <Wifi className="w-4 h-4 text-green-600" />
+                            : <WifiOff className="w-4 h-4 text-gray-400" />
+                          }
+                        </div>
+                        <div>
+                          <span className="font-medium text-sm block">{c.name}</span>
+                          <span className={`text-xs ${c.has ? 'text-green-600' : 'text-gray-400'}`}>
+                            {c.has ? 'Available' : 'Not detected'}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Distance Info */}
+                <div className="grid grid-cols-2 gap-3">
+                  {cg.nearest_town && (
+                    <div className="p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <Building2 className="w-3.5 h-3.5 text-gray-500" />
+                        <p className="text-xs text-gray-500 font-medium">Nearest Town</p>
+                      </div>
+                      <p className="text-sm font-semibold text-gray-800">{cg.nearest_town}</p>
+                      {cg.distance_to_town_miles != null && (
+                        <p className="text-xs text-gray-500">{cg.distance_to_town_miles.toFixed(1)} miles away</p>
+                      )}
+                    </div>
+                  )}
+                  {cg.distance_to_highway_miles != null && (
+                    <div className="p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <Route className="w-3.5 h-3.5 text-gray-500" />
+                        <p className="text-xs text-gray-500 font-medium">Nearest Highway</p>
+                      </div>
+                      <p className="text-sm font-semibold text-gray-800">{cg.distance_to_highway_miles.toFixed(1)} mi</p>
+                      <p className="text-xs text-gray-500">Primary road access</p>
+                    </div>
+                  )}
+                </div>
               </CardContent>
             </Card>
 

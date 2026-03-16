@@ -7,7 +7,7 @@ This migration finalized the SignalCamping data layer by replacing all fabricate
 ## Data Sources
 
 | Source | Description | Records |
-|--------|-------------|---------|
+| --- | --- | --- |
 | `Campgrounds.geojson` (Overpass) | Raw OSM campground export for the Great Lakes region | 3,689 features |
 | `signal_camping_top150_verified.csv` | Hand-verified MVP campgrounds from prior audit | 32 records |
 | `signal_camping_top150_removed.csv` | Fabricated records identified during audit | 167 records |
@@ -24,11 +24,17 @@ Compared `campgrounds_osm.geojson.json` (3,127 features, 30+ fields) against `ge
 Applied the following filters and transformations to the raw OSM dataset:
 
 - Removed 560 unnamed records (features with no `campground_name`)
+
 - Removed 42 West Virginia records (out of scope per user requirement)
+
 - Removed 0 records matching the fabricated exclusion list (167 names checked)
+
 - Added 29 verified MVP records not found in the OSM dataset
+
 - Applied batch verification results to 465 matching records (453 upgraded to verified, 52 names corrected)
+
 - Normalized all boolean fields (`tent_sites`, `rv_sites`, `electric_hookups`, `waterfront`)
+
 - Assigned `state_full` names for all records
 
 ### Step 3: Exclusion Enforcement
@@ -40,6 +46,7 @@ Cross-referenced all 3,114 final records against the 167-name exclusion list fro
 Merged verification status from two sources:
 
 - 32 records from the original hand-verified MVP audit (all marked `is_verified: true`)
+
 - 453 additional records from batch verification against Michigan DNR, Ohio DNR, USFS, NPS, and Recreation.gov
 
 Total verified: 485 out of 3,114 (15.6%).
@@ -47,7 +54,7 @@ Total verified: 485 out of 3,114 (15.6%).
 ## Final Dataset Statistics
 
 | Metric | Value |
-|--------|-------|
+| --- | --- |
 | Total campgrounds | 3,114 |
 | Verified campgrounds | 485 |
 | States | 4 (MI, OH, PA, WI) |
@@ -57,7 +64,7 @@ Total verified: 485 out of 3,114 (15.6%).
 ### By State
 
 | State | Total | Verified |
-|-------|-------|----------|
+| --- | --- | --- |
 | Wisconsin | 1,003 | 195 |
 | Michigan | 958 | 223 |
 | Pennsylvania | 766 | 23 |
@@ -66,7 +73,7 @@ Total verified: 485 out of 3,114 (15.6%).
 ### By Type
 
 | Type | Count |
-|------|-------|
+| --- | --- |
 | Campground | 2,178 |
 | State Park | 324 |
 | Private | 176 |
@@ -85,7 +92,7 @@ Total verified: 485 out of 3,114 (15.6%).
 ### App Data Files (in `client/src/data/`)
 
 | File | Purpose | Records |
-|------|---------|---------|
+| --- | --- | --- |
 | `campgrounds.json` | Full inventory for map, search, and detail pages | 3,114 |
 | `geojson.json` | GeoJSON FeatureCollection for map rendering | 3,114 features |
 | `mvp_campgrounds.json` | Verified-only subset for featured content | 485 |
@@ -97,7 +104,7 @@ Total verified: 485 out of 3,114 (15.6%).
 ### Deliverable Datasets (in `datasets/`)
 
 | File | Purpose |
-|------|---------|
+| --- | --- |
 | `campgrounds_osm_final_clean.json` | Canonical clean dataset (JSON) |
 | `campgrounds_osm_final_clean.geojson` | Canonical clean dataset (GeoJSON) |
 | `signal_camping_top150_verified.csv` | Original verified MVP records |
@@ -110,9 +117,13 @@ Total verified: 485 out of 3,114 (15.6%).
 The following fields are **not displayed** in the app because they are not backed by real data:
 
 - `signal_confidence_score`, `verizon_signal`, `att_signal`, `tmobile_signal`
+
 - `remote_work_score`
+
 - `elevation_ft`, `forest_cover_percent`
+
 - `nearest_lake_name`, `distance_to_lake_miles`
+
 - `nearest_town`, `distance_to_town_miles`
 
 These fields were part of the original synthetic dataset and have been fully removed from all app components and data files.
@@ -122,3 +133,4 @@ These fields were part of the original synthetic dataset and have been fully rem
 All references to West Virginia (WV) have been removed from page components, state maps, footer links, and meta descriptions. The app now consistently references 4 states: Michigan, Ohio, Pennsylvania, and Wisconsin.
 
 All signal-strength, elevation, forest cover, and remote work score UI elements were removed in a prior migration and remain absent.
+
