@@ -11,9 +11,10 @@ import {
   Signal, MapPin, Tent, Truck, Zap, Waves,
   Navigation, ArrowLeft, ExternalLink,
   ChevronRight, Compass, CheckCircle2,
-  XCircle, Info, Globe, Wifi, WifiOff,
+  XCircle, Info, Globe, Wifi, HelpCircle,
   Briefcase, Building2, Route
 } from "lucide-react";
+import { getCarrierLikelihood, LIKELIHOOD_STYLES, CARRIER_DISCLAIMER, type CarrierLikelihood } from "@/lib/carrierLikelihood";
 import top100Data from "@/data/top100_seo.json";
 import mvpData from "@/data/mvp_campgrounds.json";
 import { MapView } from "@/components/Map";
@@ -323,37 +324,46 @@ export default function CampgroundLanding() {
                   </div>
                 </div>
 
-                {/* Carrier Coverage */}
+                {/* Carrier Likelihood */}
                 <div className="mb-4">
-                  <p className="text-sm font-medium text-gray-700 mb-2">Carrier Coverage</p>
-                  <div className="grid grid-cols-3 gap-3">
-                    {[
-                      { name: 'Verizon', has: cg.verizon_coverage, color: 'red' },
-                      { name: 'AT&T', has: cg.att_coverage, color: 'blue' },
-                      { name: 'T-Mobile', has: cg.tmobile_coverage, color: 'pink' },
-                    ].map(c => (
-                      <div key={c.name} className={`flex items-center gap-2 p-3 rounded-lg border transition ${
-                        c.has
-                          ? 'bg-white border-green-200 hover:border-green-300'
-                          : 'bg-gray-50/50 border-gray-100 opacity-60'
-                      }`}>
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                          c.has ? 'bg-green-100' : 'bg-gray-100'
-                        }`}>
-                          {c.has
-                            ? <Wifi className="w-4 h-4 text-green-600" />
-                            : <WifiOff className="w-4 h-4 text-gray-400" />
-                          }
-                        </div>
-                        <div>
-                          <span className="font-medium text-sm block">{c.name}</span>
-                          <span className={`text-xs ${c.has ? 'text-green-600' : 'text-gray-400'}`}>
-                            {c.has ? 'Available' : 'Not detected'}
-                          </span>
-                        </div>
+                  <p className="text-sm font-medium text-gray-700 mb-2">Carrier Likelihood</p>
+                  {(() => {
+                    const lk = getCarrierLikelihood(cg);
+                    const carriers: { name: string; level: CarrierLikelihood }[] = [
+                      { name: 'Verizon', level: lk.verizon },
+                      { name: 'AT&T', level: lk.att },
+                      { name: 'T-Mobile', level: lk.tmobile },
+                    ];
+                    return (
+                      <div className="grid grid-cols-3 gap-3">
+                        {carriers.map(c => {
+                          const style = LIKELIHOOD_STYLES[c.level];
+                          return (
+                            <div key={c.name} className={`flex items-center gap-2 p-3 rounded-lg border transition ${style.bgClass} ${style.borderClass}`}>
+                              <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                                c.level === 'Likely' ? 'bg-green-100' : c.level === 'Possible' ? 'bg-amber-100' : 'bg-gray-100'
+                              }`}>
+                                {c.level === 'Unknown'
+                                  ? <HelpCircle className="w-4 h-4 text-gray-400" />
+                                  : <Wifi className={`w-4 h-4 ${c.level === 'Likely' ? 'text-green-600' : 'text-amber-600'}`} />
+                                }
+                              </div>
+                              <div>
+                                <span className="font-medium text-sm block">{c.name}</span>
+                                <span className={`text-xs ${style.textClass}`}>
+                                  {style.label}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
                       </div>
-                    ))}
-                  </div>
+                    );
+                  })()}
+                  <p className="text-[10px] text-gray-400 mt-2 leading-tight flex items-start gap-1">
+                    <Info className="w-3 h-3 shrink-0 mt-0.5" />
+                    <span>{CARRIER_DISCLAIMER}</span>
+                  </p>
                 </div>
 
                 {/* Distance Info */}

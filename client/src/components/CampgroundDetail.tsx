@@ -7,9 +7,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   MapPin, Tent, Truck, Zap, Waves, ExternalLink, X,
-  CheckCircle2, Globe, Phone, Signal, Wifi, WifiOff,
-  Briefcase, Building2, Route
+  CheckCircle2, Globe, Phone, Signal, Wifi, HelpCircle,
+  Briefcase, Building2, Route, Info
 } from "lucide-react";
+import { getCarrierLikelihood, LIKELIHOOD_STYLES, CARRIER_DISCLAIMER, type CarrierLikelihood } from "@/lib/carrierLikelihood";
 import { Link } from "wouter";
 
 interface CampgroundDetailProps {
@@ -129,24 +130,37 @@ export default function CampgroundDetail({ campground: cg, onClose }: Campground
             </span>
           </div>
 
-          {/* Carrier Coverage */}
+          {/* Carrier Likelihood */}
           <div className="space-y-1.5">
-            <span className="text-xs text-gray-500">Carrier Coverage</span>
-            <div className="grid grid-cols-3 gap-1.5">
-              {[
-                { name: 'Verizon', has: cg.verizon_coverage },
-                { name: 'AT&T', has: cg.att_coverage },
-                { name: 'T-Mobile', has: cg.tmobile_coverage },
-              ].map(c => (
-                <div key={c.name} className={`flex items-center gap-1 text-xs px-2 py-1 rounded ${
-                  c.has ? 'bg-green-50 text-green-700' : 'bg-gray-50 text-gray-400'
-                }`}>
-                  {c.has ? <Wifi className="w-3 h-3" /> : <WifiOff className="w-3 h-3" />}
-                  <span className="truncate">{c.name}</span>
+            <span className="text-xs text-gray-500">Carrier Likelihood</span>
+            {(() => {
+              const lk = getCarrierLikelihood(cg);
+              const carriers: { name: string; level: CarrierLikelihood }[] = [
+                { name: 'Verizon', level: lk.verizon },
+                { name: 'AT&T', level: lk.att },
+                { name: 'T-Mobile', level: lk.tmobile },
+              ];
+              return (
+                <div className="grid grid-cols-3 gap-1.5">
+                  {carriers.map(c => {
+                    const style = LIKELIHOOD_STYLES[c.level];
+                    return (
+                      <div key={c.name} className={`flex items-center gap-1 text-xs px-2 py-1 rounded ${style.bgClass} ${style.textClass}`}>
+                        {c.level === 'Unknown' ? <HelpCircle className="w-3 h-3" /> : <Wifi className="w-3 h-3" />}
+                        <span className="truncate">{c.name}</span>
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
-            </div>
+              );
+            })()}
           </div>
+
+          {/* Disclaimer */}
+          <p className="text-[10px] text-gray-400 leading-tight">
+            <Info className="w-2.5 h-2.5 inline mr-0.5 -mt-px" />
+            {CARRIER_DISCLAIMER}
+          </p>
 
           {/* Distance info */}
           {(cg.nearest_town || cg.distance_to_highway_miles != null) && (

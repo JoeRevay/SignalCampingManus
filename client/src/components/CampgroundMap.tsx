@@ -5,6 +5,7 @@
 import { useRef, useCallback, useEffect, useState } from "react";
 import { MapView } from "@/components/Map";
 import { MarkerClusterer, SuperClusterAlgorithm } from "@googlemaps/markerclusterer";
+import { getCarrierLikelihood, getLikelihoodColor, getLikelihoodSymbol, CARRIER_DISCLAIMER } from "@/lib/carrierLikelihood";
 
 interface CampgroundData {
   campground_name: string;
@@ -81,15 +82,20 @@ function createInfoContent(cg: CampgroundData) {
       ).join("")}</div>`
     : "";
 
-  // Signal coverage section
+  // Signal coverage section with carrier likelihood
   const sigColor = getSignalColor(cg.signal_score);
   const sigLabel = getSignalLabel(cg.signal_score);
-  const vz = cg.verizon_coverage ? '✓' : '✗';
-  const vzColor = cg.verizon_coverage ? '#16a34a' : '#d1d5db';
-  const att = cg.att_coverage ? '✓' : '✗';
-  const attColor = cg.att_coverage ? '#16a34a' : '#d1d5db';
-  const tm = cg.tmobile_coverage ? '✓' : '✗';
-  const tmColor = cg.tmobile_coverage ? '#16a34a' : '#d1d5db';
+  const likelihood = getCarrierLikelihood(cg);
+
+  const carrierRows = [
+    { name: 'Verizon', level: likelihood.verizon },
+    { name: 'AT&T', level: likelihood.att },
+    { name: 'T-Mobile', level: likelihood.tmobile },
+  ].map(c => {
+    const color = getLikelihoodColor(c.level);
+    const sym = getLikelihoodSymbol(c.level);
+    return `<span style="font-size:10px;color:${color};font-weight:500">${c.name} ${sym} ${c.level}</span>`;
+  }).join('');
 
   const signalHtml = `
     <div style="background:#f8fafc;border-radius:6px;padding:8px;margin-bottom:8px">
@@ -98,14 +104,13 @@ function createInfoContent(cg: CampgroundData) {
         <span style="font-size:13px;font-weight:700;color:${sigColor}">${cg.signal_score ?? '—'} <span style="font-size:10px;font-weight:400">${sigLabel}</span></span>
       </div>
       <div style="display:flex;gap:8px;margin-bottom:4px">
-        <span style="font-size:10px;color:${vzColor};font-weight:500">Verizon ${vz}</span>
-        <span style="font-size:10px;color:${attColor};font-weight:500">AT&T ${att}</span>
-        <span style="font-size:10px;color:${tmColor};font-weight:500">T-Mobile ${tm}</span>
+        ${carrierRows}
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center">
         <span style="font-size:10px;color:#64748b">Remote Work Score</span>
         <span style="font-size:11px;font-weight:600;color:#6366f1">${cg.remote_work_score != null ? Math.round(cg.remote_work_score) : '—'}/100</span>
       </div>
+      <p style="font-size:8px;color:#94a3b8;margin:4px 0 0;line-height:1.3">${CARRIER_DISCLAIMER}</p>
     </div>
   `;
 
