@@ -2,8 +2,10 @@
  * Home — SignalCamping MVP Homepage
  *
  * Design: Outdoor-themed, polished landing page with hero, map preview,
- * featured lists, route search, signal explanation, and internal links.
+ * featured lists, route search, and internal links.
  * Style: Space Grotesk headings, DM Sans body, green/earth palette.
+ *
+ * Data: OSM base inventory (3127 campgrounds) + verified MVP subset (32).
  */
 import { useState, useMemo, useCallback } from "react";
 import { Link } from "wouter";
@@ -11,17 +13,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Signal, Map as MapIcon, List, BarChart3, Download, Search,
   ChevronLeft, ChevronRight, Menu, X, ArrowRight, Waves, Tent,
-  Zap, Laptop, MapPin, Trophy, Navigation, Star, Trees, Mountain,
-  Smartphone, Wifi, CheckCircle2, Car
+  Zap, MapPin, Trophy, Navigation, Star, Trees,
+  CheckCircle2, Car
 } from "lucide-react";
 import {
   BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis,
   CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  ScatterChart, Scatter, ZAxis
 } from "recharts";
 
 import CampgroundMap from "@/components/CampgroundMap";
@@ -35,7 +36,6 @@ import listsData from "@/data/shareable_lists.json";
 
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663440718528/7Ys6UrtVjk2wmoMCZVS2Yg/hero-camping-signal-EzwZHRaoseAjvWPQqMZuz7.webp";
 const MAP_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663440718528/7Ys6UrtVjk2wmoMCZVS2Yg/hero-map-discovery-Piy6xvKVyz6pBgBrequccc.webp";
-const REMOTE_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663440718528/7Ys6UrtVjk2wmoMCZVS2Yg/hero-remote-work-mrZqPsVQjqLzkvMFxnj3qc.webp";
 const ROUTE_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663440718528/7Ys6UrtVjk2wmoMCZVS2Yg/hero-route-trip-fFHyNfqxYJZ2WSdcvmnYF7.webp";
 
 /* ──────────────────────────── Data normalisation ──────────────────────────── */
@@ -46,6 +46,27 @@ const allCampgrounds = (rawData as any[]).map(cg => ({
   electric_hookups: cg.electric_hookups === true || cg.electric_hookups === "True",
   waterfront: cg.waterfront === true || cg.waterfront === "True",
 }));
+
+const STATE_NAMES: Record<string, string> = {
+  MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin", WV: "West Virginia",
+};
+
+/* ── Compute filter metadata (static, computed once at module load) ── */
+const stateOptions = (() => {
+  const counts: Record<string, number> = {};
+  allCampgrounds.forEach(c => { counts[c.state] = (counts[c.state] || 0) + 1; });
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([code, count]) => ({ code, name: STATE_NAMES[code] || code, count }));
+})();
+
+const typeOptions = (() => {
+  const counts: Record<string, number> = {};
+  allCampgrounds.forEach(c => { counts[c.campground_type] = (counts[c.campground_type] || 0) + 1; });
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([value, count]) => ({ value, label: value.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase()), count }));
+})();
 
 /* ──────────────────────────── Main Component ──────────────────────────── */
 export default function Home() {
@@ -65,9 +86,7 @@ export default function Home() {
     const headers = [
       "campground_name", "city", "state", "latitude", "longitude", "campground_type",
       "tent_sites", "rv_sites", "electric_hookups", "waterfront",
-      "verizon_signal", "att_signal", "tmobile_signal", "signal_confidence_score",
-      "nearest_lake_name", "distance_to_lake_miles", "nearest_town", "distance_to_town_miles",
-      "elevation_ft", "forest_cover_percent", "reservation_link", "website"
+      "website", "operator", "is_verified"
     ];
     const rows = filtered.map(cg => headers.map(h => {
       const v = cg[h];
@@ -85,19 +104,14 @@ export default function Home() {
 
   /* Analytics data */
   const stateStats = useMemo(() => {
-    const m: Record<string, { count: number; sig: number; elev: number; forest: number }> = {};
+    const m: Record<string, { count: number; verified: number }> = {};
     filtered.forEach(cg => {
-      if (!m[cg.state]) m[cg.state] = { count: 0, sig: 0, elev: 0, forest: 0 };
+      if (!m[cg.state]) m[cg.state] = { count: 0, verified: 0 };
       m[cg.state].count++;
-      m[cg.state].sig += cg.signal_confidence_score;
-      m[cg.state].elev += cg.elevation_ft;
-      m[cg.state].forest += cg.forest_cover_percent;
+      if (cg.is_verified) m[cg.state].verified++;
     });
     return Object.entries(m).map(([state, d]) => ({
-      state, campgrounds: d.count,
-      avgSignal: Math.round(d.sig / d.count * 10) / 10,
-      avgElevation: Math.round(d.elev / d.count),
-      avgForest: Math.round(d.forest / d.count),
+      state, campgrounds: d.count, verified: d.verified,
     }));
   }, [filtered]);
 
@@ -109,12 +123,6 @@ export default function Home() {
     }));
   }, [filtered]);
 
-  const signalDist = useMemo(() => {
-    const d: Record<number, number> = {};
-    filtered.forEach(cg => { d[cg.signal_confidence_score] = (d[cg.signal_confidence_score] || 0) + 1; });
-    return [5, 4, 3, 2, 1].map(s => ({ score: `${s}★`, count: d[s] || 0 }));
-  }, [filtered]);
-
   const COLORS = ["#16a34a", "#2563eb", "#d97706", "#dc2626", "#7c3aed"];
 
   /* Detail view */
@@ -123,7 +131,10 @@ export default function Home() {
       <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
         <Header onExplore={() => setView("explorer")} />
         <div className="container py-6">
-          <CampgroundDetail campground={selectedCampground} onBack={() => setSelectedCampground(null)} />
+          <Button variant="ghost" size="sm" onClick={() => setSelectedCampground(null)} className="mb-4 text-gray-500">
+            <ChevronLeft className="w-4 h-4 mr-1" /> Back to results
+          </Button>
+          <CampgroundDetail campground={selectedCampground} onClose={() => setSelectedCampground(null)} />
         </div>
       </div>
     );
@@ -144,14 +155,14 @@ export default function Home() {
           <div className="flex gap-6">
             <aside className={`${sidebarOpen ? "w-72 min-w-[288px]" : "w-0 min-w-0 overflow-hidden"} hidden lg:block transition-all duration-300 shrink-0`}>
               <div className="sticky top-16">
-                <FilterPanel filters={filters} onChange={setFilters} totalCount={allCampgrounds.length} filteredCount={filtered.length} />
+                <FilterPanel filters={filters} onChange={setFilters} states={stateOptions} types={typeOptions} />
               </div>
             </aside>
             {mobileSidebar && (
               <div className="fixed inset-0 z-50 lg:hidden">
                 <div className="absolute inset-0 bg-black/30" onClick={() => setMobileSidebar(false)} />
                 <div className="absolute left-0 top-0 bottom-0 w-80 bg-white overflow-y-auto p-4 shadow-xl">
-                  <FilterPanel filters={filters} onChange={setFilters} totalCount={allCampgrounds.length} filteredCount={filtered.length} />
+                  <FilterPanel filters={filters} onChange={setFilters} states={stateOptions} types={typeOptions} />
                 </div>
               </div>
             )}
@@ -164,7 +175,7 @@ export default function Home() {
                 </div>
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                  <Input placeholder="Search campgrounds, cities, lakes..." value={filters.searchTerm} onChange={(e) => handleSearch(e.target.value)} className="pl-10 h-10" />
+                  <Input placeholder="Search campgrounds, cities, operators..." value={filters.searchTerm} onChange={(e) => handleSearch(e.target.value)} className="pl-10 h-10" />
                 </div>
                 <Button variant="outline" size="sm" onClick={downloadCSV} className="shrink-0">
                   <Download className="w-4 h-4 mr-1" /> CSV
@@ -192,39 +203,25 @@ export default function Home() {
                           <CartesianGrid strokeDasharray="3 3" />
                           <XAxis dataKey="state" /><YAxis yAxisId="left" /><YAxis yAxisId="right" orientation="right" />
                           <Tooltip /><Legend />
-                          <Bar yAxisId="left" dataKey="campgrounds" fill="#16a34a" name="Campgrounds" radius={[4, 4, 0, 0]} />
-                          <Bar yAxisId="right" dataKey="avgSignal" fill="#2563eb" name="Avg Signal" radius={[4, 4, 0, 0]} />
+                          <Bar yAxisId="left" dataKey="campgrounds" fill="#16a34a" name="Total" radius={[4, 4, 0, 0]} />
+                          <Bar yAxisId="right" dataKey="verified" fill="#2563eb" name="Verified" radius={[4, 4, 0, 0]} />
                         </BarChart>
                       </ResponsiveContainer>
                     </CardContent>
                   </Card>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <Card>
-                      <CardHeader><CardTitle className="text-base">Campground Types</CardTitle></CardHeader>
-                      <CardContent>
-                        <ResponsiveContainer width="100%" height={250}>
-                          <PieChart>
-                            <Pie data={typeDistribution} cx="50%" cy="50%" outerRadius={80} dataKey="value" label={({ name, value }) => `${name}: ${value}`} labelLine={false}>
-                              {typeDistribution.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
-                            </Pie>
-                            <Tooltip />
-                          </PieChart>
-                        </ResponsiveContainer>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardHeader><CardTitle className="text-base">Signal Score Distribution</CardTitle></CardHeader>
-                      <CardContent>
-                        <ResponsiveContainer width="100%" height={250}>
-                          <BarChart data={signalDist}>
-                            <CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="score" /><YAxis />
-                            <Tooltip formatter={(v: number) => `${v} campgrounds`} />
-                            <Bar dataKey="count" fill="#16a34a" radius={[4, 4, 0, 0]} />
-                          </BarChart>
-                        </ResponsiveContainer>
-                      </CardContent>
-                    </Card>
-                  </div>
+                  <Card>
+                    <CardHeader><CardTitle className="text-base">Campground Types</CardTitle></CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <PieChart>
+                          <Pie data={typeDistribution} cx="50%" cy="50%" outerRadius={100} dataKey="value" label={({ name, value }) => `${name}: ${value}`} labelLine={false}>
+                            {typeDistribution.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                          </Pie>
+                          <Tooltip />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
                 </TabsContent>
               </Tabs>
             </main>
@@ -245,28 +242,28 @@ export default function Home() {
       {/* ── Hero Section ── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="Campground with cell signal" className="w-full h-full object-cover" />
+          <img src={HERO_IMG} alt="Campground discovery" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/30" />
         </div>
         <div className="container relative z-10 py-20 sm:py-28 lg:py-36">
           <div className="max-w-2xl">
             <Badge className="bg-green-600/90 text-white border-green-500 mb-4 text-xs">
-              {allCampgrounds.length.toLocaleString()} Campgrounds &middot; 5 States &middot; 3 Carriers
+              {allCampgrounds.length.toLocaleString()} Campgrounds &middot; 5 States &middot; OpenStreetMap Data
             </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-              Find Campgrounds Where Your Phone{" "}
-              <span className="text-green-400">Actually Works</span>
+              Discover Real Campgrounds Across the{" "}
+              <span className="text-green-400">Great Lakes</span>
             </h1>
             <p className="text-lg sm:text-xl text-white/80 mb-8 leading-relaxed">
-              Verified cellular coverage data for campgrounds across Michigan, Ohio, Pennsylvania, Wisconsin, and West Virginia. Never lose signal at camp again.
+              Explore {allCampgrounds.length.toLocaleString()} verified campground locations from OpenStreetMap across Michigan, Ohio, Pennsylvania, Wisconsin, and West Virginia.
             </p>
             <div className="flex flex-wrap gap-3">
               <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white shadow-lg" onClick={() => setView("explorer")}>
                 <MapIcon className="w-5 h-5 mr-2" /> Explore the Map
               </Button>
-              <Link href="/lists">
+              <Link href="/top-campgrounds">
                 <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm">
-                  <Trophy className="w-5 h-5 mr-2" /> Browse Top Lists
+                  <Trophy className="w-5 h-5 mr-2" /> Browse All Campgrounds
                 </Button>
               </Link>
             </div>
@@ -281,7 +278,7 @@ export default function Home() {
             {[
               { value: allCampgrounds.length.toLocaleString(), label: "Campgrounds", icon: Tent },
               { value: "5", label: "States Covered", icon: MapPin },
-              { value: "3", label: "Carriers Tracked", icon: Signal },
+              { value: allCampgrounds.filter(c => c.is_verified).length.toString(), label: "Verified Sites", icon: CheckCircle2 },
               { value: (listsData as any[]).length.toString(), label: "Curated Lists", icon: Star },
             ].map(stat => (
               <div key={stat.label} className="flex flex-col items-center">
@@ -301,17 +298,15 @@ export default function Home() {
             <div>
               <Badge className="bg-green-100 text-green-800 border-green-200 mb-3">Interactive Map</Badge>
               <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-                See Signal Strength at Every Campground
+                Explore {allCampgrounds.length.toLocaleString()} Campgrounds on the Map
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Our interactive map shows cellular coverage for Verizon, AT&T, and T-Mobile at every campground. Color-coded markers make it easy to find spots with strong signal.
+                Our interactive map shows every campground from OpenStreetMap across the Great Lakes region. Filter by state, type, amenities, and more. Verified campgrounds are highlighted in green.
               </p>
               <div className="space-y-3 mb-6">
                 {[
-                  { color: "bg-green-500", label: "Strong Signal", desc: "Reliable calls, texts, and data" },
-                  { color: "bg-amber-500", label: "Moderate Signal", desc: "Calls and texts work, data may be slow" },
-                  { color: "bg-red-500", label: "Weak Signal", desc: "Intermittent coverage" },
-                  { color: "bg-gray-800", label: "No Signal", desc: "No cellular coverage detected" },
+                  { color: "bg-green-500", label: "Verified Campgrounds", desc: "Confirmed against official state park / DNR sources" },
+                  { color: "bg-blue-500", label: "OSM Campgrounds", desc: "Real locations from OpenStreetMap contributors" },
                 ].map(item => (
                   <div key={item.label} className="flex items-center gap-3">
                     <div className={`w-4 h-4 rounded-full ${item.color} shrink-0`} />
@@ -327,7 +322,7 @@ export default function Home() {
               </Button>
             </div>
             <div className="relative rounded-xl overflow-hidden shadow-2xl cursor-pointer group" onClick={() => setView("explorer")}>
-              <img src={MAP_IMG} alt="Great Lakes signal coverage map" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
+              <img src={MAP_IMG} alt="Great Lakes campground map" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                 <div className="bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg flex items-center gap-2 font-semibold text-green-800">
                   <MapIcon className="w-5 h-5" /> Click to Explore
@@ -344,15 +339,15 @@ export default function Home() {
           <div className="text-center mb-10">
             <Badge className="bg-amber-100 text-amber-800 border-amber-200 mb-3">Curated Lists</Badge>
             <h2 className="text-3xl font-bold mb-3" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-              Top Campground Lists
+              Verified Campground Lists
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Shareable, ranked lists of the best campgrounds for every type of camper. Perfect for planning your next trip.
+              Curated lists of verified campgrounds across the Great Lakes. Perfect for planning your next trip.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {featuredLists.map((list: any) => (
-              <Link key={list.slug} href={`/list/${list.slug}`}>
+              <Link key={list.slug || list.id} href={`/list/${list.slug || list.id}`}>
                 <Card className="h-full hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer group">
                   <CardContent className="p-5">
                     <h3 className="font-bold text-sm mb-2 group-hover:text-green-700 transition-colors leading-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
@@ -360,8 +355,7 @@ export default function Home() {
                     </h3>
                     <p className="text-xs text-muted-foreground line-clamp-2 mb-3">{list.description}</p>
                     <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="text-[10px]">{list.count} campgrounds</Badge>
-                      <Badge variant="outline" className="text-[10px] border-green-200 text-green-700">{list.avg_signal}/5 signal</Badge>
+                      <Badge variant="outline" className="text-[10px]">{list.count || list.slugs?.length || 0} campgrounds</Badge>
                     </div>
                   </CardContent>
                 </Card>
@@ -371,7 +365,7 @@ export default function Home() {
           <div className="text-center mt-8">
             <Link href="/lists">
               <Button variant="outline" className="border-green-200 text-green-700 hover:bg-green-50">
-                View All {(listsData as any[]).length} Lists <ArrowRight className="w-4 h-4 ml-1" />
+                View All Lists <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
           </div>
@@ -385,7 +379,7 @@ export default function Home() {
             <div className="relative rounded-xl overflow-hidden shadow-2xl order-2 lg:order-1">
               <img src={ROUTE_IMG} alt="Road trip through fall foliage" className="w-full h-auto" />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-                <div className="text-white text-sm font-medium">Popular: Cleveland → Traverse City</div>
+                <div className="text-white text-sm font-medium">Popular: Cleveland to Traverse City</div>
               </div>
             </div>
             <div className="order-1 lg:order-2">
@@ -394,10 +388,10 @@ export default function Home() {
                 Find Campgrounds Along Your Road Trip
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Planning a road trip? Our route finder shows campgrounds with cell service along your travel corridor. Never be stuck without signal on a long drive.
+                Planning a road trip? Our route finder shows campgrounds along your travel corridor across the Great Lakes region.
               </p>
               <div className="space-y-2 mb-6">
-                {["Cleveland → Traverse City", "Detroit → Mackinaw City", "Columbus → Hocking Hills", "Pittsburgh → Erie"].map(route => (
+                {["Cleveland to Traverse City", "Detroit to Mackinaw City", "Columbus to Hocking Hills", "Pittsburgh to Erie"].map(route => (
                   <div key={route} className="flex items-center gap-2 text-sm">
                     <Car className="w-4 h-4 text-orange-600" />
                     <span>{route}</span>
@@ -414,61 +408,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Remote Work Section ── */}
+      {/* ── Data Sources ── */}
       <section className="py-16 bg-gradient-to-b from-stone-50 to-white">
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <Badge className="bg-purple-100 text-purple-800 border-purple-200 mb-3">Remote Work</Badge>
-              <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-                Work From the Woods
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                Our RemoteWorkScore rates each campground on a 1-10 scale based on signal strength, carrier diversity, and proximity to town. Find the perfect spot to take your next Zoom call from nature.
-              </p>
-              <div className="grid grid-cols-3 gap-3 mb-6">
-                {[
-                  { score: "8-10", label: "Excellent", desc: "Video calls work", color: "bg-emerald-100 text-emerald-800 border-emerald-200" },
-                  { score: "5-7", label: "Good", desc: "Calls & email", color: "bg-amber-100 text-amber-800 border-amber-200" },
-                  { score: "1-4", label: "Usable", desc: "Basic texting", color: "bg-red-100 text-red-800 border-red-200" },
-                ].map(item => (
-                  <div key={item.label} className={`rounded-lg border p-3 text-center ${item.color}`}>
-                    <div className="font-bold text-lg" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{item.score}</div>
-                    <div className="text-xs font-medium">{item.label}</div>
-                    <div className="text-[10px] opacity-70">{item.desc}</div>
-                  </div>
-                ))}
-              </div>
-              <Link href="/list/best-remote-work-campgrounds-great-lakes">
-                <Button className="bg-purple-700 hover:bg-purple-800 text-white">
-                  <Laptop className="w-4 h-4 mr-2" /> View Remote Work Campgrounds
-                </Button>
-              </Link>
-            </div>
-            <div className="relative rounded-xl overflow-hidden shadow-2xl">
-              <img src={REMOTE_IMG} alt="Remote work at campground" className="w-full h-auto" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── How It Works ── */}
-      <section className="py-16 bg-white">
         <div className="container">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold mb-3" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-              How Signal Ratings Work
+              How Our Data Works
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              We combine data from multiple sources to give you the most accurate picture of cellular coverage at each campground.
+              We combine authoritative data sources to provide the most accurate campground directory for the Great Lakes region.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: Signal, title: "Carrier Maps", desc: "We analyze official coverage maps from Verizon, AT&T, and T-Mobile for each campground location.", step: "1" },
-              { icon: Smartphone, title: "Crowdsourced Data", desc: "Real-world signal reports from OpenSignal, CellMapper, and camper communities.", step: "2" },
-              { icon: Mountain, title: "Terrain Analysis", desc: "Elevation, forest cover, and distance to cell towers affect signal quality.", step: "3" },
-              { icon: CheckCircle2, title: "Confidence Score", desc: "We combine all sources into a 1-5 confidence score so you know how reliable the data is.", step: "4" },
+              { icon: MapPin, title: "OpenStreetMap", desc: "Our base inventory of 3,127 campgrounds comes from OSM, the world's largest open geographic database, maintained by a global community of contributors.", step: "1" },
+              { icon: CheckCircle2, title: "Official Verification", desc: "We verify campgrounds against state DNR websites, Recreation.gov, NPS, and US Forest Service records to confirm names, locations, and details.", step: "2" },
+              { icon: Star, title: "Curated Lists", desc: "Verified campgrounds are organized into curated lists by state, amenity type, and use case to help you find the perfect campsite.", step: "3" },
             ].map(item => (
               <Card key={item.title} className="text-center">
                 <CardContent className="p-6">
@@ -486,7 +441,7 @@ export default function Home() {
       </section>
 
       {/* ── Browse by State ── */}
-      <section className="py-16 bg-gradient-to-b from-stone-50 to-white">
+      <section className="py-16 bg-white">
         <div className="container">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold mb-3" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
@@ -495,18 +450,18 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             {[
-              { state: "Michigan", code: "mi", count: allCampgrounds.filter(c => c.state === "MI").length },
-              { state: "Ohio", code: "oh", count: allCampgrounds.filter(c => c.state === "OH").length },
-              { state: "Pennsylvania", code: "pa", count: allCampgrounds.filter(c => c.state === "PA").length },
-              { state: "Wisconsin", code: "wi", count: allCampgrounds.filter(c => c.state === "WI").length },
-              { state: "West Virginia", code: "wv", count: allCampgrounds.filter(c => c.state === "WV").length },
+              { state: "Michigan", code: "mi", stateCode: "MI" },
+              { state: "Ohio", code: "oh", stateCode: "OH" },
+              { state: "Pennsylvania", code: "pa", stateCode: "PA" },
+              { state: "Wisconsin", code: "wi", stateCode: "WI" },
+              { state: "West Virginia", code: "wv", stateCode: "WV" },
             ].map(s => (
               <Link key={s.code} href={`/campgrounds/${s.code}`}>
                 <Card className="hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer text-center">
                   <CardContent className="p-5">
                     <Trees className="w-8 h-8 text-green-600 mx-auto mb-2" />
                     <h3 className="font-bold text-sm mb-1" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{s.state}</h3>
-                    <p className="text-xs text-muted-foreground">{s.count} campgrounds</p>
+                    <p className="text-xs text-muted-foreground">{allCampgrounds.filter(c => c.state === s.stateCode).length} campgrounds</p>
                   </CardContent>
                 </Card>
               </Link>
@@ -533,7 +488,7 @@ function Header({ onExplore }: { onExplore?: () => void }) {
               </div>
               <div>
                 <h1 className="text-xl font-bold tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</h1>
-                <p className="text-[10px] text-muted-foreground leading-none">Great Lakes Campground Signal Discovery</p>
+                <p className="text-[10px] text-muted-foreground leading-none">Great Lakes Campground Discovery</p>
               </div>
             </div>
           </Link>
@@ -553,12 +508,7 @@ function Header({ onExplore }: { onExplore?: () => void }) {
             </Link>
             <Link href="/top-campgrounds">
               <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden md:inline-flex">
-                Top 100
-              </Button>
-            </Link>
-            <Link href="/seo-directory">
-              <Button variant="ghost" size="sm" className="text-xs text-gray-600 hover:text-gray-800 hidden lg:inline-flex">
-                SEO Pages
+                All Campgrounds
               </Button>
             </Link>
             <Badge variant="outline" className="text-xs hidden sm:inline-flex border-green-200 text-green-700 bg-green-50">
@@ -584,7 +534,7 @@ function Footer() {
               </div>
               <h3 className="font-bold text-white" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</h3>
             </div>
-            <p className="text-sm leading-relaxed">Find campgrounds where your phone actually works. Verified cellular coverage data for the Great Lakes region.</p>
+            <p className="text-sm leading-relaxed">Discover real campgrounds across the Great Lakes region. Data sourced from OpenStreetMap and verified against official state records.</p>
           </div>
           <div>
             <h4 className="font-semibold text-white mb-3">Browse by State</h4>
@@ -597,23 +547,23 @@ function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-3">Features</h4>
             <ul className="space-y-1.5 text-sm">
-              <li><Link href="/lists" className="hover:text-green-400 transition">Shareable Lists</Link></li>
+              <li><Link href="/lists" className="hover:text-green-400 transition">Curated Lists</Link></li>
               <li><Link href="/route-finder" className="hover:text-green-400 transition">Route Finder</Link></li>
-              <li><Link href="/top-campgrounds" className="hover:text-green-400 transition">Top 100 Campgrounds</Link></li>
-              <li><Link href="/seo-directory" className="hover:text-green-400 transition">All SEO Pages</Link></li>
+              <li><Link href="/top-campgrounds" className="hover:text-green-400 transition">All Campgrounds</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold text-white mb-3">Documentation</h4>
+            <h4 className="font-semibold text-white mb-3">Data Sources</h4>
             <ul className="space-y-1.5 text-sm">
-              <li><Link href="/build-spec" className="hover:text-green-400 transition">Build Spec</Link></li>
-              <li><Link href="/mvp-launch" className="hover:text-green-400 transition">MVP Launch</Link></li>
-              <li><Link href="/product-v1" className="hover:text-green-400 transition">Product v1</Link></li>
+              <li className="text-gray-500">OpenStreetMap</li>
+              <li className="text-gray-500">Michigan DNR</li>
+              <li className="text-gray-500">Ohio DNR</li>
+              <li className="text-gray-500">Recreation.gov</li>
             </ul>
           </div>
         </div>
         <div className="border-t border-gray-800 pt-6 text-sm text-center text-gray-500">
-          &copy; 2026 SignalCamping &mdash; Campground discovery with verified cellular coverage data.
+          &copy; 2026 SignalCamping &mdash; Campground discovery powered by OpenStreetMap data.
         </div>
       </div>
     </footer>

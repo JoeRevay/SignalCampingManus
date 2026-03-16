@@ -3,7 +3,7 @@
  */
 import { useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Signal, MapPin, Mountain, Trees, Waves, Navigation } from "lucide-react";
+import { MapPin, CheckCircle2, Tent, Waves, Zap } from "lucide-react";
 
 interface StatsPanelProps {
   campgrounds: any[];
@@ -16,11 +16,10 @@ export default function StatsPanel({ campgrounds, totalCount }: StatsPanelProps)
     const len = campgrounds.length;
     return {
       count: len,
-      avgSignal: (campgrounds.reduce((s, c) => s + c.signal_confidence_score, 0) / len).toFixed(1),
-      avgElev: Math.round(campgrounds.reduce((s, c) => s + c.elevation_ft, 0) / len),
-      avgForest: Math.round(campgrounds.reduce((s, c) => s + c.forest_cover_percent, 0) / len),
+      verified: campgrounds.filter(c => c.is_verified).length,
+      tent: campgrounds.filter(c => c.tent_sites).length,
       waterfront: campgrounds.filter(c => c.waterfront).length,
-      avgDistTown: (campgrounds.reduce((s, c) => s + c.distance_to_town_miles, 0) / len).toFixed(1),
+      electric: campgrounds.filter(c => c.electric_hookups).length,
       states: new Set(campgrounds.map(c => c.state)).size,
     };
   }, [campgrounds]);
@@ -29,15 +28,14 @@ export default function StatsPanel({ campgrounds, totalCount }: StatsPanelProps)
 
   const items = [
     { icon: MapPin, label: "Campgrounds", value: stats.count.toLocaleString(), sub: `of ${totalCount.toLocaleString()}`, color: "text-green-700" },
-    { icon: Signal, label: "Avg Signal", value: `${stats.avgSignal}/5`, sub: "confidence", color: "text-blue-600" },
-    { icon: Mountain, label: "Avg Elevation", value: `${stats.avgElev.toLocaleString()} ft`, sub: "above sea level", color: "text-violet-600" },
-    { icon: Trees, label: "Avg Forest", value: `${stats.avgForest}%`, sub: "tree cover", color: "text-emerald-600" },
+    { icon: CheckCircle2, label: "Verified", value: stats.verified.toString(), sub: `${((stats.verified / stats.count) * 100).toFixed(0)}% of results`, color: "text-emerald-600" },
+    { icon: Tent, label: "Tent Sites", value: stats.tent.toString(), sub: `${((stats.tent / stats.count) * 100).toFixed(0)}% of results`, color: "text-blue-600" },
     { icon: Waves, label: "Waterfront", value: stats.waterfront.toString(), sub: `${((stats.waterfront / stats.count) * 100).toFixed(0)}% of results`, color: "text-cyan-600" },
-    { icon: Navigation, label: "Avg to Town", value: `${stats.avgDistTown} mi`, sub: "nearest town", color: "text-rose-600" },
+    { icon: Zap, label: "Electric", value: stats.electric.toString(), sub: `${((stats.electric / stats.count) * 100).toFixed(0)}% of results`, color: "text-amber-600" },
   ];
 
   return (
-    <div className="grid grid-cols-3 lg:grid-cols-6 gap-3">
+    <div className="grid grid-cols-3 lg:grid-cols-5 gap-3">
       {items.map(item => (
         <Card key={item.label} className="border-gray-100">
           <CardContent className="p-3">

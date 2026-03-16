@@ -2,351 +2,1011 @@
   {
     "type": "state",
     "slug": "campgrounds/mi",
-    "title": "Best Campgrounds with Cell Service in Michigan",
+    "title": "Campgrounds with Cell Service in Michigan",
     "state": "MI",
     "state_full": "Michigan",
-    "count": 20
+    "count": 941
   },
   {
     "type": "state",
     "slug": "campgrounds/oh",
-    "title": "Best Campgrounds with Cell Service in Ohio",
+    "title": "Campgrounds with Cell Service in Ohio",
     "state": "OH",
     "state_full": "Ohio",
-    "count": 12
+    "count": 375
+  },
+  {
+    "type": "state",
+    "slug": "campgrounds/pa",
+    "title": "Campgrounds with Cell Service in Pennsylvania",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 766
+  },
+  {
+    "type": "state",
+    "slug": "campgrounds/wi",
+    "title": "Campgrounds with Cell Service in Wisconsin",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 1003
+  },
+  {
+    "type": "state",
+    "slug": "campgrounds/wv",
+    "title": "Campgrounds with Cell Service in West Virginia",
+    "state": "WV",
+    "state_full": "West Virginia",
+    "count": 42
   },
   {
     "type": "city",
-    "slug": "city/mi/naubinway",
-    "title": "Campgrounds near Naubinway, MI with Cell Service",
-    "city": "Naubinway",
+    "slug": "city/pa/east-stroudsburg",
+    "title": "Campgrounds near East Stroudsburg, Pennsylvania",
+    "city": "East Stroudsburg",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 8
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/twin-lake",
+    "title": "Campgrounds near Twin Lake, Michigan",
+    "city": "Twin Lake",
     "state": "MI",
     "state_full": "Michigan",
-    "count": 1
+    "count": 8
   },
   {
     "type": "city",
-    "slug": "city/mi/glen-arbor",
-    "title": "Campgrounds near Glen Arbor, MI with Cell Service",
-    "city": "Glen Arbor",
+    "slug": "city/wi/danbury",
+    "title": "Campgrounds near Danbury, Wisconsin",
+    "city": "Danbury",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 6
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/east-troy",
+    "title": "Campgrounds near East Troy, Wisconsin",
+    "city": "East Troy",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 6
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/greeley",
+    "title": "Campgrounds near Greeley, Pennsylvania",
+    "city": "Greeley",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 6
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/bayfield",
+    "title": "Campgrounds near Bayfield, Wisconsin",
+    "city": "Bayfield",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 5
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/mecosta",
+    "title": "Campgrounds near Mecosta, Michigan",
+    "city": "Mecosta",
     "state": "MI",
     "state_full": "Michigan",
-    "count": 1
+    "count": 5
   },
   {
     "type": "city",
-    "slug": "city/mi/hancock",
-    "title": "Campgrounds near Hancock, MI with Cell Service",
-    "city": "Hancock",
+    "slug": "city/wi/rhinelander",
+    "title": "Campgrounds near Rhinelander, Wisconsin",
+    "city": "Rhinelander",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 4
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/minong",
+    "title": "Campgrounds near Minong, Wisconsin",
+    "city": "Minong",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 4
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/allegan",
+    "title": "Campgrounds near Allegan, Michigan",
+    "city": "Allegan",
     "state": "MI",
     "state_full": "Michigan",
-    "count": 1
+    "count": 4
   },
   {
     "type": "city",
-    "slug": "city/mi/harrisville",
-    "title": "Campgrounds near Harrisville, MI with Cell Service",
-    "city": "Harrisville",
+    "slug": "city/wi/baraboo",
+    "title": "Campgrounds near Baraboo, Wisconsin",
+    "city": "Baraboo",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 4
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/dingmans-ferry",
+    "title": "Campgrounds near Dingmans Ferry, Pennsylvania",
+    "city": "Dingmans Ferry",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 4
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/fairview",
+    "title": "Campgrounds near Fairview, Pennsylvania",
+    "city": "Fairview",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 4
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/manton",
+    "title": "Campgrounds near Manton, Michigan",
+    "city": "Manton",
     "state": "MI",
     "state_full": "Michigan",
-    "count": 1
+    "count": 4
   },
   {
     "type": "city",
-    "slug": "city/mi/cadillac",
-    "title": "Campgrounds near Cadillac, MI with Cell Service",
-    "city": "Cadillac",
+    "slug": "city/mi/indian-river",
+    "title": "Campgrounds near Indian River, Michigan",
+    "city": "Indian River",
     "state": "MI",
     "state_full": "Michigan",
-    "count": 1
+    "count": 4
   },
   {
     "type": "city",
-    "slug": "city/mi/interlochen",
-    "title": "Campgrounds near Interlochen, MI with Cell Service",
-    "city": "Interlochen",
+    "slug": "city/pa/slippery-rock",
+    "title": "Campgrounds near Slippery Rock, Pennsylvania",
+    "city": "Slippery Rock",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/chippewa-falls",
+    "title": "Campgrounds near Chippewa Falls, Wisconsin",
+    "city": "Chippewa Falls",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/trego",
+    "title": "Campgrounds near Trego, Wisconsin",
+    "city": "Trego",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/waupaca",
+    "title": "Campgrounds near Waupaca, Wisconsin",
+    "city": "Waupaca",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/wisconsin-rapids",
+    "title": "Campgrounds near Wisconsin Rapids, Wisconsin",
+    "city": "Wisconsin Rapids",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/montello",
+    "title": "Campgrounds near Montello, Wisconsin",
+    "city": "Montello",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/birchwood",
+    "title": "Campgrounds near Birchwood, Wisconsin",
+    "city": "Birchwood",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/amery",
+    "title": "Campgrounds near Amery, Wisconsin",
+    "city": "Amery",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/new-auburn",
+    "title": "Campgrounds near New Auburn, Wisconsin",
+    "city": "New Auburn",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/logan",
+    "title": "Campgrounds near Logan, Ohio",
+    "city": "Logan",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/west-salem",
+    "title": "Campgrounds near West Salem, Wisconsin",
+    "city": "West Salem",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/emlenton",
+    "title": "Campgrounds near Emlenton, Pennsylvania",
+    "city": "Emlenton",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/wapakoneta",
+    "title": "Campgrounds near Wapakoneta, Ohio",
+    "city": "Wapakoneta",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/huntingdon",
+    "title": "Campgrounds near Huntingdon, Pennsylvania",
+    "city": "Huntingdon",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/kennerdell",
+    "title": "Campgrounds near Kennerdell, Pennsylvania",
+    "city": "Kennerdell",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/lake-city",
+    "title": "Campgrounds near Lake City, Pennsylvania",
+    "city": "Lake City",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/north-springfield",
+    "title": "Campgrounds near North Springfield, Pennsylvania",
+    "city": "North Springfield",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/milford",
+    "title": "Campgrounds near Milford, Pennsylvania",
+    "city": "Milford",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/lehighton",
+    "title": "Campgrounds near Lehighton, Pennsylvania",
+    "city": "Lehighton",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/white-haven",
+    "title": "Campgrounds near White Haven, Pennsylvania",
+    "city": "White Haven",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/elroy",
+    "title": "Campgrounds near Elroy, Wisconsin",
+    "city": "Elroy",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/glenwood-city",
+    "title": "Campgrounds near Glenwood City, Wisconsin",
+    "city": "Glenwood City",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/pittsville",
+    "title": "Campgrounds near Pittsville, Wisconsin",
+    "city": "Pittsville",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 3
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/white-lake",
+    "title": "Campgrounds near White Lake, Wisconsin",
+    "city": "White Lake",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/weston",
+    "title": "Campgrounds near Weston, Wisconsin",
+    "city": "Weston",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/chetek",
+    "title": "Campgrounds near Chetek, Wisconsin",
+    "city": "Chetek",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/wautoma",
+    "title": "Campgrounds near Wautoma, Wisconsin",
+    "city": "Wautoma",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/holcombe",
+    "title": "Campgrounds near Holcombe, Wisconsin",
+    "city": "Holcombe",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/lake-nebagamon",
+    "title": "Campgrounds near Lake Nebagamon, Wisconsin",
+    "city": "Lake Nebagamon",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/rice-lake",
+    "title": "Campgrounds near Rice Lake, Wisconsin",
+    "city": "Rice Lake",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/iron-river",
+    "title": "Campgrounds near Iron River, Wisconsin",
+    "city": "Iron River",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/cornucopia",
+    "title": "Campgrounds near Cornucopia, Wisconsin",
+    "city": "Cornucopia",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/cheboygan",
+    "title": "Campgrounds near Cheboygan, Michigan",
+    "city": "Cheboygan",
     "state": "MI",
     "state_full": "Michigan",
-    "count": 1
+    "count": 2
   },
   {
     "type": "city",
-    "slug": "city/mi/traverse-city",
-    "title": "Campgrounds near Traverse City, MI with Cell Service",
-    "city": "Traverse City",
+    "slug": "city/mi/omer",
+    "title": "Campgrounds near Omer, Michigan",
+    "city": "Omer",
     "state": "MI",
     "state_full": "Michigan",
-    "count": 1
+    "count": 2
   },
   {
     "type": "city",
-    "slug": "city/mi/ludington",
-    "title": "Campgrounds near Ludington, MI with Cell Service",
-    "city": "Ludington",
-    "state": "MI",
-    "state_full": "Michigan",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/mi/brutus",
-    "title": "Campgrounds near Brutus, MI with Cell Service",
-    "city": "Brutus",
-    "state": "MI",
-    "state_full": "Michigan",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/mi/munising",
-    "title": "Campgrounds near Munising, MI with Cell Service",
-    "city": "Munising",
-    "state": "MI",
-    "state_full": "Michigan",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/mi/muskegon",
-    "title": "Campgrounds near Muskegon, MI with Cell Service",
-    "city": "Muskegon",
-    "state": "MI",
-    "state_full": "Michigan",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/mi/oscoda",
-    "title": "Campgrounds near Oscoda, MI with Cell Service",
-    "city": "Oscoda",
-    "state": "MI",
-    "state_full": "Michigan",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/mi/ferrysburg",
-    "title": "Campgrounds near Ferrysburg, MI with Cell Service",
-    "city": "Ferrysburg",
-    "state": "MI",
-    "state_full": "Michigan",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/mi/petoskey",
-    "title": "Campgrounds near Petoskey, MI with Cell Service",
-    "city": "Petoskey",
-    "state": "MI",
-    "state_full": "Michigan",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/mi/grand-marais",
-    "title": "Campgrounds near Grand Marais, MI with Cell Service",
-    "city": "Grand Marais",
-    "state": "MI",
-    "state_full": "Michigan",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/mi/ontonagon",
-    "title": "Campgrounds near Ontonagon, MI with Cell Service",
-    "city": "Ontonagon",
-    "state": "MI",
-    "state_full": "Michigan",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/mi/mears",
-    "title": "Campgrounds near Mears, MI with Cell Service",
-    "city": "Mears",
-    "state": "MI",
-    "state_full": "Michigan",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/mi/paradise",
-    "title": "Campgrounds near Paradise, MI with Cell Service",
-    "city": "Paradise",
-    "state": "MI",
-    "state_full": "Michigan",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/mi/sawyer",
-    "title": "Campgrounds near Sawyer, MI with Cell Service",
-    "city": "Sawyer",
-    "state": "MI",
-    "state_full": "Michigan",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/mi/carp-lake",
-    "title": "Campgrounds near Carp Lake, MI with Cell Service",
-    "city": "Carp Lake",
-    "state": "MI",
-    "state_full": "Michigan",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/oh/delaware",
-    "title": "Campgrounds near Delaware, OH with Cell Service",
-    "city": "Delaware",
+    "slug": "city/oh/wilmington",
+    "title": "Campgrounds near Wilmington, Ohio",
+    "city": "Wilmington",
     "state": "OH",
     "state_full": "Ohio",
     "count": 2
   },
   {
     "type": "city",
-    "slug": "city/oh/glouster",
-    "title": "Campgrounds near Glouster, OH with Cell Service",
-    "city": "Glouster",
-    "state": "OH",
-    "state_full": "Ohio",
-    "count": 1
+    "slug": "city/mi/carsonville",
+    "title": "Campgrounds near Carsonville, Michigan",
+    "city": "Carsonville",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 2
   },
   {
     "type": "city",
-    "slug": "city/oh/mount-sterling",
-    "title": "Campgrounds near Mount Sterling, OH with Cell Service",
-    "city": "Mount Sterling",
-    "state": "OH",
-    "state_full": "Ohio",
-    "count": 1
+    "slug": "city/mi/port-hope",
+    "title": "Campgrounds near Port Hope, Michigan",
+    "city": "Port Hope",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 2
   },
   {
     "type": "city",
-    "slug": "city/oh/lakeside-marblehead",
-    "title": "Campgrounds near Lakeside Marblehead, OH with Cell Service",
-    "city": "Lakeside Marblehead",
-    "state": "OH",
-    "state_full": "Ohio",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/oh/geneva",
-    "title": "Campgrounds near Geneva, OH with Cell Service",
-    "city": "Geneva",
-    "state": "OH",
-    "state_full": "Ohio",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/oh/logan",
-    "title": "Campgrounds near Logan, OH with Cell Service",
-    "city": "Logan",
-    "state": "OH",
-    "state_full": "Ohio",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/oh/mcarthur",
-    "title": "Campgrounds near McArthur, OH with Cell Service",
-    "city": "McArthur",
-    "state": "OH",
-    "state_full": "Ohio",
-    "count": 1
-  },
-  {
-    "type": "city",
-    "slug": "city/oh/oregon",
-    "title": "Campgrounds near Oregon, OH with Cell Service",
-    "city": "Oregon",
-    "state": "OH",
-    "state_full": "Ohio",
-    "count": 1
+    "slug": "city/mi/traverse-city",
+    "title": "Campgrounds near Traverse City, Michigan",
+    "city": "Traverse City",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 2
   },
   {
     "type": "city",
     "slug": "city/oh/loudonville",
-    "title": "Campgrounds near Loudonville, OH with Cell Service",
+    "title": "Campgrounds near Loudonville, Ohio",
     "city": "Loudonville",
     "state": "OH",
     "state_full": "Ohio",
-    "count": 1
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/darlington",
+    "title": "Campgrounds near Darlington, Wisconsin",
+    "city": "Darlington",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/sarona",
+    "title": "Campgrounds near Sarona, Wisconsin",
+    "city": "Sarona",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/granville",
+    "title": "Campgrounds near Granville, Ohio",
+    "city": "Granville",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/stevens-point",
+    "title": "Campgrounds near Stevens Point, Wisconsin",
+    "city": "Stevens Point",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/harrod",
+    "title": "Campgrounds near Harrod, Ohio",
+    "city": "Harrod",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/jamestown",
+    "title": "Campgrounds near Jamestown, Pennsylvania",
+    "city": "Jamestown",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/roscommon",
+    "title": "Campgrounds near Roscommon, Michigan",
+    "city": "Roscommon",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/boyne-city",
+    "title": "Campgrounds near Boyne City, Michigan",
+    "city": "Boyne City",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/west-branch",
+    "title": "Campgrounds near West Branch, Michigan",
+    "city": "West Branch",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/bruce",
+    "title": "Campgrounds near Bruce, Wisconsin",
+    "city": "Bruce",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/black-river-falls",
+    "title": "Campgrounds near Black River Falls, Wisconsin",
+    "city": "Black River Falls",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/stroudsburg",
+    "title": "Campgrounds near Stroudsburg, Pennsylvania",
+    "city": "Stroudsburg",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/sturgeon-bay",
+    "title": "Campgrounds near Sturgeon Bay, Wisconsin",
+    "city": "Sturgeon Bay",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/mesick",
+    "title": "Campgrounds near Mesick, Michigan",
+    "city": "Mesick",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/evart",
+    "title": "Campgrounds near Evart, Michigan",
+    "city": "Evart",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 2
   },
   {
     "type": "city",
     "slug": "city/oh/hillsboro",
-    "title": "Campgrounds near Hillsboro, OH with Cell Service",
+    "title": "Campgrounds near Hillsboro, Ohio",
     "city": "Hillsboro",
     "state": "OH",
     "state_full": "Ohio",
-    "count": 1
+    "count": 2
   },
   {
     "type": "city",
-    "slug": "city/oh/lore-city",
-    "title": "Campgrounds near Lore City, OH with Cell Service",
-    "city": "Lore City",
+    "slug": "city/wi/silver-cliff",
+    "title": "Campgrounds near Silver Cliff, Wisconsin",
+    "city": "Silver Cliff",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/houghton-lake",
+    "title": "Campgrounds near Houghton Lake, Michigan",
+    "city": "Houghton Lake",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/saxon",
+    "title": "Campgrounds near Saxon, Wisconsin",
+    "city": "Saxon",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/washburn",
+    "title": "Campgrounds near Washburn, Wisconsin",
+    "city": "Washburn",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/manistique",
+    "title": "Campgrounds near Manistique, Michigan",
+    "city": "Manistique",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/oshkosh",
+    "title": "Campgrounds near Oshkosh, Wisconsin",
+    "city": "Oshkosh",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/alpena",
+    "title": "Campgrounds near Alpena, Michigan",
+    "city": "Alpena",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/glouster",
+    "title": "Campgrounds near Glouster, Ohio",
+    "city": "Glouster",
     "state": "OH",
     "state_full": "Ohio",
-    "count": 1
+    "count": 2
   },
   {
-    "type": "carrier",
-    "slug": "carrier/verizon",
-    "title": "Best Campgrounds for Verizon Coverage",
-    "carrier": "Verizon",
-    "count": 32
+    "type": "city",
+    "slug": "city/wi/cable",
+    "title": "Campgrounds near Cable, Wisconsin",
+    "city": "Cable",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
   },
   {
-    "type": "carrier",
-    "slug": "carrier/att",
-    "title": "Best Campgrounds for AT&T Coverage",
-    "carrier": "AT&T",
-    "count": 32
+    "type": "city",
+    "slug": "city/wi/gordon",
+    "title": "Campgrounds near Gordon, Wisconsin",
+    "city": "Gordon",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
   },
   {
-    "type": "carrier",
-    "slug": "carrier/tmobile",
-    "title": "Best Campgrounds for T-Mobile Coverage",
-    "carrier": "T-Mobile",
-    "count": 32
+    "type": "city",
+    "slug": "city/wi/solon-springs",
+    "title": "Campgrounds near Solon Springs, Wisconsin",
+    "city": "Solon Springs",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/linesville",
+    "title": "Campgrounds near Linesville, Pennsylvania",
+    "city": "Linesville",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/marienville",
+    "title": "Campgrounds near Marienville, Pennsylvania",
+    "city": "Marienville",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/crystal-falls",
+    "title": "Campgrounds near Crystal Falls, Michigan",
+    "city": "Crystal Falls",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/wisconsin-dells",
+    "title": "Campgrounds near Wisconsin Dells, Wisconsin",
+    "city": "Wisconsin Dells",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/new-milford-township",
+    "title": "Campgrounds near New Milford Township, Pennsylvania",
+    "city": "New Milford Township",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/bagley",
+    "title": "Campgrounds near Bagley, Wisconsin",
+    "city": "Bagley",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/lake-geneva",
+    "title": "Campgrounds near Lake Geneva, Wisconsin",
+    "city": "Lake Geneva",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/la-pointe",
+    "title": "Campgrounds near La Pointe, Wisconsin",
+    "city": "La Pointe",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/ferryville",
+    "title": "Campgrounds near Ferryville, Wisconsin",
+    "city": "Ferryville",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/mi/reading",
+    "title": "Campgrounds near Reading, Michigan",
+    "city": "Reading",
+    "state": "MI",
+    "state_full": "Michigan",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/sparta",
+    "title": "Campgrounds near Sparta, Wisconsin",
+    "city": "Sparta",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/balsam-lake",
+    "title": "Campgrounds near Balsam Lake, Wisconsin",
+    "city": "Balsam Lake",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/ashland",
+    "title": "Campgrounds near Ashland, Wisconsin",
+    "city": "Ashland",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/glidden",
+    "title": "Campgrounds near Glidden, Wisconsin",
+    "city": "Glidden",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/merrill",
+    "title": "Campgrounds near Merrill, Wisconsin",
+    "city": "Merrill",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/mukwonago",
+    "title": "Campgrounds near Mukwonago, Wisconsin",
+    "city": "Mukwonago",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/pa/lackawaxen",
+    "title": "Campgrounds near Lackawaxen, Pennsylvania",
+    "city": "Lackawaxen",
+    "state": "PA",
+    "state_full": "Pennsylvania",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/wi/webster",
+    "title": "Campgrounds near Webster, Wisconsin",
+    "city": "Webster",
+    "state": "WI",
+    "state_full": "Wisconsin",
+    "count": 2
+  },
+  {
+    "type": "city",
+    "slug": "city/oh/dayton",
+    "title": "Campgrounds near Dayton, Ohio",
+    "city": "Dayton",
+    "state": "OH",
+    "state_full": "Ohio",
+    "count": 2
   },
   {
     "type": "amenity",
-    "slug": "amenity/waterfront",
-    "title": "Waterfront Campgrounds with Cell Service",
-    "amenity": "waterfront",
-    "count": 32
+    "slug": "amenity/campground",
+    "title": "Campground Campgrounds in the Great Lakes",
+    "amenity": "campground",
+    "count": 2210
   },
   {
     "type": "amenity",
-    "slug": "amenity/tent",
-    "title": "Tent Camping with Cell Service",
-    "amenity": "tent",
-    "count": 32
+    "slug": "amenity/state-park",
+    "title": "State Park Campgrounds in the Great Lakes",
+    "amenity": "state-park",
+    "count": 303
   },
   {
     "type": "amenity",
-    "slug": "amenity/rv",
-    "title": "RV Campgrounds with Cell Service",
-    "amenity": "rv",
-    "count": 32
+    "slug": "amenity/private",
+    "title": "Private Campgrounds in the Great Lakes",
+    "amenity": "private",
+    "count": 176
   },
   {
     "type": "amenity",
-    "slug": "amenity/electric",
-    "title": "Campgrounds with Electric Hookups and Cell Service",
-    "amenity": "electric",
-    "count": 32
+    "slug": "amenity/state-forest",
+    "title": "State Forest Campgrounds in the Great Lakes",
+    "amenity": "state-forest",
+    "count": 137
   },
   {
-    "type": "remote_work",
-    "slug": "remote-work/best",
-    "title": "Best Campgrounds for Remote Work in the Great Lakes",
-    "count": 32
+    "type": "amenity",
+    "slug": "amenity/county-park",
+    "title": "County Park Campgrounds in the Great Lakes",
+    "amenity": "county-park",
+    "count": 124
+  },
+  {
+    "type": "amenity",
+    "slug": "amenity/national-forest",
+    "title": "National Forest Campgrounds in the Great Lakes",
+    "amenity": "national-forest",
+    "count": 93
+  },
+  {
+    "type": "amenity",
+    "slug": "amenity/scout-camp",
+    "title": "Scout Camp Campgrounds in the Great Lakes",
+    "amenity": "scout-camp",
+    "count": 42
+  },
+  {
+    "type": "amenity",
+    "slug": "amenity/national-park",
+    "title": "National Park Campgrounds in the Great Lakes",
+    "amenity": "national-park",
+    "count": 20
+  },
+  {
+    "type": "amenity",
+    "slug": "amenity/private-koa",
+    "title": "Private (KOA) Campgrounds in the Great Lakes",
+    "amenity": "private-koa",
+    "count": 17
+  },
+  {
+    "type": "amenity",
+    "slug": "amenity/army-corps",
+    "title": "Army Corps Campgrounds in the Great Lakes",
+    "amenity": "army-corps",
+    "count": 5
   }
 ]
