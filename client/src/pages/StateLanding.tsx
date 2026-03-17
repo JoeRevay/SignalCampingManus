@@ -118,6 +118,33 @@ export default function StateLanding() {
         </section>
       )}
 
+      {/* Featured: Verizon Michigan (Michigan only) */}
+      {stateSlug === "mi" && (
+        <section className="container pb-6">
+          <Link href="/best-verizon-signal-campgrounds-michigan">
+            <Card className="bg-gradient-to-r from-red-700 via-red-800 to-red-900 text-white hover:shadow-xl transition-all hover:-translate-y-0.5 cursor-pointer overflow-hidden">
+              <CardContent className="p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                  <Signal className="w-6 h-6 text-red-200" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Badge className="bg-white/10 text-red-200 border-red-400/30 text-[10px]">Carrier Spotlight</Badge>
+                  </div>
+                  <h3 className="font-bold text-lg mb-1" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                    Best Michigan Campgrounds with Verizon Signal
+                  </h3>
+                  <p className="text-red-200 text-sm leading-relaxed">
+                    Top 25 Michigan campgrounds ranked by modeled Verizon signal score.
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-red-200 shrink-0 hidden sm:block" />
+              </CardContent>
+            </Card>
+          </Link>
+        </section>
+      )}
+
       {/* Campground List */}
       <section className="container pb-8">
         <div className="space-y-2">

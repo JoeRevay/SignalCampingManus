@@ -444,6 +444,42 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Featured: Verizon Michigan ── */}
+      <section className="py-16 bg-gradient-to-r from-red-700 via-red-800 to-red-900 text-white">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div className="grid grid-cols-2 gap-4 order-2 lg:order-1">
+              {[
+                { label: "Top Ranked", value: "25", sub: "campgrounds" },
+                { label: "Avg Signal", value: "90", sub: "out of 100" },
+                { label: "Carrier", value: "VZW", sub: "Verizon" },
+                { label: "State", value: "MI", sub: "Michigan" },
+              ].map(stat => (
+                <div key={stat.label} className="bg-white/10 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-bold">{stat.value}</div>
+                  <div className="text-xs text-red-200">{stat.label}</div>
+                  <div className="text-[10px] text-red-300/70 mt-0.5">{stat.sub}</div>
+                </div>
+              ))}
+            </div>
+            <div className="order-1 lg:order-2">
+              <Badge className="bg-white/10 text-red-200 border-red-400/30 mb-3">Carrier Spotlight</Badge>
+              <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                Best Michigan Campgrounds with Verizon Signal
+              </h2>
+              <p className="text-red-100 leading-relaxed mb-6">
+                Verizon is the most widely used carrier for camping in Michigan. We ranked the top 25 campgrounds by modeled signal score to help you find spots where Verizon coverage is most likely to be strong.
+              </p>
+              <Link href="/best-verizon-signal-campgrounds-michigan">
+                <Button className="bg-white text-red-900 hover:bg-red-50 font-semibold">
+                  <Signal className="w-4 h-4 mr-2" /> View Top 25 Verizon Campgrounds
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Data Sources ── */}
       <section className="py-16 bg-gradient-to-b from-stone-50 to-white">
         <div className="container">
