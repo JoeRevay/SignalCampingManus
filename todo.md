@@ -4,3 +4,10 @@
 - [x] Create CamperSignalReports UI component with carrier voting and aggregate display
 - [x] Integrate CamperSignalReports into campground detail page
 - [x] Write vitest tests for signal reports API
+- [x] Add strong introductory paragraph explaining SignalCamping purpose
+- [x] Add Top 25 Campgrounds with Cell Service section (by signal_score)
+- [x] Add By Region section with links to existing regional pages
+- [x] Add By Carrier section with links to Verizon and future carrier pages
+- [x] Add By Use Case section (remote work, off-grid)
+- [x] Add internal links to UP signal page, Verizon Michigan page, etc.
+- [x] Keep existing data and layout intact
