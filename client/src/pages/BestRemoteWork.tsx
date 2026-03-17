@@ -21,6 +21,8 @@ import {
   type CarrierLikelihood,
 } from "@/lib/carrierLikelihood";
 
+import { generateBlurb } from "@/lib/campgroundBlurb";
+import RelatedSignalGuides from "@/components/RelatedSignalGuides";
 import rawData from "@/data/campgrounds.json";
 
 const STATE_NAMES: Record<string, string> = {
@@ -211,6 +213,9 @@ export default function BestRemoteWork() {
                           <span className="text-gray-300">|</span>
                           <span className="capitalize">{cg.campground_type?.replace(/_/g, " ")}</span>
                         </div>
+                        <p className="text-xs text-gray-500 leading-relaxed mt-1.5 italic">
+                          {generateBlurb(cg)}
+                        </p>
                       </div>
 
                       {/* Score */}
@@ -291,6 +296,9 @@ export default function BestRemoteWork() {
               );
             })}
           </div>
+
+          {/* Related Signal Guides */}
+          <RelatedSignalGuides exclude="/best-remote-work-campgrounds" />
 
           {/* Methodology note */}
           <Card className="mt-10 border-blue-100 bg-blue-50/30">

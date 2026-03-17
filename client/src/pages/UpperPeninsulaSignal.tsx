@@ -1,6 +1,8 @@
 /**
  * Best Campgrounds with Cell Service in Michigan's Upper Peninsula
  * Ranks the top 25 UP campgrounds by signal_score using the existing dataset.
+ *
+ * Includes: descriptive blurbs per listing, Related Signal Guides section.
  */
 import { useMemo, useEffect } from "react";
 import { Link } from "wouter";
@@ -17,6 +19,8 @@ import {
   LIKELIHOOD_STYLES,
   type CarrierLikelihood,
 } from "@/lib/carrierLikelihood";
+import { generateBlurb } from "@/lib/campgroundBlurb";
+import RelatedSignalGuides from "@/components/RelatedSignalGuides";
 
 const STATE_NAMES: Record<string, string> = {
   MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin",
@@ -151,6 +155,7 @@ export default function UpperPeninsulaSignal() {
             const likelihood = getCarrierLikelihood(cg);
             const signalColor = cg.signal_score >= 70 ? "#16a34a" : cg.signal_score >= 40 ? "#d97706" : "#dc2626";
             const rwColor = cg.remote_work_score >= 70 ? "#16a34a" : cg.remote_work_score >= 40 ? "#d97706" : "#dc2626";
+            const blurb = generateBlurb(cg);
 
             return (
               <Link key={cg.slug + i} href={`/campground/${cg.slug}`}>
@@ -177,12 +182,17 @@ export default function UpperPeninsulaSignal() {
                           )}
                         </div>
 
-                        <p className="text-xs text-gray-500 mb-3">
+                        <p className="text-xs text-gray-500 mb-2">
                           <MapPin className="w-3 h-3 inline mr-0.5" />
                           {cg.city ? `${cg.city}, ` : ""}{STATE_NAMES[cg.state] || cg.state}
                           {cg.campground_type && (
                             <span className="ml-2 text-gray-400">· {(cg.campground_type || "").replace(/_/g, " ")}</span>
                           )}
+                        </p>
+
+                        {/* Blurb */}
+                        <p className="text-xs text-gray-600 leading-relaxed mb-3 italic">
+                          {blurb}
                         </p>
 
                         {/* Scores */}
@@ -235,16 +245,14 @@ export default function UpperPeninsulaSignal() {
           </p>
         </div>
 
+        {/* Related Signal Guides */}
+        <RelatedSignalGuides exclude="/best-cell-signal-campgrounds-upper-peninsula" />
+
         {/* Related Links */}
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-4 flex flex-wrap gap-3">
           <Link href="/campgrounds/mi">
             <Button variant="outline" size="sm" className="text-xs">
               <MapPin className="w-3.5 h-3.5 mr-1" /> All Michigan Campgrounds
-            </Button>
-          </Link>
-          <Link href="/best-remote-work-campgrounds">
-            <Button variant="outline" size="sm" className="text-xs">
-              <Briefcase className="w-3.5 h-3.5 mr-1" /> Best for Remote Work
             </Button>
           </Link>
           <Link href="/top-campgrounds">

@@ -1,7 +1,9 @@
 /**
  * VerizonMichigan — Top 25 Michigan campgrounds with Verizon signal.
- * Data: campgrounds_signal_scored_clean.json, filtered to MI + verizon_coverage.
+ * Data: campgrounds.json, filtered to MI + verizon_coverage.
  * Style: Space Grotesk headings, DM Sans body, green/earth palette.
+ *
+ * Includes: descriptive blurbs per listing, Related Signal Guides section.
  */
 import { useMemo, useEffect, useState } from "react";
 import { Link } from "wouter";
@@ -11,11 +13,13 @@ import { Button } from "@/components/ui/button";
 import {
   Signal, MapPin, ChevronRight, ChevronDown, ChevronUp,
   CheckCircle2, Wifi, Laptop, ArrowLeft
-} from "lucide-react";import {
+} from "lucide-react";
+import {
   getCarrierLikelihood, type CarrierLikelihood, LIKELIHOOD_STYLES
-} from "@/lib/carrierLikelihood";import rawData from "@/data/campgrounds.json";
-
-
+} from "@/lib/carrierLikelihood";
+import { generateBlurb } from "@/lib/campgroundBlurb";
+import RelatedSignalGuides from "@/components/RelatedSignalGuides";
+import rawData from "@/data/campgrounds.json";
 
 function scoreColor(score: number) {
   if (score >= 80) return "text-green-600";
@@ -140,6 +144,7 @@ export default function VerizonMichigan() {
           {ranked.map((cg: any, idx: number) => {
             const likelihood = getCarrierLikelihood(cg);
             const expanded = expandedIdx === idx;
+            const blurb = generateBlurb(cg);
 
             return (
               <Card
@@ -172,6 +177,11 @@ export default function VerizonMichigan() {
                         {cg.campground_type && (
                           <Badge variant="outline" className="text-[10px] ml-2">{(cg.campground_type || "").replace(/_/g, " ")}</Badge>
                         )}
+                      </p>
+
+                      {/* Blurb */}
+                      <p className="text-xs text-gray-600 leading-relaxed mb-3 italic">
+                        {blurb}
                       </p>
 
                       {/* Score bars */}
@@ -258,7 +268,7 @@ export default function VerizonMichigan() {
       </section>
 
       {/* Disclaimer */}
-      <section className="container pb-12">
+      <section className="container pb-8">
         <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
           <p className="text-xs text-gray-500 leading-relaxed">
             <strong className="text-gray-600">Note:</strong> Signal scores and carrier likelihood are modeled
@@ -269,22 +279,20 @@ export default function VerizonMichigan() {
         </div>
       </section>
 
-      {/* Back navigation */}
+      {/* Related Signal Guides */}
       <section className="container pb-12">
-        <div className="flex gap-3 flex-wrap">
+        <RelatedSignalGuides exclude="/best-verizon-signal-campgrounds-michigan" />
+
+        {/* Back navigation */}
+        <div className="mt-4 flex gap-3 flex-wrap">
           <Link href="/campgrounds/mi">
             <Button variant="outline" className="text-sm border-green-200 text-green-700 hover:bg-green-50">
               <ArrowLeft className="w-4 h-4 mr-1" /> All Michigan Campgrounds
             </Button>
           </Link>
-          <Link href="/best-cell-signal-campgrounds-upper-peninsula">
+          <Link href="/top-campgrounds">
             <Button variant="outline" className="text-sm border-green-200 text-green-700 hover:bg-green-50">
-              <Signal className="w-4 h-4 mr-1" /> U.P. Signal Rankings
-            </Button>
-          </Link>
-          <Link href="/best-remote-work-campgrounds">
-            <Button variant="outline" className="text-sm border-green-200 text-green-700 hover:bg-green-50">
-              <Laptop className="w-4 h-4 mr-1" /> Best for Remote Work
+              <Signal className="w-4 h-4 mr-1" /> All Campgrounds
             </Button>
           </Link>
         </div>
