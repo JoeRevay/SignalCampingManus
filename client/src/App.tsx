@@ -21,6 +21,7 @@ import ShareableList from "./pages/ShareableList";
 import ListsDirectory from "./pages/ListsDirectory";
 import RouteFinder from "./pages/RouteFinder";
 import BestRemoteWork from "./pages/BestRemoteWork";
+import UpperPeninsulaSignal from "./pages/UpperPeninsulaSignal";
 
 function Router() {
   return (
@@ -67,6 +68,9 @@ function Router() {
 
       {/* Best remote work campgrounds */}
       <Route path={"/best-remote-work-campgrounds"} component={BestRemoteWork} />
+
+      {/* Upper Peninsula signal ranking */}
+      <Route path={"/best-cell-signal-campgrounds-upper-peninsula"} component={UpperPeninsulaSignal} />
 
       {/* SEO directory */}
       <Route path={"/seo-directory"} component={SeoDirectory} />
