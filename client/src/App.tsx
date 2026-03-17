@@ -22,6 +22,7 @@ import ListsDirectory from "./pages/ListsDirectory";
 import RouteFinder from "./pages/RouteFinder";
 import BestRemoteWork from "./pages/BestRemoteWork";
 import UpperPeninsulaSignal from "./pages/UpperPeninsulaSignal";
+import VerizonMichigan from "./pages/VerizonMichigan";
 
 function Router() {
   return (
@@ -71,6 +72,9 @@ function Router() {
 
       {/* Upper Peninsula signal ranking */}
       <Route path={"/best-cell-signal-campgrounds-upper-peninsula"} component={UpperPeninsulaSignal} />
+
+      {/* Verizon Michigan ranking */}
+      <Route path={"/best-verizon-signal-campgrounds-michigan"} component={VerizonMichigan} />
 
       {/* SEO directory */}
       <Route path={"/seo-directory"} component={SeoDirectory} />
