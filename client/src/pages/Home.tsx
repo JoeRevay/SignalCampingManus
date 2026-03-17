@@ -408,6 +408,42 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Featured: Upper Peninsula Signal ── */}
+      <section className="py-16 bg-gradient-to-r from-green-800 via-green-900 to-emerald-900 text-white">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <Badge className="bg-white/10 text-green-200 border-green-500/30 mb-3">Featured Region</Badge>
+              <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                Best Campgrounds with Cell Service in Michigan&rsquo;s Upper Peninsula
+              </h2>
+              <p className="text-green-100 leading-relaxed mb-6">
+                Cell service in the U.P. can be unpredictable. We analyzed campgrounds across the region using signal scores derived from tower proximity and connectivity modeling to identify the 25 locations most likely to have reliable cellular coverage.
+              </p>
+              <Link href="/best-cell-signal-campgrounds-upper-peninsula">
+                <Button className="bg-white text-green-900 hover:bg-green-50 font-semibold">
+                  <Signal className="w-4 h-4 mr-2" /> View Top 25 U.P. Campgrounds
+                </Button>
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { label: "Top Ranked", value: "25", sub: "campgrounds" },
+                { label: "Avg Signal", value: "90", sub: "out of 100" },
+                { label: "Verified", value: "4", sub: "official sources" },
+                { label: "Region", value: "U.P.", sub: "Michigan" },
+              ].map(stat => (
+                <div key={stat.label} className="bg-white/10 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-bold">{stat.value}</div>
+                  <div className="text-xs text-green-300">{stat.label}</div>
+                  <div className="text-[10px] text-green-400/70 mt-0.5">{stat.sub}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Data Sources ── */}
       <section className="py-16 bg-gradient-to-b from-stone-50 to-white">
         <div className="container">

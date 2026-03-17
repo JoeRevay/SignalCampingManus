@@ -91,6 +91,33 @@ export default function StateLanding() {
         </div>
       </section>
 
+      {/* Featured: Upper Peninsula Signal (Michigan only) */}
+      {stateSlug === "mi" && (
+        <section className="container pb-6">
+          <Link href="/best-cell-signal-campgrounds-upper-peninsula">
+            <Card className="bg-gradient-to-r from-green-800 via-green-900 to-emerald-900 text-white hover:shadow-xl transition-all hover:-translate-y-0.5 cursor-pointer overflow-hidden">
+              <CardContent className="p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                  <Signal className="w-6 h-6 text-green-300" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Badge className="bg-white/10 text-green-200 border-green-500/30 text-[10px]">Featured</Badge>
+                  </div>
+                  <h3 className="font-bold text-lg mb-1" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                    Best Campgrounds with Cell Service in the Upper Peninsula
+                  </h3>
+                  <p className="text-green-200 text-sm leading-relaxed">
+                    Cell service in the U.P. can be unpredictable. See the top 25 campgrounds ranked by signal score.
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-green-300 shrink-0 hidden sm:block" />
+              </CardContent>
+            </Card>
+          </Link>
+        </section>
+      )}
+
       {/* Campground List */}
       <section className="container pb-8">
         <div className="space-y-2">
