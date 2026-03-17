@@ -1,8 +1,8 @@
 /**
- * RouteFinder — Find campgrounds along a route between two points.
- * Uses all campgrounds data. No signal fields.
+ * RouteFinder — Find campgrounds along a route between two addresses.
+ * Uses Google Maps Places Autocomplete for address input and Geocoder for resolution.
  */
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import {
   Signal, MapPin, Navigation, ChevronRight, Tent, Truck, Waves,
-  CheckCircle2, Search
+  CheckCircle2, Search, ArrowRight, Loader2, X
 } from "lucide-react";
 import campgroundsData from "@/data/campgrounds.json";
 
@@ -28,13 +28,13 @@ const allCampgrounds = (campgroundsData as any[]).map(cg => ({
   waterfront: parseBool(cg.waterfront),
 }));
 
-// Preset routes
+// Preset routes with display addresses
 const PRESETS = [
-  { label: "Cleveland to Traverse City", startLat: 41.4993, startLng: -81.6944, endLat: 44.7631, endLng: -85.6206 },
-  { label: "Detroit to Mackinaw City", startLat: 42.3314, startLng: -83.0458, endLat: 45.7772, endLng: -84.7278 },
-  { label: "Columbus to Hocking Hills", startLat: 39.9612, startLng: -82.9988, endLat: 39.4403, endLng: -82.5382 },
-  { label: "Pittsburgh to Erie", startLat: 40.4406, startLng: -79.9959, endLat: 42.1292, endLng: -80.0851 },
-  { label: "Milwaukee to Door County", startLat: 43.0389, startLng: -87.9065, endLat: 45.0076, endLng: -87.3154 },
+  { label: "Cleveland → Traverse City", startAddr: "Cleveland, OH", endAddr: "Traverse City, MI", startLat: 41.4993, startLng: -81.6944, endLat: 44.7631, endLng: -85.6206 },
+  { label: "Detroit → Mackinaw City", startAddr: "Detroit, MI", endAddr: "Mackinaw City, MI", startLat: 42.3314, startLng: -83.0458, endLat: 45.7772, endLng: -84.7278 },
+  { label: "Columbus → Hocking Hills", startAddr: "Columbus, OH", endAddr: "Hocking Hills, OH", startLat: 39.9612, startLng: -82.9988, endLat: 39.4403, endLng: -82.5382 },
+  { label: "Pittsburgh → Erie", startAddr: "Pittsburgh, PA", endAddr: "Erie, PA", startLat: 40.4406, startLng: -79.9959, endLat: 42.1292, endLng: -80.0851 },
+  { label: "Milwaukee → Door County", startAddr: "Milwaukee, WI", endAddr: "Door County, WI", startLat: 43.0389, startLng: -87.9065, endLat: 45.0076, endLng: -87.3154 },
 ];
 
 function haversine(lat1: number, lng1: number, lat2: number, lng2: number) {
@@ -51,26 +51,180 @@ function pointToSegmentDist(px: number, py: number, ax: number, ay: number, bx: 
   return haversine(px, py, ax + t * dx, ay + t * dy);
 }
 
+// Google Maps script loader (reuse the same proxy as Map.tsx)
+const API_KEY = import.meta.env.VITE_FRONTEND_FORGE_API_KEY;
+const FORGE_BASE_URL = import.meta.env.VITE_FRONTEND_FORGE_API_URL || "https://forge.butterfly-effect.dev";
+const MAPS_PROXY_URL = `${FORGE_BASE_URL}/v1/maps/proxy`;
+
+let mapsLoaded = false;
+let mapsLoadPromise: Promise<void> | null = null;
+
+function ensureMapsLoaded(): Promise<void> {
+  if (mapsLoaded && window.google?.maps) return Promise.resolve();
+  if (mapsLoadPromise) return mapsLoadPromise;
+  mapsLoadPromise = new Promise((resolve) => {
+    if (window.google?.maps) { mapsLoaded = true; resolve(); return; }
+    const script = document.createElement("script");
+    script.src = `${MAPS_PROXY_URL}/maps/api/js?key=${API_KEY}&v=weekly&libraries=places,geocoding`;
+    script.async = true;
+    script.crossOrigin = "anonymous";
+    script.onload = () => { mapsLoaded = true; resolve(); };
+    script.onerror = () => { mapsLoadPromise = null; resolve(); };
+    document.head.appendChild(script);
+  });
+  return mapsLoadPromise;
+}
+
+interface GeoResult {
+  lat: number;
+  lng: number;
+  formattedAddress: string;
+}
+
+async function geocodeAddress(address: string): Promise<GeoResult | null> {
+  await ensureMapsLoaded();
+  if (!window.google?.maps) return null;
+  const geocoder = new google.maps.Geocoder();
+  return new Promise((resolve) => {
+    geocoder.geocode({ address }, (results, status) => {
+      if (status === "OK" && results && results[0]) {
+        const loc = results[0].geometry.location;
+        resolve({
+          lat: loc.lat(),
+          lng: loc.lng(),
+          formattedAddress: results[0].formatted_address,
+        });
+      } else {
+        resolve(null);
+      }
+    });
+  });
+}
+
+// Autocomplete hook
+function useAutocomplete(
+  inputRef: React.RefObject<HTMLInputElement | null>,
+  onSelect: (result: GeoResult) => void
+) {
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    ensureMapsLoaded().then(() => {
+      if (cancelled || !inputRef.current || !window.google?.maps?.places) return;
+      const ac = new google.maps.places.Autocomplete(inputRef.current, {
+        types: ["geocode"],
+        componentRestrictions: { country: "us" },
+        fields: ["geometry", "formatted_address"],
+      });
+      ac.addListener("place_changed", () => {
+        const place = ac.getPlace();
+        if (place?.geometry?.location) {
+          onSelect({
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+            formattedAddress: place.formatted_address || "",
+          });
+        }
+      });
+      autocompleteRef.current = ac;
+    });
+    return () => { cancelled = true; };
+  }, []);
+}
+
 export default function RouteFinder() {
-  const [startLat, setStartLat] = useState(41.4993);
-  const [startLng, setStartLng] = useState(-81.6944);
-  const [endLat, setEndLat] = useState(44.7631);
-  const [endLng, setEndLng] = useState(-85.6206);
+  const [startAddr, setStartAddr] = useState("Cleveland, OH");
+  const [endAddr, setEndAddr] = useState("Traverse City, MI");
+  const [startCoords, setStartCoords] = useState<{ lat: number; lng: number } | null>({ lat: 41.4993, lng: -81.6944 });
+  const [endCoords, setEndCoords] = useState<{ lat: number; lng: number } | null>({ lat: 44.7631, lng: -85.6206 });
   const [corridorWidth, setCorridorWidth] = useState(30);
+  const [geocoding, setGeocoding] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const startInputRef = useRef<HTMLInputElement>(null);
+  const endInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     document.title = "Route Finder | SignalCamping";
   }, []);
 
+  const handleStartSelect = useCallback((result: GeoResult) => {
+    setStartAddr(result.formattedAddress);
+    setStartCoords({ lat: result.lat, lng: result.lng });
+    setError(null);
+  }, []);
+
+  const handleEndSelect = useCallback((result: GeoResult) => {
+    setEndAddr(result.formattedAddress);
+    setEndCoords({ lat: result.lat, lng: result.lng });
+    setError(null);
+  }, []);
+
+  useAutocomplete(startInputRef, handleStartSelect);
+  useAutocomplete(endInputRef, handleEndSelect);
+
+  // Manual geocode on Enter or Search button
+  const handleSearch = useCallback(async () => {
+    setGeocoding(true);
+    setError(null);
+    try {
+      const [startResult, endResult] = await Promise.all([
+        geocodeAddress(startAddr),
+        geocodeAddress(endAddr),
+      ]);
+      if (!startResult) {
+        setError("Could not find the starting address. Please try a more specific location.");
+        setGeocoding(false);
+        return;
+      }
+      if (!endResult) {
+        setError("Could not find the destination address. Please try a more specific location.");
+        setGeocoding(false);
+        return;
+      }
+      setStartCoords({ lat: startResult.lat, lng: startResult.lng });
+      setEndCoords({ lat: endResult.lat, lng: endResult.lng });
+      setStartAddr(startResult.formattedAddress);
+      setEndAddr(endResult.formattedAddress);
+    } catch {
+      setError("Geocoding failed. Please try again.");
+    }
+    setGeocoding(false);
+  }, [startAddr, endAddr]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSearch();
+    }
+  }, [handleSearch]);
+
+  const handlePreset = useCallback((p: typeof PRESETS[0]) => {
+    setStartAddr(p.startAddr);
+    setEndAddr(p.endAddr);
+    setStartCoords({ lat: p.startLat, lng: p.startLng });
+    setEndCoords({ lat: p.endLat, lng: p.endLng });
+    setError(null);
+    // Update the input fields directly
+    if (startInputRef.current) startInputRef.current.value = p.startAddr;
+    if (endInputRef.current) endInputRef.current.value = p.endAddr;
+  }, []);
+
   const results = useMemo(() => {
+    if (!startCoords || !endCoords) return [];
     return allCampgrounds
       .map(cg => ({
         ...cg,
-        corridorDist: pointToSegmentDist(cg.latitude, cg.longitude, startLat, startLng, endLat, endLng),
+        corridorDist: pointToSegmentDist(cg.latitude, cg.longitude, startCoords.lat, startCoords.lng, endCoords.lat, endCoords.lng),
       }))
       .filter(cg => cg.corridorDist <= corridorWidth)
       .sort((a, b) => a.corridorDist - b.corridorDist);
-  }, [startLat, startLng, endLat, endLng, corridorWidth]);
+  }, [startCoords, endCoords, corridorWidth]);
+
+  const routeDistance = startCoords && endCoords
+    ? haversine(startCoords.lat, startCoords.lng, endCoords.lat, endCoords.lng)
+    : 0;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
@@ -92,57 +246,153 @@ export default function RouteFinder() {
         <div className="flex flex-wrap gap-2 mb-6">
           {PRESETS.map(p => (
             <Button key={p.label} variant="outline" size="sm" className="text-xs"
-              onClick={() => { setStartLat(p.startLat); setStartLng(p.startLng); setEndLat(p.endLat); setEndLng(p.endLng); }}>
+              onClick={() => handlePreset(p)}>
               <Navigation className="w-3 h-3 mr-1" /> {p.label}
             </Button>
           ))}
         </div>
 
-        {/* Inputs */}
+        {/* Address Inputs */}
         <Card className="mb-6">
-          <CardContent className="p-4">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-              <div><label className="text-xs text-gray-500">Start Lat</label><Input type="number" step="0.01" value={startLat} onChange={e => setStartLat(+e.target.value)} className="h-8 text-sm" /></div>
-              <div><label className="text-xs text-gray-500">Start Lng</label><Input type="number" step="0.01" value={startLng} onChange={e => setStartLng(+e.target.value)} className="h-8 text-sm" /></div>
-              <div><label className="text-xs text-gray-500">End Lat</label><Input type="number" step="0.01" value={endLat} onChange={e => setEndLat(+e.target.value)} className="h-8 text-sm" /></div>
-              <div><label className="text-xs text-gray-500">End Lng</label><Input type="number" step="0.01" value={endLng} onChange={e => setEndLng(+e.target.value)} className="h-8 text-sm" /></div>
+          <CardContent className="p-5">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto] gap-3 items-end mb-4">
+              {/* Start Address */}
+              <div className="relative">
+                <label className="text-xs font-medium text-gray-600 mb-1 block">Starting Point</label>
+                <div className="relative">
+                  <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-green-600" />
+                  <Input
+                    ref={startInputRef}
+                    type="text"
+                    placeholder="Enter city, address, or place..."
+                    defaultValue={startAddr}
+                    onChange={e => setStartAddr(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    className="h-10 pl-9 pr-8 text-sm"
+                  />
+                  {startAddr && (
+                    <button
+                      onClick={() => { setStartAddr(""); setStartCoords(null); if (startInputRef.current) startInputRef.current.value = ""; }}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <div className="hidden md:flex items-center justify-center pb-0.5">
+                <ArrowRight className="w-5 h-5 text-gray-400" />
+              </div>
+
+              {/* End Address */}
+              <div className="relative">
+                <label className="text-xs font-medium text-gray-600 mb-1 block">Destination</label>
+                <div className="relative">
+                  <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-red-500" />
+                  <Input
+                    ref={endInputRef}
+                    type="text"
+                    placeholder="Enter city, address, or place..."
+                    defaultValue={endAddr}
+                    onChange={e => setEndAddr(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    className="h-10 pl-9 pr-8 text-sm"
+                  />
+                  {endAddr && (
+                    <button
+                      onClick={() => { setEndAddr(""); setEndCoords(null); if (endInputRef.current) endInputRef.current.value = ""; }}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Search Button */}
+              <Button
+                onClick={handleSearch}
+                disabled={geocoding || !startAddr || !endAddr}
+                className="h-10 bg-green-700 hover:bg-green-800 text-white"
+              >
+                {geocoding ? <Loader2 className="w-4 h-4 animate-spin mr-1.5" /> : <Search className="w-4 h-4 mr-1.5" />}
+                Find Route
+              </Button>
             </div>
+
+            {/* Error */}
+            {error && (
+              <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2 mb-4">
+                {error}
+              </div>
+            )}
+
+            {/* Corridor Width */}
             <div>
-              <label className="text-xs text-gray-500">Corridor Width: {corridorWidth} miles</label>
-              <Slider value={[corridorWidth]} onValueChange={v => setCorridorWidth(v[0])} min={5} max={100} step={5} className="mt-1" />
+              <label className="text-xs font-medium text-gray-600">Corridor Width: <span className="text-green-700 font-bold">{corridorWidth} miles</span></label>
+              <Slider value={[corridorWidth]} onValueChange={v => setCorridorWidth(v[0])} min={5} max={100} step={5} className="mt-2" />
+              <p className="text-[11px] text-gray-400 mt-1">How far from the route to search for campgrounds</p>
             </div>
           </CardContent>
         </Card>
 
-        <p className="text-sm text-gray-500 mb-4">{results.length} campgrounds found along route</p>
+        {/* Route Summary */}
+        {startCoords && endCoords && (
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            <p className="text-sm text-gray-600">
+              <span className="font-semibold text-green-700">{results.length}</span> campgrounds found within {corridorWidth} mi of route
+            </p>
+            <span className="text-gray-300">|</span>
+            <p className="text-sm text-gray-500">
+              ~{Math.round(routeDistance)} mi straight-line distance
+            </p>
+          </div>
+        )}
 
-        <div className="space-y-2">
-          {results.slice(0, 50).map((cg: any, i: number) => (
-            <Link key={cg.slug + i} href={`/campground/${cg.slug}`}>
-              <Card className="hover:shadow-md transition cursor-pointer">
-                <CardContent className="p-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center shrink-0 text-sm font-bold text-green-700">{i + 1}</div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-semibold text-sm truncate">{cg.campground_name}</h3>
-                        {cg.is_verified && <Badge className="bg-green-100 text-green-800 text-[10px] shrink-0"><CheckCircle2 className="w-3 h-3 mr-0.5" /> Verified</Badge>}
+        {!startCoords || !endCoords ? (
+          <div className="text-center py-16 text-gray-400">
+            <Navigation className="w-10 h-10 mx-auto mb-3 opacity-40" />
+            <p className="text-sm">Enter a starting point and destination to find campgrounds along your route.</p>
+          </div>
+        ) : results.length === 0 ? (
+          <div className="text-center py-16 text-gray-400">
+            <Tent className="w-10 h-10 mx-auto mb-3 opacity-40" />
+            <p className="text-sm">No campgrounds found in this corridor. Try increasing the corridor width.</p>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {results.slice(0, 50).map((cg: any, i: number) => (
+              <Link key={cg.slug + i} href={`/campground/${cg.slug}`}>
+                <Card className="hover:shadow-md transition cursor-pointer">
+                  <CardContent className="p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center shrink-0 text-sm font-bold text-green-700">{i + 1}</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="font-semibold text-sm truncate">{cg.campground_name}</h3>
+                          {cg.is_verified && <Badge className="bg-green-100 text-green-800 text-[10px] shrink-0"><CheckCircle2 className="w-3 h-3 mr-0.5" /> Verified</Badge>}
+                        </div>
+                        <p className="text-xs text-gray-500"><MapPin className="w-3 h-3 inline mr-1" />{cg.city ? `${cg.city}, ` : ""}{STATE_NAMES[cg.state] || cg.state} &middot; {cg.corridorDist.toFixed(1)} mi from route</p>
+                        <div className="flex flex-wrap gap-1.5 mt-2">
+                          <Badge variant="outline" className="text-xs">{(cg.campground_type || "campground").replace(/_/g, " ")}</Badge>
+                          {cg.tent_sites && <Badge variant="outline" className="text-xs py-0 px-1.5"><Tent className="w-3 h-3" /></Badge>}
+                          {cg.rv_sites && <Badge variant="outline" className="text-xs py-0 px-1.5"><Truck className="w-3 h-3" /></Badge>}
+                          {cg.waterfront && <Badge variant="outline" className="text-xs py-0 px-1.5"><Waves className="w-3 h-3" /></Badge>}
+                        </div>
                       </div>
-                      <p className="text-xs text-gray-500"><MapPin className="w-3 h-3 inline mr-1" />{cg.city ? `${cg.city}, ` : ""}{STATE_NAMES[cg.state] || cg.state} &middot; {cg.corridorDist.toFixed(1)} mi from route</p>
-                      <div className="flex flex-wrap gap-1.5 mt-2">
-                        <Badge variant="outline" className="text-xs">{(cg.campground_type || "campground").replace(/_/g, " ")}</Badge>
-                        {cg.tent_sites && <Badge variant="outline" className="text-xs py-0 px-1.5"><Tent className="w-3 h-3" /></Badge>}
-                        {cg.rv_sites && <Badge variant="outline" className="text-xs py-0 px-1.5"><Truck className="w-3 h-3" /></Badge>}
-                        {cg.waterfront && <Badge variant="outline" className="text-xs py-0 px-1.5"><Waves className="w-3 h-3" /></Badge>}
-                      </div>
+                      <ChevronRight className="w-4 h-4 text-gray-300 shrink-0" />
                     </div>
-                    <ChevronRight className="w-4 h-4 text-gray-300 shrink-0" />
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+            {results.length > 50 && (
+              <p className="text-center text-sm text-gray-400 py-4">Showing top 50 of {results.length} results</p>
+            )}
+          </div>
+        )}
       </section>
 
       <footer className="bg-gray-900 text-gray-400 py-8"><div className="container text-center text-sm">&copy; 2026 SignalCamping</div></footer>
