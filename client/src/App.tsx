@@ -23,8 +23,8 @@ import RouteFinder from "./pages/RouteFinder";
 import BestRemoteWork from "./pages/BestRemoteWork";
 import UpperPeninsulaSignal from "./pages/UpperPeninsulaSignal";
 import VerizonMichigan from "./pages/VerizonMichigan";
-
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />

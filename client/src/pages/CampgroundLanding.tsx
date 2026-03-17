@@ -15,6 +15,7 @@ import {
   Briefcase, Building2, Route
 } from "lucide-react";
 import { getCarrierLikelihood, LIKELIHOOD_STYLES, CARRIER_DISCLAIMER, type CarrierLikelihood } from "@/lib/carrierLikelihood";
+import CamperSignalReports from "@/components/CamperSignalReports";
 import top100Data from "@/data/top100_seo.json";
 import mvpData from "@/data/mvp_campgrounds.json";
 import { MapView } from "@/components/Map";
@@ -393,6 +394,9 @@ export default function CampgroundLanding() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Camper Signal Reports */}
+            <CamperSignalReports campgroundId={cg.slug} campgroundName={cg.campground_name} />
 
             {/* What to Know */}
             <Card>
