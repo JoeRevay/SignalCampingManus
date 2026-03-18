@@ -7,7 +7,7 @@
  *
  * Data: OSM base inventory (3114 campgrounds, 4 states) + verified MVP subset (485).
  */
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Link } from "wouter";
 import { Input } from "@/components/ui/input";
@@ -82,6 +82,14 @@ export default function Home() {
   const [mobileSidebar, setMobileSidebar] = useState(false);
 
   const filtered = useMemo(() => applyFilters(allCampgrounds, filters), [filters]);
+
+  useEffect(() => {
+    const count = allCampgrounds.length.toLocaleString();
+    document.title = "SignalCamping — Find Campgrounds Where Your Phone Works (Or Doesn't)";
+    let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement;
+    if (!meta) { meta = document.createElement("meta"); meta.name = "description"; document.head.appendChild(meta); }
+    meta.content = `SignalCamping helps you find campgrounds with cell service — or the perfect places to disconnect entirely. Explore ${count} campgrounds by carrier coverage and remote-work readiness across MI, OH, PA, and WI.`;
+  }, []);
 
   const handleSearch = useCallback((term: string) => {
     setFilters(f => ({ ...f, searchTerm: term }));

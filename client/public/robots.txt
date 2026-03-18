@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://signalcamping.com/sitemap.xml

@@ -1,0 +1,27 @@
+LAUNCH CHECKLIST AUDIT NOTES
+=============================
+
+DATA CONSISTENCY ISSUES:
+1. geojson.json has 2913 features but campgrounds.json has 2464 (stale - not cleaned)
+2. map_markers.json has 2913 records (stale - not cleaned)
+3. campgrounds_osm_normalized.json has 2913 records (stale - not cleaned)
+4. nearest_*_tower_km fields MISSING from campgrounds.json (only in datasets/campgrounds_signal_scored.json)
+5. datasets/ has 2543 records vs client/ has 2464 records (79 record gap)
+6. mvp_campgrounds.json has 479 records (may contain removed entries)
+
+DATA CONSISTENCY OK:
+- campgrounds.json == top100_seo.json (both 2464)
+- All key fields present: signal_score, signal_quality_score, carrier coverage, remote_work_score, carrier_count
+
+PAGES TO CHECK:
+- / (Home)
+- /top-campgrounds (Hub)
+- /campground/:slug (Detail)
+- /campgrounds/:state (State landing x4)
+- /best-cell-signal-campgrounds-upper-peninsula
+- /best-verizon-signal-campgrounds-michigan
+- /best-remote-work-campgrounds
+- /route-finder
+- /lists
+- /seo-directory
+- /build-spec, /mvp-launch, /product-v1

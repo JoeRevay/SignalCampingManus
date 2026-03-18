@@ -48,3 +48,7 @@
 - [x] Fix TopCampgrounds hub page top-25 section
 - [x] Update all list intros to explain tower-proximity ranking methodology
 - [x] Validate all pages show correct sorting and no low-quality entries
+- [x] Update homepage meta description to reflect dynamic campground count
+- [x] Add robots.txt to client/public/
+- [x] Generate sitemap.xml with homepage, state pages, ranking pages, and top 500 campground detail pages
+- [x] Regenerate geojson.json and map_markers.json from cleaned dataset only
