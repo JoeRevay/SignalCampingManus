@@ -179,7 +179,7 @@ export function generateRankingDescription(cg: any): string {
   } else if (carrierCount === 1) {
     coverage = `Single-carrier coverage from ${carrierSummary}.`;
   } else {
-    coverage = "No major carrier coverage detected in modeling.";
+    coverage = "Carrier coverage data not yet confirmed for this location.";
   }
 
   // Build quality sentence

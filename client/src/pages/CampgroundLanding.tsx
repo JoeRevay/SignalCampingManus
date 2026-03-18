@@ -11,7 +11,7 @@ import {
   Signal, MapPin, Tent, Truck, Zap, Waves,
   Navigation, ArrowLeft, ExternalLink,
   ChevronRight, Compass, CheckCircle2,
-  XCircle, Info, Globe, Wifi, HelpCircle,
+  Info, Globe, Wifi, HelpCircle,
   Briefcase, Building2, Route
 } from "lucide-react";
 import { getCarrierLikelihood, LIKELIHOOD_STYLES, CARRIER_DISCLAIMER, type CarrierLikelihood } from "@/lib/carrierLikelihood";
@@ -259,9 +259,9 @@ export default function CampgroundLanding() {
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="font-medium text-sm">{label}</span>
-                          {available ? <CheckCircle2 className="w-3.5 h-3.5 text-green-600" /> : <XCircle className="w-3.5 h-3.5 text-gray-400" />}
+                          {available ? <CheckCircle2 className="w-3.5 h-3.5 text-green-600" /> : <HelpCircle className="w-3.5 h-3.5 text-gray-400" />}
                         </div>
-                        <p className="text-xs text-gray-500 mt-0.5">{available ? desc : "Not available at this campground."}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">{available ? desc : "No confirmed data for this amenity."}</p>
                       </div>
                     </div>
                   ))}

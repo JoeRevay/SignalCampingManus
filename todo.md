@@ -52,3 +52,5 @@
 - [x] Add robots.txt to client/public/
 - [x] Generate sitemap.xml with homepage, state pages, ranking pages, and top 500 campground detail pages
 - [x] Regenerate geojson.json and map_markers.json from cleaned dataset only
+- [x] Replace "Not available at this campground" with "No confirmed data" across all components
+- [x] Replace any other false-negative amenity language with uncertainty-reflecting wording
