@@ -34,3 +34,4 @@
 - [x] Add sort options to full directory (Best Signal, Best for Remote Work)
 - [x] Add subtle tie-breaking note to campground detail pages
 - [x] Validate ranking order on all pages
+- [x] Fix Google Maps API loaded multiple times error on homepage

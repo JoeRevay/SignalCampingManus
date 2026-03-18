@@ -51,28 +51,11 @@ function pointToSegmentDist(px: number, py: number, ax: number, ay: number, bx: 
   return haversine(px, py, ax + t * dx, ay + t * dy);
 }
 
-// Google Maps script loader (reuse the same proxy as Map.tsx)
-const API_KEY = import.meta.env.VITE_FRONTEND_FORGE_API_KEY;
-const FORGE_BASE_URL = import.meta.env.VITE_FRONTEND_FORGE_API_URL || "https://forge.butterfly-effect.dev";
-const MAPS_PROXY_URL = `${FORGE_BASE_URL}/v1/maps/proxy`;
-
-let mapsLoaded = false;
-let mapsLoadPromise: Promise<void> | null = null;
+// Reuse the centralized Maps loader from Map.tsx to avoid duplicate script injection
+import { loadMapScript } from "@/components/Map";
 
 function ensureMapsLoaded(): Promise<void> {
-  if (mapsLoaded && window.google?.maps) return Promise.resolve();
-  if (mapsLoadPromise) return mapsLoadPromise;
-  mapsLoadPromise = new Promise((resolve) => {
-    if (window.google?.maps) { mapsLoaded = true; resolve(); return; }
-    const script = document.createElement("script");
-    script.src = `${MAPS_PROXY_URL}/maps/api/js?key=${API_KEY}&v=weekly&libraries=places,geocoding`;
-    script.async = true;
-    script.crossOrigin = "anonymous";
-    script.onload = () => { mapsLoaded = true; resolve(); };
-    script.onerror = () => { mapsLoadPromise = null; resolve(); };
-    document.head.appendChild(script);
-  });
-  return mapsLoadPromise;
+  return loadMapScript().then(() => {});
 }
 
 interface GeoResult {
