@@ -21,3 +21,8 @@
 - [x] Output updated campgrounds_signal_scored.json and campgrounds_signal_scored_clean.json
 - [x] Generate enrichment summary report
 - [x] Fix campground detail pages not reflecting updated carrier data from tower enrichment
+- [x] Compute nearest tower distance per carrier for each campground
+- [x] Calculate signal_quality_score (0-100) based on proximity rules
+- [x] Add new fields to campgrounds_signal_scored.json without modifying existing fields
+- [x] Sync new fields to all client data files
+- [x] Validate signal_quality_score distribution and tied-ranking breakup
