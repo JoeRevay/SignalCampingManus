@@ -35,3 +35,9 @@
 - [x] Add subtle tie-breaking note to campground detail pages
 - [x] Validate ranking order on all pages
 - [x] Fix Google Maps API loaded multiple times error on homepage
+- [x] Identify and remove individual campsites, tent pads, backcountry markers from dataset
+- [x] Remove records with invalid/short names
+- [x] Deduplicate records with same name within 0.5km
+- [x] Output campgrounds_cleaned_final.json
+- [x] Sync cleaned data to all client data files
+- [x] Generate cleaning summary report
