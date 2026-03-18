@@ -11,3 +11,12 @@
 - [x] Add By Use Case section (remote work, off-grid)
 - [x] Add internal links to UP signal page, Verizon Michigan page, etc.
 - [x] Keep existing data and layout intact
+- [x] Load tower dataset and build spatial index (KDTree)
+- [x] Recompute AT&T coverage from real tower data
+- [x] Recompute T-Mobile coverage from real tower data
+- [x] Preserve existing Verizon coverage values
+- [x] Recompute carrier_count and signal_score
+- [x] Recompute remote_work_score
+- [x] Validate 20+ random campgrounds
+- [x] Output updated campgrounds_signal_scored.json and campgrounds_signal_scored_clean.json
+- [x] Generate enrichment summary report
