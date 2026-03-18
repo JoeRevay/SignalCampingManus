@@ -20,3 +20,4 @@
 - [x] Validate 20+ random campgrounds
 - [x] Output updated campgrounds_signal_scored.json and campgrounds_signal_scored_clean.json
 - [x] Generate enrichment summary report
+- [x] Fix campground detail pages not reflecting updated carrier data from tower enrichment

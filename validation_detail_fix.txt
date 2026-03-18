@@ -1,0 +1,11 @@
+Detail Page Fix Validation
+==========================
+
+Munising Tourist Park Campground:
+- Signal Score: 70/100 (was previously different with old data)
+- Carrier Likelihood: Verizon Likely, AT&T Likely, T-Mobile Possible
+- Remote Work Score: 58/100
+- Carrier count: 2+ detected (matches signal score of 70)
+
+The detail page now reflects the updated tower-based carrier data.
+All 4 client data files + geojson were synced from the enriched dataset.
