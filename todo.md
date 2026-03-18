@@ -26,3 +26,11 @@
 - [x] Add new fields to campgrounds_signal_scored.json without modifying existing fields
 - [x] Sync new fields to all client data files
 - [x] Validate signal_quality_score distribution and tied-ranking breakup
+- [x] Update UpperPeninsulaSignal.tsx sort to use signal_quality_score
+- [x] Update VerizonMichigan.tsx sort to use signal_quality_score
+- [x] Update BestRemoteWork.tsx sort to use signal_quality_score
+- [x] Update TopCampgrounds.tsx top-25 and directory sort to use signal_quality_score
+- [x] Update Home.tsx sort if applicable (no signal-based sort in Home.tsx)
+- [x] Add sort options to full directory (Best Signal, Best for Remote Work)
+- [x] Add subtle tie-breaking note to campground detail pages
+- [x] Validate ranking order on all pages

@@ -63,7 +63,7 @@ export default function UpperPeninsulaSignal() {
         signal_score: cg.signal_score ?? 0,
         remote_work_score: cg.remote_work_score ?? 0,
       }))
-      .sort((a, b) => b.signal_score - a.signal_score)
+      .sort((a, b) => (b.signal_quality_score ?? b.signal_score) - (a.signal_quality_score ?? a.signal_score) || (b.remote_work_score ?? 0) - (a.remote_work_score ?? 0) || a.campground_name.localeCompare(b.campground_name))
       .slice(0, 25);
   }, []);
 

@@ -49,7 +49,7 @@ const STATE_CODES: Record<string, string> = {
 const top25 = (() => {
   const seen = new Set<string>();
   return [...campgrounds]
-    .sort((a, b) => (b.signal_score ?? 0) - (a.signal_score ?? 0))
+    .sort((a, b) => (b.signal_quality_score ?? b.signal_score ?? 0) - (a.signal_quality_score ?? a.signal_score ?? 0) || (b.remote_work_score ?? 0) - (a.remote_work_score ?? 0) || a.campground_name.localeCompare(b.campground_name))
     .filter(cg => {
       if (seen.has(cg.campground_name)) return false;
       seen.add(cg.campground_name);
@@ -72,7 +72,7 @@ export default function TopCampgrounds() {
   const [search, setSearch] = useState("");
   const [stateFilter, setStateFilter] = useState<string | null>(null);
   const [verifiedOnly, setVerifiedOnly] = useState(false);
-  const [sortBy, setSortBy] = useState<"campground_name" | "state">("campground_name");
+  const [sortBy, setSortBy] = useState<"campground_name" | "state" | "best_signal" | "remote_work">("campground_name");
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -98,6 +98,8 @@ export default function TopCampgrounds() {
       );
     }
     data.sort((a: any, b: any) => {
+      if (sortBy === "best_signal") return (b.signal_quality_score ?? b.signal_score ?? 0) - (a.signal_quality_score ?? a.signal_score ?? 0) || a.campground_name.localeCompare(b.campground_name);
+      if (sortBy === "remote_work") return (b.remote_work_score ?? 0) - (a.remote_work_score ?? 0) || a.campground_name.localeCompare(b.campground_name);
       if (sortBy === "campground_name") return a.campground_name.localeCompare(b.campground_name);
       return a.state.localeCompare(b.state) || a.campground_name.localeCompare(b.campground_name);
     });
@@ -496,9 +498,19 @@ export default function TopCampgrounds() {
               onClick={() => setVerifiedOnly(!verifiedOnly)}>
               <CheckCircle2 className="w-3 h-3 mr-1" /> Verified Only
             </Button>
-            <Button variant="ghost" size="sm" className="text-xs" onClick={() => setSortBy(s => s === "campground_name" ? "state" : "campground_name")}>
-              <ArrowUpDown className="w-3 h-3 mr-1" /> Sort by {sortBy === "campground_name" ? "Name" : "State"}
-            </Button>
+            <div className="flex items-center gap-1">
+              <ArrowUpDown className="w-3 h-3 text-gray-400" />
+              {(["best_signal", "remote_work", "campground_name", "state"] as const).map(opt => {
+                const labels: Record<string, string> = { best_signal: "Best Signal", remote_work: "Remote Work", campground_name: "Name", state: "State" };
+                return (
+                  <Button key={opt} variant={sortBy === opt ? "default" : "outline"} size="sm"
+                    className={`text-[10px] h-7 px-2 ${sortBy === opt ? "bg-green-700 hover:bg-green-800" : "border-green-200 text-green-700"}`}
+                    onClick={() => setSortBy(opt)}>
+                    {labels[opt]}
+                  </Button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Results count */}

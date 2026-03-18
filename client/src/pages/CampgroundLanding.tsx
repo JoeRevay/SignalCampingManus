@@ -311,6 +311,7 @@ export default function CampgroundLanding() {
                        (cg.signal_score ?? 0) >= 40 ? 'Fair coverage — 1 carrier detected' :
                        'Poor coverage — no carriers detected nearby'}
                     </p>
+                    <p className="text-[10px] text-gray-400 mt-1.5">Rankings use tower proximity refinement for tie-breaking</p>
                   </div>
 
                   {/* Remote Work Score Card */}

@@ -39,7 +39,7 @@ export default function VerizonMichigan() {
   const ranked = useMemo(() => {
     return (rawData as any[])
       .filter(cg => cg.state === "MI" && cg.verizon_coverage === true)
-      .sort((a, b) => (b.signal_score ?? 0) - (a.signal_score ?? 0))
+      .sort((a, b) => (b.signal_quality_score ?? b.signal_score ?? 0) - (a.signal_quality_score ?? a.signal_score ?? 0) || (b.remote_work_score ?? 0) - (a.remote_work_score ?? 0) || (a.campground_name ?? '').localeCompare(b.campground_name ?? ''))
       .slice(0, 25);
   }, []);
 

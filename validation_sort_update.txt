@@ -1,0 +1,11 @@
+Sort Update Validation - March 17, 2026
+
+1. Upper Peninsula page: Rankings show all signal_score=90, sorted by signal_quality_score (tie-breaking by remote_work_score then name). Marinette City Park #1 (RW:92), Pioneer Trail Park #2 (RW:83), Kona Hills #3.
+
+2. TopCampgrounds hub: Top 25 sorted by signal_quality_score. Brown County Fairgrounds #1 (Signal:90, RW:93). Sort buttons visible: Best Signal, Remote Work, Name, State.
+
+3. Directory: Default sort is Name (alphabetical). Best Signal and Remote Work sort buttons available.
+
+4. All pages show signal_score to users (not signal_quality_score).
+
+5. Sort buttons: Best Signal, Remote Work, Name, State all visible in directory section.

@@ -90,7 +90,7 @@ export default function BestRemoteWork() {
   const top50 = useMemo(() => {
     return (rawData as Campground[])
       .filter(cg => cg.remote_work_score != null && cg.remote_work_score > 0)
-      .sort((a, b) => b.remote_work_score - a.remote_work_score)
+      .sort((a, b) => b.remote_work_score - a.remote_work_score || (b.signal_quality_score ?? b.signal_score ?? 0) - (a.signal_quality_score ?? a.signal_score ?? 0) || a.campground_name.localeCompare(b.campground_name))
       .slice(0, 50);
   }, []);
 
