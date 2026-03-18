@@ -26,6 +26,7 @@ import {
 import top100Data from "@/data/campgrounds.json";
 import { getCarrierLikelihood, LIKELIHOOD_STYLES, type CarrierLikelihood } from "@/lib/carrierLikelihood";
 import { generateBlurb } from "@/lib/campgroundBlurb";
+import { filterForBestSignal, sortBySignalQuality, generateRankingDescription } from "@/lib/rankingUtils";
 
 const PER_PAGE = 50;
 
@@ -45,11 +46,12 @@ const STATE_CODES: Record<string, string> = {
   MI: "mi", OH: "oh", PA: "pa", WI: "wi",
 };
 
-/* ── Top 25 by signal score (deduplicated by name) ── */
+/* ── Top 25 by signal quality score (filtered + deduplicated) ── */
 const top25 = (() => {
+  const filtered = filterForBestSignal(campgrounds, 85);
+  const sorted = sortBySignalQuality(filtered);
   const seen = new Set<string>();
-  return [...campgrounds]
-    .sort((a, b) => (b.signal_quality_score ?? b.signal_score ?? 0) - (a.signal_quality_score ?? a.signal_score ?? 0) || (b.remote_work_score ?? 0) - (a.remote_work_score ?? 0) || a.campground_name.localeCompare(b.campground_name))
+  return sorted
     .filter(cg => {
       if (seen.has(cg.campground_name)) return false;
       seen.add(cg.campground_name);
@@ -215,7 +217,7 @@ export default function TopCampgrounds() {
               <h2 className="text-2xl font-bold text-gray-900" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
                 Top 25 Campgrounds with Cell Service
               </h2>
-              <p className="text-sm text-gray-500">Ranked by signal score across all carriers</p>
+              <p className="text-sm text-gray-500">Ranked by signal quality score (tower proximity) across all carriers</p>
             </div>
           </div>
 
@@ -223,13 +225,20 @@ export default function TopCampgrounds() {
             {top25.map((cg, i) => {
               const slug = cg.slug || cg.campground_name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
               const likelihood = getCarrierLikelihood(cg);
-              const blurb = generateBlurb(cg);
+              const description = generateRankingDescription(cg);
+              const sqs = cg.signal_quality_score ?? cg.signal_score ?? 0;
+              const signalScore = cg.signal_score ?? 0;
+              const rwScore = cg.remote_work_score ?? 0;
+              const signalColor = signalScore >= 70 ? "text-green-600" : signalScore >= 40 ? "text-amber-600" : "text-red-500";
+              const rwColor = rwScore >= 70 ? "text-green-600" : rwScore >= 40 ? "text-amber-600" : "text-red-500";
               return (
                 <Link key={slug + i} href={`/campground/${slug}`}>
                   <Card className="hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
-                        <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center shrink-0 text-sm font-bold text-white">
+                        <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 text-sm font-bold ${
+                          i < 3 ? "bg-gradient-to-br from-green-600 to-emerald-700 text-white" : i < 10 ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600"
+                        }`}>
                           {i + 1}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -247,25 +256,26 @@ export default function TopCampgrounds() {
                             <MapPin className="w-3 h-3" />
                             {cg.city ? `${cg.city}, ` : ""}{STATE_NAMES[cg.state] || cg.state}
                           </p>
-                          {/* Signal + Remote Work scores */}
+                          {/* Data-driven description */}
+                          <p className="text-xs text-gray-600 leading-relaxed mb-2">{description}</p>
+                          {/* Signal + Remote Work scores with quality */}
                           <div className="flex items-center gap-4 mb-2">
-                            <span className="text-xs font-semibold text-green-700">
-                              Signal: {cg.signal_score ?? "N/A"}/100
+                            <span className="text-xs">
+                              <span className={`font-semibold ${signalColor}`}>Signal: {signalScore}</span>
+                              <span className="text-[10px] text-gray-400 ml-1">Q:{sqs}</span>
                             </span>
-                            {cg.remote_work_score != null && (
-                              <span className="text-xs text-blue-600">
-                                Remote Work: {cg.remote_work_score}/100
+                            {rwScore > 0 && (
+                              <span className="text-xs">
+                                <span className={`font-semibold ${rwColor}`}>Remote: {Math.round(rwScore)}</span>
                               </span>
                             )}
                           </div>
                           {/* Carrier badges */}
-                          <div className="flex flex-wrap gap-1.5 mb-2">
+                          <div className="flex flex-wrap gap-1.5">
                             <LikelihoodBadge carrier="Verizon" level={likelihood.verizon} />
                             <LikelihoodBadge carrier="AT&T" level={likelihood.att} />
                             <LikelihoodBadge carrier="T-Mobile" level={likelihood.tmobile} />
                           </div>
-                          {/* Blurb */}
-                          <p className="text-xs text-gray-500 leading-relaxed">{blurb}</p>
                         </div>
                         <ChevronRight className="w-4 h-4 text-gray-300 shrink-0 mt-1" />
                       </div>

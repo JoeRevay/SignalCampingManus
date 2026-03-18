@@ -1,0 +1,37 @@
+List Page Fix Validation Summary
+=================================
+
+Pages Updated:
+1. UpperPeninsulaSignal.tsx - UP ranking page
+2. VerizonMichigan.tsx - Verizon Michigan ranking page
+3. BestRemoteWork.tsx - Remote Work ranking page
+4. TopCampgrounds.tsx - Hub page top-25 section
+
+Shared Utilities Created:
+- client/src/lib/rankingUtils.ts (filterForBestSignal, sortBySignalQuality, isValidCampground, generateRankingDescription)
+
+Changes Applied:
+- All ranking pages now sort by signal_quality_score desc, remote_work_score desc, name asc
+- Quality filter: only campgrounds with signal_quality_score >= 85 appear in "Best Signal" lists
+- Name filter: removes entries with names < 4 chars, single words, "#", "Site", "Pad", etc.
+- Data-driven descriptions generated from carrier_count, carriers available, quality tier, remote work tier
+- Signal score displayed large, quality score shown as small "Q:95" secondary metric
+- Carrier badges show Likely/Possible/Not Detected for each carrier
+
+Dataset Stats:
+- Total campgrounds: 2,464
+- After quality filter (>=85): 795
+- After dedup: 778
+
+Top 10 Ranked (all pages consistent):
+Rank  Name                              SS   SQS  RW   State
+1     Brown County Fairgrounds          90   95   93   WI
+2     Camp Ammon                        90   95   93   MI
+3     Camp Cheerful                     90   95   93   OH
+4     Camp George Forbes                90   95   93   OH
+5     Camp Mary-Orton                   90   95   93   OH
+6     Camp Miakonda                     90   95   93   OH
+7     Evergreen Lake Park Campground    90   95   93   OH
+8     Riverview RV Park and Marina      90   95   93   OH
+9     Equestrian Camp                   90   95   92   OH
+10    Marinette City Park Campground    90   95   92   MI

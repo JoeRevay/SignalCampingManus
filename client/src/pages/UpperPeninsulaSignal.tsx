@@ -1,8 +1,10 @@
 /**
  * Best Campgrounds with Cell Service in Michigan's Upper Peninsula
- * Ranks the top 25 UP campgrounds by signal_score using the existing dataset.
  *
- * Includes: descriptive blurbs per listing, Related Signal Guides section.
+ * Ranks UP campgrounds by signal_quality_score (descending).
+ * Filters out low-quality entries. Displays signal_score as user-facing,
+ * signal_quality_score as small secondary, plus carrier badges and
+ * data-driven descriptions.
  */
 import { useMemo, useEffect } from "react";
 import { Link } from "wouter";
@@ -19,14 +21,12 @@ import {
   LIKELIHOOD_STYLES,
   type CarrierLikelihood,
 } from "@/lib/carrierLikelihood";
-import { generateBlurb } from "@/lib/campgroundBlurb";
+import { generateRankingDescription, filterForBestSignal, sortBySignalQuality } from "@/lib/rankingUtils";
 import RelatedSignalGuides from "@/components/RelatedSignalGuides";
 
 const STATE_NAMES: Record<string, string> = {
   MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin",
 };
-
-const parseBool = (v: any) => v === true || v === "True" || v === "Yes";
 
 function CarrierBadge({ carrier, level }: { carrier: string; level: CarrierLikelihood }) {
   const style = LIKELIHOOD_STYLES[level];
@@ -53,18 +53,9 @@ export default function UpperPeninsulaSignal() {
   }, []);
 
   const upCampgrounds = useMemo(() => {
-    return (campgroundsData as any[])
-      .filter(cg => cg.state === "MI" && cg.latitude >= 45.0)
-      .map(cg => ({
-        ...cg,
-        tent_sites: parseBool(cg.tent_sites),
-        rv_sites: parseBool(cg.rv_sites),
-        waterfront: parseBool(cg.waterfront),
-        signal_score: cg.signal_score ?? 0,
-        remote_work_score: cg.remote_work_score ?? 0,
-      }))
-      .sort((a, b) => (b.signal_quality_score ?? b.signal_score) - (a.signal_quality_score ?? a.signal_score) || (b.remote_work_score ?? 0) - (a.remote_work_score ?? 0) || a.campground_name.localeCompare(b.campground_name))
-      .slice(0, 25);
+    const upOnly = (campgroundsData as any[]).filter(cg => cg.state === "MI" && cg.latitude >= 45.0);
+    const filtered = filterForBestSignal(upOnly, 50); // UP is remote, use lower threshold
+    return sortBySignalQuality(filtered).slice(0, 25);
   }, []);
 
   return (
@@ -111,12 +102,10 @@ export default function UpperPeninsulaSignal() {
                 Best Campgrounds with Cell Service in Michigan's Upper Peninsula
               </h1>
               <p className="text-green-100 max-w-2xl leading-relaxed text-sm md:text-base">
-                Cell service in Michigan's Upper Peninsula can be unpredictable. SignalCamping analyzed campgrounds
-                across the region using signal scores derived from tower proximity and connectivity modeling to identify
-                locations most likely to have reliable cellular coverage.
-              </p>
-              <p className="text-green-200/80 mt-2 text-sm">
-                This page ranks the best locations for campers who want to stay connected while visiting the U.P.
+                Rankings are based on tower proximity analysis using signal_quality_score, which measures
+                how close each campground is to cell towers from Verizon, AT&T, and T-Mobile. Higher scores
+                indicate closer towers and more reliable coverage. Real-world performance may vary by terrain,
+                weather, and device.
               </p>
             </div>
           </div>
@@ -127,9 +116,9 @@ export default function UpperPeninsulaSignal() {
             </div>
             <div className="bg-white/10 rounded-lg px-4 py-2 text-center">
               <div className="text-xl font-bold">
-                {upCampgrounds.length > 0 ? Math.round(upCampgrounds.reduce((s, c) => s + c.signal_score, 0) / upCampgrounds.length) : 0}
+                {upCampgrounds.length > 0 ? Math.round(upCampgrounds.reduce((s, c) => s + (c.signal_quality_score ?? c.signal_score ?? 0), 0) / upCampgrounds.length) : 0}
               </div>
-              <div className="text-[11px] text-green-300">Avg Signal Score</div>
+              <div className="text-[11px] text-green-300">Avg Quality Score</div>
             </div>
             <div className="bg-white/10 rounded-lg px-4 py-2 text-center">
               <div className="text-xl font-bold">
@@ -146,16 +135,19 @@ export default function UpperPeninsulaSignal() {
         <div className="flex items-center gap-2 mb-6">
           <Signal className="w-5 h-5 text-green-700" />
           <h2 className="text-lg font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-            Top 25 by Signal Score
+            Top {upCampgrounds.length} by Signal Quality
           </h2>
         </div>
 
         <div className="space-y-3">
           {upCampgrounds.map((cg, i) => {
             const likelihood = getCarrierLikelihood(cg);
-            const signalColor = cg.signal_score >= 70 ? "#16a34a" : cg.signal_score >= 40 ? "#d97706" : "#dc2626";
-            const rwColor = cg.remote_work_score >= 70 ? "#16a34a" : cg.remote_work_score >= 40 ? "#d97706" : "#dc2626";
-            const blurb = generateBlurb(cg);
+            const sqs = cg.signal_quality_score ?? cg.signal_score ?? 0;
+            const signalScore = cg.signal_score ?? 0;
+            const rwScore = cg.remote_work_score ?? 0;
+            const signalColor = signalScore >= 70 ? "#16a34a" : signalScore >= 40 ? "#d97706" : "#dc2626";
+            const rwColor = rwScore >= 70 ? "#16a34a" : rwScore >= 40 ? "#d97706" : "#dc2626";
+            const description = generateRankingDescription(cg);
 
             return (
               <Link key={cg.slug + i} href={`/campground/${cg.slug}`}>
@@ -190,9 +182,9 @@ export default function UpperPeninsulaSignal() {
                           )}
                         </p>
 
-                        {/* Blurb */}
-                        <p className="text-xs text-gray-600 leading-relaxed mb-3 italic">
-                          {blurb}
+                        {/* Data-driven description */}
+                        <p className="text-xs text-gray-600 leading-relaxed mb-3">
+                          {description}
                         </p>
 
                         {/* Scores */}
@@ -202,18 +194,21 @@ export default function UpperPeninsulaSignal() {
                               <span className="text-[11px] text-gray-500 flex items-center gap-1">
                                 <Wifi className="w-3 h-3" /> Signal Score
                               </span>
-                              <span className="text-xs font-bold" style={{ color: signalColor }}>{cg.signal_score}</span>
+                              <span className="flex items-center gap-1.5">
+                                <span className="text-xs font-bold" style={{ color: signalColor }}>{signalScore}</span>
+                                <span className="text-[10px] text-gray-400">Quality: {sqs}</span>
+                              </span>
                             </div>
-                            <ScoreBar value={cg.signal_score} color={signalColor} />
+                            <ScoreBar value={signalScore} color={signalColor} />
                           </div>
                           <div>
                             <div className="flex items-center justify-between mb-1">
                               <span className="text-[11px] text-gray-500 flex items-center gap-1">
                                 <Briefcase className="w-3 h-3" /> Remote Work
                               </span>
-                              <span className="text-xs font-bold" style={{ color: rwColor }}>{Math.round(cg.remote_work_score)}</span>
+                              <span className="text-xs font-bold" style={{ color: rwColor }}>{Math.round(rwScore)}</span>
                             </div>
-                            <ScoreBar value={cg.remote_work_score} color={rwColor} />
+                            <ScoreBar value={rwScore} color={rwColor} />
                           </div>
                         </div>
 
@@ -238,10 +233,10 @@ export default function UpperPeninsulaSignal() {
         {/* Disclaimer */}
         <div className="mt-8 p-4 bg-amber-50/60 border border-amber-200/60 rounded-lg">
           <p className="text-xs text-amber-800/80 leading-relaxed">
-            <strong>Note:</strong> Signal scores are modeled from publicly available tower and coverage data.
+            <strong>Note:</strong> Rankings use signal_quality_score derived from tower proximity analysis.
+            Signal scores and carrier likelihood are modeled from publicly available tower data.
             Actual service may vary depending on terrain, weather, and network conditions.
             The Upper Peninsula's rugged geography means coverage can change significantly over short distances.
-            Always have offline maps and emergency plans when camping in remote areas.
           </p>
         </div>
 

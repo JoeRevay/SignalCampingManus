@@ -41,3 +41,10 @@
 - [x] Output campgrounds_cleaned_final.json
 - [x] Sync cleaned data to all client data files
 - [x] Generate cleaning summary report
+- [x] Create shared ranking utilities (filter, sort, description generator)
+- [x] Fix UpperPeninsulaSignal page with quality filtering and enhanced display
+- [x] Fix VerizonMichigan page with quality filtering and enhanced display
+- [x] Fix BestRemoteWork page with quality filtering and enhanced display
+- [x] Fix TopCampgrounds hub page top-25 section
+- [x] Update all list intros to explain tower-proximity ranking methodology
+- [x] Validate all pages show correct sorting and no low-quality entries

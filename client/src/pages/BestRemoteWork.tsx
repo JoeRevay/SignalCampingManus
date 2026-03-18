@@ -1,9 +1,9 @@
 /**
  * BestRemoteWork — Top 50 Campgrounds for Remote Work
  *
- * Ranks campgrounds by remote_work_score descending.
- * Shows carrier likelihood, signal score, town/highway proximity.
- * Uses existing dataset — no data rebuild.
+ * Sorted by remote_work_score (primary), signal_quality_score (secondary).
+ * Filtered for quality. Displays signal_score as user-facing,
+ * signal_quality_score as small secondary.
  */
 import { useMemo, useState } from "react";
 import { Link } from "wouter";
@@ -20,35 +20,13 @@ import {
   CARRIER_DISCLAIMER,
   type CarrierLikelihood,
 } from "@/lib/carrierLikelihood";
-
-import { generateBlurb } from "@/lib/campgroundBlurb";
+import { generateRankingDescription, filterForRanking, sortByRemoteWork } from "@/lib/rankingUtils";
 import RelatedSignalGuides from "@/components/RelatedSignalGuides";
 import rawData from "@/data/campgrounds.json";
 
 const STATE_NAMES: Record<string, string> = {
   MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin",
 };
-
-interface Campground {
-  campground_name: string;
-  slug: string;
-  state: string;
-  city: string;
-  campground_type: string;
-  remote_work_score: number;
-  signal_score: number;
-  carrier_count: number;
-  verizon_coverage: boolean;
-  att_coverage: boolean;
-  tmobile_coverage: boolean;
-  distance_to_town_miles: number | null;
-  nearest_town: string;
-  distance_to_highway_miles: number | null;
-  is_verified: boolean;
-  latitude: number;
-  longitude: number;
-  [key: string]: any;
-}
 
 function CarrierBadge({ carrier, level }: { carrier: string; level: CarrierLikelihood }) {
   const style = LIKELIHOOD_STYLES[level];
@@ -88,10 +66,9 @@ export default function BestRemoteWork() {
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
 
   const top50 = useMemo(() => {
-    return (rawData as Campground[])
-      .filter(cg => cg.remote_work_score != null && cg.remote_work_score > 0)
-      .sort((a, b) => b.remote_work_score - a.remote_work_score || (b.signal_quality_score ?? b.signal_score ?? 0) - (a.signal_quality_score ?? a.signal_score ?? 0) || a.campground_name.localeCompare(b.campground_name))
-      .slice(0, 50);
+    const withRW = (rawData as any[]).filter(cg => cg.remote_work_score != null && cg.remote_work_score > 0);
+    const filtered = filterForRanking(withRW);
+    return sortByRemoteWork(filtered).slice(0, 50);
   }, []);
 
   return (
@@ -139,7 +116,9 @@ export default function BestRemoteWork() {
               <span className="text-blue-300">Remote Work</span>
             </h1>
             <p className="text-base sm:text-lg text-white/70 leading-relaxed mb-6">
-              These campgrounds are ranked using SignalCamping&rsquo;s <strong className="text-white/90">remote_work_score</strong>, a composite metric based on cellular signal coverage (70%), proximity to the nearest town with 10,000+ population (20%), and distance to the nearest highway (10%).
+              Rankings use remote_work_score (a composite of signal coverage, town proximity, and highway
+              access) with signal_quality_score as a tie-breaker. Only legitimate campgrounds are included —
+              individual campsites and low-quality entries are filtered out. Real-world connectivity may vary.
             </p>
             <div className="flex flex-wrap gap-4 text-sm text-white/60">
               <span className="flex items-center gap-1.5">
@@ -161,7 +140,7 @@ export default function BestRemoteWork() {
         <div className="container max-w-4xl">
           <div className="flex items-center justify-between mb-6">
             <p className="text-sm text-muted-foreground">
-              Showing the top <strong>50</strong> campgrounds by remote work score
+              Showing the top <strong>{top50.length}</strong> campgrounds by remote work score
             </p>
             <Badge variant="outline" className="text-xs">
               {top50.filter(c => c.is_verified).length} verified
@@ -173,6 +152,8 @@ export default function BestRemoteWork() {
               const likelihood = getCarrierLikelihood(cg);
               const isExpanded = expandedIdx === idx;
               const sc = scoreColor(cg.remote_work_score);
+              const sqs = cg.signal_quality_score ?? cg.signal_score ?? 0;
+              const description = generateRankingDescription(cg);
 
               return (
                 <Card
@@ -211,10 +192,11 @@ export default function BestRemoteWork() {
                           <MapPin className="w-3 h-3" />
                           <span>{cg.city ? `${cg.city}, ` : ""}{STATE_NAMES[cg.state] || cg.state}</span>
                           <span className="text-gray-300">|</span>
-                          <span className="capitalize">{cg.campground_type?.replace(/_/g, " ")}</span>
+                          <span className="capitalize">{(cg.campground_type ?? "").replace(/_/g, " ")}</span>
                         </div>
-                        <p className="text-xs text-gray-500 leading-relaxed mt-1.5 italic">
-                          {generateBlurb(cg)}
+                        {/* Data-driven description */}
+                        <p className="text-xs text-gray-500 leading-relaxed mt-1.5">
+                          {description}
                         </p>
                       </div>
 
@@ -239,7 +221,10 @@ export default function BestRemoteWork() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div className="space-y-3">
                             <ScoreBar score={cg.remote_work_score} label="Remote Work Score" color="#2563eb" />
-                            <ScoreBar score={cg.signal_score} label="Signal Score" color="#16a34a" />
+                            <div>
+                              <ScoreBar score={cg.signal_score} label="Signal Score" color="#16a34a" />
+                              <p className="text-[10px] text-gray-400 mt-0.5">Quality: {sqs}</p>
+                            </div>
                           </div>
                           <div className="space-y-2 text-sm">
                             <div className="flex justify-between">
@@ -307,7 +292,7 @@ export default function BestRemoteWork() {
                 <Info className="w-4 h-4 text-blue-600" /> How Remote Work Score is Calculated
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                The remote work score is a weighted composite of three factors: <strong>cellular signal coverage</strong> (70% weight) based on tower proximity data from FCC and OpenCellID, <strong>distance to the nearest town</strong> with 10,000+ population (20% weight), and <strong>distance to the nearest highway</strong> (10% weight). Scores range from 0 to 100. A score of 80+ indicates strong remote work viability; 60&ndash;79 is moderate; below 60 may present connectivity challenges.
+                The remote work score is a weighted composite of three factors: <strong>cellular signal coverage</strong> (70% weight) based on tower proximity data from FCC and OpenCellID, <strong>distance to the nearest town</strong> with 10,000+ population (20% weight), and <strong>distance to the nearest highway</strong> (10% weight). Scores range from 0 to 100. A score of 80+ indicates strong remote work viability; 60&ndash;79 is moderate; below 60 may present connectivity challenges. Rankings use signal_quality_score as a secondary sort to break ties.
               </p>
               <p className="text-xs text-muted-foreground mt-3">
                 {CARRIER_DISCLAIMER}

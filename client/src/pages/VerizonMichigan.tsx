@@ -1,9 +1,8 @@
 /**
- * VerizonMichigan — Top 25 Michigan campgrounds with Verizon signal.
- * Data: campgrounds.json, filtered to MI + verizon_coverage.
- * Style: Space Grotesk headings, DM Sans body, green/earth palette.
+ * VerizonMichigan — Top Michigan campgrounds with Verizon signal.
  *
- * Includes: descriptive blurbs per listing, Related Signal Guides section.
+ * Sorted by signal_quality_score descending. Filtered for quality.
+ * Displays signal_score as user-facing, signal_quality_score as secondary.
  */
 import { useMemo, useEffect, useState } from "react";
 import { Link } from "wouter";
@@ -17,7 +16,7 @@ import {
 import {
   getCarrierLikelihood, type CarrierLikelihood, LIKELIHOOD_STYLES
 } from "@/lib/carrierLikelihood";
-import { generateBlurb } from "@/lib/campgroundBlurb";
+import { generateRankingDescription, filterForBestSignal, sortBySignalQuality } from "@/lib/rankingUtils";
 import RelatedSignalGuides from "@/components/RelatedSignalGuides";
 import rawData from "@/data/campgrounds.json";
 
@@ -37,10 +36,9 @@ export default function VerizonMichigan() {
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
 
   const ranked = useMemo(() => {
-    return (rawData as any[])
-      .filter(cg => cg.state === "MI" && cg.verizon_coverage === true)
-      .sort((a, b) => (b.signal_quality_score ?? b.signal_score ?? 0) - (a.signal_quality_score ?? a.signal_score ?? 0) || (b.remote_work_score ?? 0) - (a.remote_work_score ?? 0) || (a.campground_name ?? '').localeCompare(b.campground_name ?? ''))
-      .slice(0, 25);
+    const miVerizon = (rawData as any[]).filter(cg => cg.state === "MI" && cg.verizon_coverage === true);
+    const filtered = filterForBestSignal(miVerizon, 85);
+    return sortBySignalQuality(filtered).slice(0, 25);
   }, []);
 
   const avgSignal = useMemo(() => {
@@ -59,7 +57,7 @@ export default function VerizonMichigan() {
     document.title = "Best Campgrounds with Verizon Signal in Michigan | SignalCamping";
     let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement;
     if (!meta) { meta = document.createElement("meta"); meta.name = "description"; document.head.appendChild(meta); }
-    meta.content = "Top 25 Michigan campgrounds ranked by Verizon signal strength. Find campgrounds where Verizon coverage is most likely.";
+    meta.content = "Top Michigan campgrounds ranked by Verizon signal quality using tower proximity analysis.";
   }, []);
 
   return (
@@ -115,15 +113,13 @@ export default function VerizonMichigan() {
             Best Campgrounds with Verizon Signal in Michigan
           </h1>
           <p className="text-gray-600 leading-relaxed mb-6">
-            Many campers rely on Verizon when traveling in Michigan because rural coverage can vary widely
-            by location. SignalCamping analyzed Michigan campgrounds using modeled signal scores derived
-            from tower proximity and connectivity data to identify the campgrounds most likely to provide
-            strong Verizon connectivity. This page is intended for campers who want to stay connected
-            while exploring Michigan.
+            Rankings are based on tower proximity analysis using signal_quality_score, which measures
+            how close each campground is to Verizon cell towers. Only campgrounds with a quality score
+            of 85 or higher are included. Real-world performance may vary by terrain, weather, and device.
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { label: "Ranked", value: "25", sub: "campgrounds" },
+              { label: "Ranked", value: String(ranked.length), sub: "campgrounds" },
               { label: "Avg Signal", value: String(avgSignal), sub: "out of 100" },
               { label: "Avg Remote", value: String(avgRemote), sub: "work score" },
               { label: "Verified", value: String(verifiedCount), sub: "official sources" },
@@ -144,7 +140,8 @@ export default function VerizonMichigan() {
           {ranked.map((cg: any, idx: number) => {
             const likelihood = getCarrierLikelihood(cg);
             const expanded = expandedIdx === idx;
-            const blurb = generateBlurb(cg);
+            const sqs = cg.signal_quality_score ?? cg.signal_score ?? 0;
+            const description = generateRankingDescription(cg);
 
             return (
               <Card
@@ -179,9 +176,9 @@ export default function VerizonMichigan() {
                         )}
                       </p>
 
-                      {/* Blurb */}
-                      <p className="text-xs text-gray-600 leading-relaxed mb-3 italic">
-                        {blurb}
+                      {/* Data-driven description */}
+                      <p className="text-xs text-gray-600 leading-relaxed mb-3">
+                        {description}
                       </p>
 
                       {/* Score bars */}
@@ -190,6 +187,7 @@ export default function VerizonMichigan() {
                           <Signal className={`w-3.5 h-3.5 ${scoreColor(cg.signal_score ?? 0)}`} />
                           <span className="text-xs text-gray-500">Signal</span>
                           <span className={`text-xs font-bold ${scoreColor(cg.signal_score ?? 0)}`}>{cg.signal_score ?? "—"}</span>
+                          <span className="text-[10px] text-gray-400 ml-0.5">Q:{sqs}</span>
                           <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
                             <div className={`h-full rounded-full ${scoreBg(cg.signal_score ?? 0)}`} style={{ width: `${cg.signal_score ?? 0}%` }} />
                           </div>
@@ -204,33 +202,31 @@ export default function VerizonMichigan() {
                         </div>
                       </div>
 
+                      {/* Carrier badges - always visible */}
+                      <div className="flex flex-wrap gap-1.5 mt-2">
+                        {[
+                          { name: "Verizon", level: likelihood.verizon },
+                          { name: "AT&T", level: likelihood.att },
+                          { name: "T-Mobile", level: likelihood.tmobile },
+                        ].map(c => {
+                          const style = LIKELIHOOD_STYLES[c.level];
+                          return (
+                            <span key={c.name} className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium border ${style.bgClass} ${style.textClass} ${style.borderClass}`}>
+                              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: style.dotColor }} />
+                              {c.name}: {style.label}
+                            </span>
+                          );
+                        })}
+                      </div>
+
                       {/* Expanded detail */}
                       {expanded && (
                         <div className="mt-4 pt-3 border-t border-gray-100 space-y-3">
-                          {/* Carrier likelihood */}
-                          <div>
-                            <p className="text-xs font-medium text-gray-600 mb-1.5">Carrier Likelihood</p>
-                            <div className="flex gap-2 flex-wrap">
-                              {[
-                                { name: "Verizon", level: likelihood.verizon },
-                                { name: "AT&T", level: likelihood.att },
-                                { name: "T-Mobile", level: likelihood.tmobile },
-                              ].map(c => {
-                                const style = LIKELIHOOD_STYLES[c.level];
-                                return (
-                                  <Badge key={c.name} className={`${style.bgClass} ${style.textClass} border-0 text-[10px]`}>
-                                    {c.name}: {style.label}
-                                  </Badge>
-                                );
-                              })}
-                            </div>
-                          </div>
-
                           {/* Extra info */}
                           <div className="grid grid-cols-2 gap-2 text-xs">
                             {cg.nearest_town && (
                               <div className="text-gray-500">
-                                <span className="font-medium text-gray-600">Nearest Town:</span> {cg.nearest_town}
+                                <span className="font-medium text-gray-600">Town:</span> {cg.nearest_town}
                                 {cg.distance_to_town_miles != null && ` (${cg.distance_to_town_miles} mi)`}
                               </div>
                             )}
@@ -271,10 +267,11 @@ export default function VerizonMichigan() {
       <section className="container pb-8">
         <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
           <p className="text-xs text-gray-500 leading-relaxed">
-            <strong className="text-gray-600">Note:</strong> Signal scores and carrier likelihood are modeled
-            from publicly available tower and coverage data. Actual service may vary depending on terrain,
-            weather, device, and network conditions. Verizon is a registered trademark of Verizon Communications Inc.
-            SignalCamping is not affiliated with Verizon.
+            <strong className="text-gray-600">Note:</strong> Rankings use signal_quality_score based on
+            tower proximity analysis. Signal scores and carrier likelihood are modeled from publicly available
+            tower and coverage data. Actual service may vary depending on terrain, weather, device, and network
+            conditions. Verizon is a registered trademark of Verizon Communications Inc. SignalCamping is not
+            affiliated with Verizon.
           </p>
         </div>
       </section>
