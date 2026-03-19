@@ -79,7 +79,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePersistFn } from "@/hooks/usePersistFn";
 import { cn } from "@/lib/utils";
-import { loadMapScript } from "@/lib/mapLoader";
+import { loadMapScript, MAPS_AUTH_FAILURE_EVENT, isMapsAuthFailed } from "@/lib/mapLoader";
 
 interface MapViewProps {
   className?: string;
@@ -96,7 +96,22 @@ export function MapView({
 }: MapViewProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map | null>(null);
-  const [mapError, setMapError] = useState<string | null>(null);
+  const [mapError, setMapError] = useState<string | null>(
+    isMapsAuthFailed()
+      ? "Google Maps API key is restricted for this domain. Please allow this domain in your Google Cloud Console key settings."
+      : null
+  );
+
+  // Listen for auth failures that happen after the script has already loaded
+  useEffect(() => {
+    const handleAuthFailure = (e: Event) => {
+      const msg = (e as CustomEvent<string>).detail ??
+        "Google Maps API key is restricted for this domain. Please allow this domain in your Google Cloud Console key settings.";
+      setMapError(msg);
+    };
+    window.addEventListener(MAPS_AUTH_FAILURE_EVENT, handleAuthFailure);
+    return () => window.removeEventListener(MAPS_AUTH_FAILURE_EVENT, handleAuthFailure);
+  }, []);
 
   const init = usePersistFn(async () => {
     try {
