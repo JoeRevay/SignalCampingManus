@@ -11,6 +11,9 @@ const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 let _mapsLoadPromise: Promise<unknown> | null = null;
 
 export function loadMapScript() {
+  if (!API_KEY) {
+    return Promise.reject(new Error("VITE_GOOGLE_MAPS_API_KEY is not set"));
+  }
   if (window.google?.maps) return Promise.resolve(null);
   if (_mapsLoadPromise) return _mapsLoadPromise;
   _mapsLoadPromise = new Promise((resolve, reject) => {
@@ -22,7 +25,6 @@ export function loadMapScript() {
       resolve(null);
     };
     script.onerror = () => {
-      console.error("Failed to load Google Maps script");
       _mapsLoadPromise = null;
       reject(new Error("Failed to load Google Maps script"));
     };
