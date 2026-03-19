@@ -6,7 +6,8 @@ import { useParams, Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Signal, MapPin, ChevronRight, Tent, Truck, Waves, CheckCircle2 } from "lucide-react";
+import { ChevronRight, Tent, Truck, Waves, CheckCircle2 } from "lucide-react";
+import SiteHeader from "@/components/SiteHeader";
 import seoData from "@/data/seo_pages.json";
 import allData from "@/data/campgrounds.json";
 
@@ -32,7 +33,7 @@ export default function CityLanding() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
-      <header className="border-b bg-white/90 backdrop-blur-md sticky top-0 z-40"><div className="container py-3 flex items-center gap-3"><Link href="/"><div className="flex items-center gap-2"><Signal className="w-5 h-5 text-green-700" /><span className="font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</span></div></Link></div></header>
+      <SiteHeader />
       <nav className="container pt-4 pb-2"><ol className="flex items-center gap-1.5 text-sm text-gray-500"><li><Link href="/">Home</Link></li><li><ChevronRight className="w-3.5 h-3.5" /></li><li className="font-medium text-gray-800">{page.title}</li></ol></nav>
       <section className="container py-6">
         <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{page.title}</h1>

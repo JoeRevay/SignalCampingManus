@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import SiteHeader from "@/components/SiteHeader";
 import {
   Signal, Map as MapIcon, List, BarChart3, Download, Search,
   ChevronLeft, ChevronRight, Menu, X, ArrowRight, Waves, Tent,
@@ -142,7 +143,7 @@ export default function Home() {
   if (selectedCampground) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
-        <Header onExplore={() => setView("explorer")} />
+        <SiteHeader onMapClick={() => setView("explorer")} />
         <div className="container py-6">
           <Button variant="ghost" size="sm" onClick={() => setSelectedCampground(null)} className="mb-4 text-gray-500">
             <ChevronLeft className="w-4 h-4 mr-1" /> Back to results
@@ -157,7 +158,7 @@ export default function Home() {
   if (view === "explorer") {
     return (
       <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
-        <Header onExplore={() => setView("explorer")} />
+        <SiteHeader onMapClick={() => setView("explorer")} />
         <div className="lg:hidden container pt-4">
           <Button variant="outline" size="sm" onClick={() => setMobileSidebar(!mobileSidebar)}>
             {mobileSidebar ? <X className="w-4 h-4 mr-1" /> : <Menu className="w-4 h-4 mr-1" />}
@@ -250,7 +251,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <Header onExplore={() => setView("explorer")} />
+      <SiteHeader onMapClick={() => setView("explorer")} />
 
       {/* ── Hero Section ── */}
       <section className="relative overflow-hidden">
@@ -560,51 +561,6 @@ export default function Home() {
   );
 }
 
-/* ── Header ── */
-function Header({ onExplore }: { onExplore?: () => void }) {
-  return (
-    <header className="border-b border-border bg-white/90 backdrop-blur-md sticky top-0 z-40">
-      <div className="container py-3">
-        <div className="flex items-center gap-3">
-          <Link href="/">
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center shadow-sm">
-                <Signal className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</h1>
-                <p className="text-[10px] text-muted-foreground leading-none">Where your phone works &mdash; or doesn&rsquo;t</p>
-              </div>
-            </div>
-          </Link>
-          <div className="ml-auto flex items-center gap-1">
-            <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden sm:inline-flex" onClick={onExplore}>
-              <MapIcon className="w-3.5 h-3.5 mr-1" /> Map
-            </Button>
-            <Link href="/lists">
-              <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden sm:inline-flex">
-                <Trophy className="w-3.5 h-3.5 mr-1" /> Lists
-              </Button>
-            </Link>
-            <Link href="/route-finder">
-              <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden sm:inline-flex">
-                <Navigation className="w-3.5 h-3.5 mr-1" /> Routes
-              </Button>
-            </Link>
-            <Link href="/top-campgrounds">
-              <Button variant="ghost" size="sm" className="text-xs text-green-700 hover:text-green-800 hidden md:inline-flex">
-                All Campgrounds
-              </Button>
-            </Link>
-            <Badge variant="outline" className="text-xs hidden sm:inline-flex border-green-200 text-green-700 bg-green-50">
-              {(rawData as any[]).length.toLocaleString()} Sites
-            </Badge>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 /* ── Footer ── */
 function Footer() {

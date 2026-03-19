@@ -8,9 +8,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Signal, MapPin, ChevronRight, Tent, Truck, Zap, Waves,
+  ChevronRight, Tent, Truck, Zap, Waves,
   CheckCircle2, ArrowLeft, Share2
 } from "lucide-react";
+import SiteHeader from "@/components/SiteHeader";
 import listsData from "@/data/shareable_lists.json";
 import campgroundsData from "@/data/mvp_campgrounds.json";
 import allData from "@/data/campgrounds.json";
@@ -49,11 +50,7 @@ export default function ShareableList() {
   if (!list) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
-        <header className="border-b border-border bg-white/90 backdrop-blur-md sticky top-0 z-40">
-          <div className="container py-3 flex items-center gap-3">
-            <Link href="/"><div className="flex items-center gap-2"><Signal className="w-5 h-5 text-green-700" /><span className="font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</span></div></Link>
-          </div>
-        </header>
+        <SiteHeader />
         <div className="container py-16 text-center">
           <h2 className="text-2xl font-bold mb-4">List Not Found</h2>
           <Link href="/lists"><Button className="bg-green-600 hover:bg-green-700 text-white"><ArrowLeft className="w-4 h-4 mr-2" /> All Lists</Button></Link>
@@ -64,15 +61,7 @@ export default function ShareableList() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
-      <header className="border-b border-border bg-white/90 backdrop-blur-md sticky top-0 z-40">
-        <div className="container py-3 flex items-center gap-3">
-          <Link href="/"><div className="flex items-center gap-2"><Signal className="w-5 h-5 text-green-700" /><span className="font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</span></div></Link>
-          <div className="ml-auto flex items-center gap-2">
-            <Link href="/lists"><Button variant="ghost" size="sm" className="text-xs text-green-700">All Lists</Button></Link>
-            <Link href="/"><Button variant="outline" size="sm" className="text-xs border-green-200 text-green-700"><MapPin className="w-3.5 h-3.5 mr-1" /> Map</Button></Link>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       <nav className="container pt-4 pb-2">
         <ol className="flex items-center gap-1.5 text-sm text-gray-500">

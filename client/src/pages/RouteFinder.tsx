@@ -15,6 +15,7 @@ import {
   CheckCircle2, Search, ArrowRight, Loader2, X
 } from "lucide-react";
 import campgroundsData from "@/data/campgrounds.json";
+import SiteHeader from "@/components/SiteHeader";
 
 const STATE_NAMES: Record<string, string> = {
   MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin",
@@ -209,15 +210,7 @@ export default function RouteFinder() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
-      <header className="border-b border-border bg-white/90 backdrop-blur-md sticky top-0 z-40">
-        <div className="container py-3 flex items-center gap-3">
-          <Link href="/"><div className="flex items-center gap-2"><Signal className="w-5 h-5 text-green-700" /><span className="font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</span></div></Link>
-          <div className="ml-auto flex items-center gap-2">
-            <Link href="/lists"><Button variant="ghost" size="sm" className="text-xs text-green-700">Lists</Button></Link>
-            <Link href="/"><Button variant="outline" size="sm" className="text-xs border-green-200 text-green-700"><MapPin className="w-3.5 h-3.5 mr-1" /> Map</Button></Link>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       <section className="container py-8">
         <h1 className="text-3xl font-bold mb-2" style={{ fontFamily: "Space Grotesk, sans-serif" }}>Route Finder</h1>

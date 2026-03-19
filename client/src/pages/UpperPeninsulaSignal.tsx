@@ -23,6 +23,7 @@ import {
 } from "@/lib/carrierLikelihood";
 import { generateRankingDescription, filterForBestSignal, sortBySignalQuality } from "@/lib/rankingUtils";
 import RelatedSignalGuides from "@/components/RelatedSignalGuides";
+import SiteHeader from "@/components/SiteHeader";
 
 const STATE_NAMES: Record<string, string> = {
   MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin",
@@ -60,30 +61,7 @@ export default function UpperPeninsulaSignal() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-emerald-50/20">
-      {/* Header */}
-      <header className="border-b border-border bg-white/90 backdrop-blur-md sticky top-0 z-40">
-        <div className="container py-3 flex items-center gap-3">
-          <Link href="/">
-            <div className="flex items-center gap-2">
-              <Signal className="w-5 h-5 text-green-700" />
-              <span className="font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</span>
-            </div>
-          </Link>
-          <div className="ml-auto flex items-center gap-2">
-            <Link href="/best-remote-work-campgrounds">
-              <Button variant="ghost" size="sm" className="text-xs text-green-700">Remote Work</Button>
-            </Link>
-            <Link href="/top-campgrounds">
-              <Button variant="ghost" size="sm" className="text-xs text-green-700">All Campgrounds</Button>
-            </Link>
-            <Link href="/">
-              <Button variant="outline" size="sm" className="text-xs border-green-200 text-green-700">
-                <MapPin className="w-3.5 h-3.5 mr-1" /> Map
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Hero */}
       <section className="bg-gradient-to-r from-green-800 via-green-900 to-emerald-900 text-white py-12">

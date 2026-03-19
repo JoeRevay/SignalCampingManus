@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import top100Data from "@/data/top100_seo.json";
 import { filterForBestSignal, sortBySignalQuality, generateRankingDescription } from "@/lib/rankingUtils";
+import SiteHeader from "@/components/SiteHeader";
 import { getCarrierLikelihood, LIKELIHOOD_STYLES, type CarrierLikelihood } from "@/lib/carrierLikelihood";
 
 const campgrounds = (top100Data as any[]).map(cg => ({
@@ -98,7 +99,7 @@ export default function StateLanding() {
   if (!stateInfo) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
-        <StateHeader />
+        <SiteHeader />
         <div className="container py-16 text-center">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">State Not Found</h2>
           <Link href="/top-campgrounds"><Button className="bg-green-600 hover:bg-green-700 text-white">View All Campgrounds</Button></Link>
@@ -109,7 +110,7 @@ export default function StateLanding() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
-      <StateHeader />
+      <SiteHeader />
 
       {/* Breadcrumbs */}
       <nav className="container pt-4 pb-2" aria-label="Breadcrumb">
@@ -471,34 +472,3 @@ export default function StateLanding() {
   );
 }
 
-function StateHeader() {
-  return (
-    <header className="border-b border-border bg-white/90 backdrop-blur-md sticky top-0 z-40">
-      <div className="container py-3">
-        <div className="flex items-center gap-3">
-          <Link href="/">
-            <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center shadow-sm">
-                <Signal className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h2 className="text-xl font-bold tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</h2>
-                <p className="text-xs text-muted-foreground">Great Lakes Campground Discovery</p>
-              </div>
-            </div>
-          </Link>
-          <div className="ml-auto flex items-center gap-2">
-            <Link href="/top-campgrounds">
-              <Button variant="ghost" size="sm" className="text-xs text-green-700">All Campgrounds</Button>
-            </Link>
-            <Link href="/">
-              <Button variant="outline" size="sm" className="text-xs border-green-200 text-green-700 hover:bg-green-50">
-                <MapPin className="w-3.5 h-3.5 mr-1" /> Map
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}

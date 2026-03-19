@@ -27,6 +27,7 @@ import top100Data from "@/data/campgrounds.json";
 import { getCarrierLikelihood, LIKELIHOOD_STYLES, type CarrierLikelihood } from "@/lib/carrierLikelihood";
 import { generateBlurb } from "@/lib/campgroundBlurb";
 import { filterForBestSignal, sortBySignalQuality, generateRankingDescription } from "@/lib/rankingUtils";
+import SiteHeader from "@/components/SiteHeader";
 
 const PER_PAGE = 50;
 
@@ -149,22 +150,7 @@ export default function TopCampgrounds() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-stone-50 to-white">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-green-100 sticky top-0 z-50">
-        <div className="container flex items-center justify-between h-14">
-          <Link href="/" className="flex items-center gap-2">
-            <Signal className="w-5 h-5 text-green-700" />
-            <span className="font-bold text-lg tracking-tight text-gray-900" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-              Signal<span className="text-green-700">Camping</span>
-            </span>
-          </Link>
-          <nav className="flex items-center gap-4 text-sm">
-            <Link href="/lists" className="text-gray-600 hover:text-green-700 transition hidden sm:block">Lists</Link>
-            <Link href="/" className="text-gray-600 hover:text-green-700 transition">Map</Link>
-            <Link href="/route-finder" className="text-gray-600 hover:text-green-700 transition hidden sm:block">Routes</Link>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Hero */}
       <section className="bg-gradient-to-r from-green-800 to-emerald-900 text-white py-12">

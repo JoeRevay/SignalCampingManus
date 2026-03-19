@@ -6,18 +6,14 @@ import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Signal, MapPin, ArrowLeft, Info } from "lucide-react";
+import { ArrowLeft, Info } from "lucide-react";
+import SiteHeader from "@/components/SiteHeader";
 
 export default function AmenityLanding() {
   useEffect(() => { document.title = "Amenity-Based Campground Search | SignalCamping"; }, []);
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
-      <header className="border-b bg-white/90 backdrop-blur-md sticky top-0 z-40">
-        <div className="container py-3 flex items-center gap-3">
-          <Link href="/"><div className="flex items-center gap-2"><Signal className="w-5 h-5 text-green-700" /><span className="font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</span></div></Link>
-          <div className="ml-auto"><Link href="/"><Button variant="outline" size="sm" className="text-xs border-green-200 text-green-700"><MapPin className="w-3.5 h-3.5 mr-1" /> Map</Button></Link></div>
-        </div>
-      </header>
+      <SiteHeader />
       <div className="container py-16 text-center max-w-lg mx-auto">
         <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-4">
           <Info className="w-8 h-8 text-blue-500" />

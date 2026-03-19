@@ -19,6 +19,7 @@ import {
 import { generateRankingDescription, filterForBestSignal, sortBySignalQuality } from "@/lib/rankingUtils";
 import RelatedSignalGuides from "@/components/RelatedSignalGuides";
 import rawData from "@/data/campgrounds.json";
+import SiteHeader from "@/components/SiteHeader";
 
 function scoreColor(score: number) {
   if (score >= 80) return "text-green-600";
@@ -62,37 +63,7 @@ export default function VerizonMichigan() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-red-50/20">
-      {/* Header */}
-      <header className="border-b border-border bg-white/90 backdrop-blur-md sticky top-0 z-40">
-        <div className="container py-3">
-          <div className="flex items-center gap-3">
-            <Link href="/">
-              <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition">
-                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center shadow-sm">
-                  <Signal className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-bold tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</h2>
-                  <p className="text-[10px] text-muted-foreground leading-none">Where your phone works &mdash; or doesn&rsquo;t</p>
-                </div>
-              </div>
-            </Link>
-            <div className="ml-auto flex items-center gap-2">
-              <Link href="/campgrounds/mi">
-                <Button variant="ghost" size="sm" className="text-xs text-green-700">Michigan</Button>
-              </Link>
-              <Link href="/top-campgrounds">
-                <Button variant="ghost" size="sm" className="text-xs text-green-700">All Campgrounds</Button>
-              </Link>
-              <Link href="/">
-                <Button variant="outline" size="sm" className="text-xs border-green-200 text-green-700 hover:bg-green-50">
-                  <MapPin className="w-3.5 h-3.5 mr-1" /> Map
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Breadcrumbs */}
       <nav className="container pt-4 pb-2" aria-label="Breadcrumb">
