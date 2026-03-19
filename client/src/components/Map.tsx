@@ -131,9 +131,9 @@ export function MapView({
   if (mapError) {
     return (
       <div className={cn("w-full h-[500px] flex items-center justify-center bg-gray-50 border border-gray-200 rounded-lg", className)}>
-        <div className="text-center text-gray-500 p-6">
+        <div className="text-center text-gray-500 p-6 max-w-md">
           <p className="font-medium mb-1">Map unavailable</p>
-          <p className="text-sm text-gray-400">A Google Maps API key is required. Set <code className="bg-gray-100 px-1 rounded">VITE_GOOGLE_MAPS_API_KEY</code> to enable the map.</p>
+          <p className="text-sm text-gray-400">{mapError}</p>
         </div>
       </div>
     );
