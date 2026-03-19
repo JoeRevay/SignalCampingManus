@@ -76,41 +76,10 @@
 
 /// <reference types="@types/google.maps" />
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePersistFn } from "@/hooks/usePersistFn";
 import { cn } from "@/lib/utils";
-
-declare global {
-  interface Window {
-    google?: typeof google;
-  }
-}
-
-const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-
-let _mapsLoadPromise: Promise<unknown> | null = null;
-
-export function loadMapScript() {
-  if (window.google?.maps) return Promise.resolve(null);
-  if (_mapsLoadPromise) return _mapsLoadPromise;
-  _mapsLoadPromise = new Promise((resolve, reject) => {
-    // Check again in case it loaded between calls
-    if (window.google?.maps) { resolve(null); return; }
-    const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&v=weekly&libraries=marker,places,geometry`;
-    script.async = true;
-    script.onload = () => {
-      resolve(null);
-    };
-    script.onerror = () => {
-      console.error("Failed to load Google Maps script");
-      _mapsLoadPromise = null; // Allow retry on error
-      reject(new Error("Failed to load Google Maps script"));
-    };
-    document.head.appendChild(script);
-  });
-  return _mapsLoadPromise;
-}
+import { loadMapScript } from "@/lib/mapLoader";
 
 interface MapViewProps {
   className?: string;
@@ -127,30 +96,48 @@ export function MapView({
 }: MapViewProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map | null>(null);
+  const [mapError, setMapError] = useState<string | null>(null);
 
   const init = usePersistFn(async () => {
-    await loadMapScript();
-    if (!mapContainer.current) {
-      console.error("Map container not found");
-      return;
-    }
-    map.current = new window.google.maps.Map(mapContainer.current, {
-      zoom: initialZoom,
-      center: initialCenter,
-      mapTypeControl: true,
-      fullscreenControl: true,
-      zoomControl: true,
-      streetViewControl: true,
-      mapId: "DEMO_MAP_ID",
-    });
-    if (onMapReady) {
-      onMapReady(map.current);
+    try {
+      await loadMapScript();
+      if (!mapContainer.current) {
+        console.error("Map container not found");
+        return;
+      }
+      map.current = new window.google!.maps.Map(mapContainer.current, {
+        zoom: initialZoom,
+        center: initialCenter,
+        mapTypeControl: true,
+        fullscreenControl: true,
+        zoomControl: true,
+        streetViewControl: true,
+        mapId: "DEMO_MAP_ID",
+      });
+      if (onMapReady) {
+        onMapReady(map.current);
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Failed to load map";
+      console.error("Map initialization error:", msg);
+      setMapError(msg);
     }
   });
 
   useEffect(() => {
     init();
   }, [init]);
+
+  if (mapError) {
+    return (
+      <div className={cn("w-full h-[500px] flex items-center justify-center bg-gray-50 border border-gray-200 rounded-lg", className)}>
+        <div className="text-center text-gray-500 p-6">
+          <p className="font-medium mb-1">Map unavailable</p>
+          <p className="text-sm text-gray-400">A Google Maps API key is required. Set <code className="bg-gray-100 px-1 rounded">VITE_GOOGLE_MAPS_API_KEY</code> to enable the map.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div ref={mapContainer} className={cn("w-full h-[500px]", className)} />

@@ -208,47 +208,51 @@ export default function CampgroundMap({ campgrounds, onCampgroundClick, classNam
     markersRef.current.forEach(m => { m.map = null; });
     markersRef.current = [];
 
-    const bounds = new google.maps.LatLngBounds();
-    const newMarkers: google.maps.marker.AdvancedMarkerElement[] = [];
+    try {
+      const bounds = new google.maps.LatLngBounds();
+      const newMarkers: google.maps.marker.AdvancedMarkerElement[] = [];
 
-    campgrounds.forEach((cg) => {
-      const pos = { lat: cg.latitude, lng: cg.longitude };
-      bounds.extend(pos);
+      campgrounds.forEach((cg) => {
+        const pos = { lat: cg.latitude, lng: cg.longitude };
+        bounds.extend(pos);
 
-      const el = document.createElement("div");
-      el.innerHTML = createMarkerSvg(!!cg.is_verified);
-      el.style.cursor = "pointer";
-      el.title = cg.campground_name;
+        const el = document.createElement("div");
+        el.innerHTML = createMarkerSvg(!!cg.is_verified);
+        el.style.cursor = "pointer";
+        el.title = cg.campground_name;
 
-      const marker = new google.maps.marker.AdvancedMarkerElement({
-        position: pos,
-        content: el,
-        title: cg.campground_name,
-        // Don't set map here — the clusterer will manage map assignment
+        const marker = new google.maps.marker.AdvancedMarkerElement({
+          position: pos,
+          content: el,
+          title: cg.campground_name,
+          // Don't set map here — the clusterer will manage map assignment
+        });
+
+        marker.addListener("click", () => {
+          if (infoWindowRef.current) {
+            infoWindowRef.current.setContent(createInfoContent(cg));
+            infoWindowRef.current.open({ anchor: marker, map });
+          }
+        });
+
+        newMarkers.push(marker);
       });
 
-      marker.addListener("click", () => {
-        if (infoWindowRef.current) {
-          infoWindowRef.current.setContent(createInfoContent(cg));
-          infoWindowRef.current.open({ anchor: marker, map });
-        }
+      markersRef.current = newMarkers;
+
+      // Create clusterer with SuperCluster algorithm for performance
+      clustererRef.current = new MarkerClusterer({
+        map,
+        markers: newMarkers,
+        algorithm: new SuperClusterAlgorithm({ radius: 80, maxZoom: 14 }),
+        renderer: new ClusterRenderer(),
       });
 
-      newMarkers.push(marker);
-    });
-
-    markersRef.current = newMarkers;
-
-    // Create clusterer with SuperCluster algorithm for performance
-    clustererRef.current = new MarkerClusterer({
-      map,
-      markers: newMarkers,
-      algorithm: new SuperClusterAlgorithm({ radius: 80, maxZoom: 14 }),
-      renderer: new ClusterRenderer(),
-    });
-
-    if (campgrounds.length > 0) {
-      map.fitBounds(bounds, { top: 50, right: 50, bottom: 50, left: 50 });
+      if (campgrounds.length > 0) {
+        map.fitBounds(bounds, { top: 50, right: 50, bottom: 50, left: 50 });
+      }
+    } catch (err) {
+      console.error("Failed to render campground markers:", err);
     }
 
     return () => {

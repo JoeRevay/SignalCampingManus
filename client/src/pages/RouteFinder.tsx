@@ -4,6 +4,7 @@
  */
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { Link } from "wouter";
+import { loadMapScript } from "@/lib/mapLoader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -50,9 +51,6 @@ function pointToSegmentDist(px: number, py: number, ax: number, ay: number, bx: 
   const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy)));
   return haversine(px, py, ax + t * dx, ay + t * dy);
 }
-
-// Reuse the centralized Maps loader from Map.tsx to avoid duplicate script injection
-import { loadMapScript } from "@/components/Map";
 
 function ensureMapsLoaded(): Promise<void> {
   return loadMapScript().then(() => {});
