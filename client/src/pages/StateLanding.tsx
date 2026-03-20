@@ -7,7 +7,7 @@
  *   - "How We Rank Campground Signal Strength" H2
  * Other states get the standard listing layout.
  */
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { useParams, Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -49,6 +49,24 @@ export default function StateLanding() {
   }, [stateInfo]);
 
   const verifiedCount = useMemo(() => stateCampgrounds.filter((c: any) => c.is_verified).length, [stateCampgrounds]);
+
+  const [visibleCount, setVisibleCount] = useState(24);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Reset pagination and search whenever the state changes
+  useEffect(() => {
+    setVisibleCount(24);
+    setSearchQuery("");
+  }, [stateSlug]);
+
+  const filteredCampgrounds = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return stateCampgrounds;
+    return stateCampgrounds.filter((cg: any) =>
+      cg.campground_name.toLowerCase().includes(q) ||
+      (cg.city || "").toLowerCase().includes(q)
+    );
+  }, [stateCampgrounds, searchQuery]);
 
   /* ── Michigan-specific: top campgrounds by signal quality ── */
   const miTopSignal = useMemo(() => {
@@ -481,8 +499,26 @@ export default function StateLanding() {
             Browse every campground in our Michigan database, listed alphabetically. Click any campground for detailed signal data, carrier coverage, and amenity information.
           </p>
         )}
+
+        {/* Search input */}
+        <div className="mb-4">
+          <input
+            type="search"
+            placeholder={`Search ${stateCampgrounds.length} campgrounds in ${stateInfo.name}…`}
+            value={searchQuery}
+            onChange={e => { setSearchQuery(e.target.value); setVisibleCount(24); }}
+            className="w-full sm:max-w-sm border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white"
+          />
+          {searchQuery.trim() && (
+            <p className="text-xs text-gray-400 mt-1.5">
+              {filteredCampgrounds.length} result{filteredCampgrounds.length !== 1 ? "s" : ""} for &ldquo;{searchQuery.trim()}&rdquo;
+            </p>
+          )}
+        </div>
+
+        {/* Campground list — sliced to visibleCount */}
         <div className="space-y-2">
-          {stateCampgrounds.map((cg: any, idx: number) => (
+          {filteredCampgrounds.slice(0, visibleCount).map((cg: any, idx: number) => (
             <Link key={cg.slug + idx} href={`/campground/${cg.slug}`}>
               <Card className="hover:shadow-md hover:border-green-200 transition cursor-pointer">
                 <CardContent className="p-4">
@@ -525,6 +561,26 @@ export default function StateLanding() {
             </Link>
           ))}
         </div>
+
+        {/* Load More button */}
+        {visibleCount < filteredCampgrounds.length && (
+          <div className="mt-6 text-center">
+            <Button
+              variant="outline"
+              className="border-green-200 text-green-700 hover:bg-green-50"
+              onClick={() => setVisibleCount(v => v + 24)}
+            >
+              Load More Campgrounds ({filteredCampgrounds.length - visibleCount} remaining)
+            </Button>
+          </div>
+        )}
+
+        {/* Empty state when search finds nothing */}
+        {filteredCampgrounds.length === 0 && searchQuery.trim() && (
+          <p className="text-sm text-gray-400 text-center py-8">
+            No campgrounds found matching &ldquo;{searchQuery.trim()}&rdquo;
+          </p>
+        )}
       </section>
 
       {/* Other States */}
