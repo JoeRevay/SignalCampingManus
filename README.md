@@ -1,226 +1,170 @@
-# SignalCamping: Great Lakes Campground Signal Research
+# SignalCamping
 
-A comprehensive research initiative and interactive dashboard showcasing campground data with cellular coverage analysis across the Great Lakes region.
+A full-stack web app that helps outdoor enthusiasts find campgrounds with reliable cellular coverage across the Great Lakes region.
 
-## Overview
+---
 
-SignalCamping helps outdoor enthusiasts discover campgrounds with reliable cellular service. This project includes:
+## What It Does
 
-- **100+ Campground Dataset**: Verified locations across Michigan, Ohio, Pennsylvania, West Virginia, and Wisconsin
-- **Cellular Coverage Analysis**: Signal strength data from Verizon, AT&T, and T-Mobile
-- **Interactive Dashboard**: Charts, statistics, and searchable database
-- **System Architecture**: Database schema, SEO strategy, and filter system design
+SignalCamping lets campers search and browse campgrounds in Michigan, Ohio, Pennsylvania, and Wisconsin filtered by cell signal quality. Every campground has a modeled signal score (0–100) derived from real tower proximity data for Verizon, AT&T, and T-Mobile. Users can filter by carrier, amenity type, state, and remote-work suitability, then share lists or plan multi-stop routes.
 
-## Features
+---
 
-### Interactive Dashboard
+## Page Types
 
-- **Overview Tab**: Key statistics and state-by-state breakdown
-- **Coverage Tab**: Cellular signal distribution by carrier
-- **Amenities Tab**: Availability of camping facilities
-- **Data Tab**: Searchable, sortable campground database
+| Route pattern | Page | Purpose |
+|---|---|---|
+| `/` | Home | Landing page with featured content and entry points |
+| `/top-campgrounds` | Top Campgrounds | Ranked directory across all states |
+| `/campgrounds/:state` | State Landing | Per-state directory with SEO intro, stats grid, ranked list, full searchable directory |
+| `/campground/:slug` | Campground Detail | Signal scores, carrier likelihood, amenities, map, signal report submission |
+| `/campgrounds-with-{carrier}-signal/:state` | Carrier Landing | Carrier-specific ranked campground list per state (Verizon / AT&T / T-Mobile) |
+| `/campgrounds-with-cell-service/:slug` | City Landing | City-level campground directory |
+| `/remote-work-camping/:state` | Remote Work Landing | Campgrounds ranked by remote work score per state |
+| `/best-remote-work-campgrounds` | Best Remote Work | Cross-state remote work rankings |
+| `/{amenity}-campgrounds-with-cell-service/:state` | Amenity Landing | Filtered by amenity type (waterfront, tent, RV, electric, lakefront, forest) |
+| `/camping-trip/:slug` | Trip Route | Multi-stop camping route with signal info at each stop |
+| `/route-finder` | Route Finder | Interactive tool for building multi-stop camping routes |
+| `/lists` / `/list/:slug` | Lists | User-created shareable campground lists |
+| `/best-cell-signal-campgrounds-upper-peninsula` | UP Signal | Michigan Upper Peninsula campgrounds ranked by signal |
+| `/best-verizon-signal-campgrounds-michigan` | Verizon Michigan | Michigan campgrounds ranked by Verizon signal |
 
-### Search & Filter
+---
 
-- Filter by signal strength (by carrier)
-- Filter by amenities (tent, RV, electric, waterfront)
-- Filter by location (state, region, city)
-- Filter by campground type (state park, national forest, private)
-- Search by name or city
+## Tech Stack
 
-### Visualizations
+### Frontend
+- **React 19** with TypeScript
+- **Vite 7** — build tooling and dev server
+- **Wouter** — client-side routing
+- **Tailwind CSS v4** with `@tailwindcss/typography`
+- **shadcn/ui** (Radix UI primitives) — component library
+- **TanStack Query v5** — server state management
+- **tRPC v11** — end-to-end type-safe API client
+- **Recharts** — signal distribution charts
+- **Framer Motion** — page transitions and animations
+- **Lucide React** — icons
+- **Google Maps API** — campground map display and marker clustering
 
-- Bar charts: Campgrounds by state and signal distribution
-- Pie charts: Campground type distribution
-- Statistics cards: Key metrics at a glance
-- Data tables: Detailed campground information
+### Backend
+- **Node.js** with **Express 4**
+- **tRPC v11** — typed API router
+- **Drizzle ORM** — database access layer
+- **`jose`** — JWT session handling for optional OAuth authentication
 
-## Dataset
+### Database
+- **PostgreSQL** (Replit managed) — stores signal reports, user sessions, shareable lists
+- **Drizzle Kit** — schema migrations
 
-### Coverage
+### Package Manager
+- **pnpm 10**
 
-| State | Campgrounds | Avg Signal |
-|-------|------------|-----------|
-| Michigan | 25 | 3.2 ⭐ |
-| Ohio | 20 | 3.1 ⭐ |
-| Pennsylvania | 20 | 3.0 ⭐ |
-| West Virginia | 15 | 2.9 ⭐ |
-| Wisconsin | 20 | 3.3 ⭐ |
-| **Total** | **100** | **3.1 ⭐** |
+---
 
-### Data Fields
+## Data
 
-Each campground includes:
-- Name, location (city, state, coordinates)
-- Type (state park, national forest, private)
-- Amenities (tent, RV, electric, waterfront)
-- Signal strength (Verizon, AT&T, T-Mobile)
-- Signal confidence score (1-5 stars)
-- Reservation and website links
+Campground data is bundled as static JSON in `client/src/data/`:
 
-## System Architecture
+| File | Records | Used by |
+|---|---|---|
+| `campgrounds.json` | 2,464 | Full app dataset — map, search, state pages |
+| `top100_seo.json` | 2,464 | State landing and campground detail pages |
+| `mvp_campgrounds.json` | ~476 | Supplemental detail data for MVP campgrounds |
 
-### Database Schema
+### Key fields per campground
+- `campground_name`, `slug`, `city`, `state`, `lat`, `lng`
+- `tent_sites`, `rv_sites`, `electric_hookups`, `waterfront`
+- `verizon_coverage`, `att_coverage`, `tmobile_coverage` (boolean)
+- `signal_score` (0–100), `signal_quality_score` (granular ranking metric)
+- `remote_work_score` (combines signal, town proximity, highway access)
+- `is_verified`
 
-The system includes 7 core tables:
-1. **Campgrounds**: Core location and amenity data
-2. **Cellular Coverage**: Signal strength by carrier
-3. **Signal Confidence Scores**: Aggregated quality metrics
-4. **Amenities**: Detailed facilities
-5. **Reviews**: User ratings and feedback
-6. **Geographic Regions**: Hierarchical location organization
-7. **Campground Regions**: Geographic relationships
+Signal scores are modeled from public cell tower infrastructure data using terrain-adjusted coverage radii (suburban 15 km / rural 12 km / backcountry 6 km), not carrier-reported maps.
 
-### SEO Architecture
+---
 
-Programmatic page generation across 4 levels:
-- **State Pages**: `/campgrounds-with-cell-service/michigan`
-- **Regional Pages**: `/campgrounds-with-cell-service/northern-michigan`
-- **City Pages**: `/campgrounds-with-cell-service/petoskey-mi`
-- **Campground Pages**: `/campground/petoskey-state-park`
-
-**Estimated Coverage**: 15,500+ pages for full U.S. (13,000+ campgrounds)
-
-### Filter System
-
-Advanced multi-criteria search:
-- Signal strength by carrier
-- Amenities (camping type, hookups, facilities)
-- Location (state, region, city, radius)
-- Ratings and reviews
-- Campground type
-
-## Technology Stack
-
-- **Frontend**: React 19, TypeScript, Recharts, Tailwind CSS
-- **UI Components**: shadcn/ui
-- **Data**: JSON dataset with 100 campgrounds
-- **Deployment**: Static site deployment
-
-## Getting Started
-
-### Installation
+## Dev Commands
 
 ```bash
-cd signal-camping-research
-npm install
+# Install dependencies
+pnpm install
+
+# Start development server (frontend + backend with hot reload)
+pnpm dev
+
+# Type-check without emitting
+pnpm check
+
+# Format with Prettier
+pnpm format
+
+# Run tests (Vitest)
+pnpm test
+
+# Build for production
+pnpm build
+
+# Run production build
+pnpm start
+
+# Generate and apply database migrations
+pnpm db:push
 ```
 
-### Development
+The dev server runs on the port Replit assigns. In development, the Vite proxy forwards `/api` and `/trpc` requests to the Express backend on the same process.
 
-```bash
-npm run dev
+---
+
+## Deployment (Replit)
+
+This project is configured to run on Replit. The workflow command is:
+
+```
+pnpm run dev
 ```
 
-Visit http://localhost:3000 to view the dashboard.
+For production deployment, Replit builds the project with `pnpm build` and serves `dist/index.js` via `pnpm start`. The frontend is served as static assets from the Express server; there is no separate CDN or static host.
 
-### Build
+Environment variables required:
+- `DATABASE_URL` — PostgreSQL connection string (provided automatically by Replit)
+- `GOOGLE_MAPS_API_KEY` — for campground map display (restrict to your Replit domain in Google Cloud Console)
+- `OAUTH_SERVER_URL` *(optional)* — enables authenticated user accounts; app functions in anonymous mode without it
 
-```bash
-npm run build
-```
+---
 
 ## Project Structure
 
 ```
-signal-camping-research/
 ├── client/
-│   ├── src/
-│   │   ├── pages/
-│   │   │   └── Home.tsx          # Main dashboard component
-│   │   ├── data/
-│   │   │   └── campgrounds.json  # Dataset (100 campgrounds)
-│   │   ├── components/           # Reusable UI components
-│   │   ├── App.tsx              # Main app router
-│   │   └── index.css            # Global styles
-│   ├── public/
-│   │   └── index.html
-│   └── package.json
-├── RESEARCH_SUMMARY.md           # Comprehensive research document
-├── database_schema.md            # Database design
-├── seo_architecture.md           # SEO strategy
-├── filter_system.md              # Filter system design
-└── README.md                     # This file
+│   └── src/
+│       ├── App.tsx                  # Router with all 19 routes + ScrollToTop
+│       ├── pages/                   # One file per route (see Page Types above)
+│       ├── components/              # Shared UI components (SiteHeader, cards, etc.)
+│       ├── data/                    # Bundled campground JSON datasets
+│       └── lib/                     # Utilities (rankingUtils, carrierLikelihood, etc.)
+├── server/
+│   ├── _core/                       # Express entry, tRPC router, Vite middleware
+│   ├── db.ts                        # Drizzle schema and database client
+│   ├── routers.ts                   # tRPC route definitions
+│   └── storage.ts                   # Data access helpers
+├── package.json
+└── README.md
 ```
-
-## Data Sources
-
-### Campground Data
-- Recreation.gov RIDB API (103,000+ campsites)
-- State park systems (MI, OH, PA, WI, WV)
-- National Forest Service
-- Private campground networks
-
-### Cellular Coverage
-- Verizon coverage maps
-- AT&T coverage maps
-- T-Mobile coverage maps
-- OpenSignal crowdsourced data
-- CellMapper tower database
-- FCC mobile coverage maps
-
-## Key Findings
-
-### Signal Coverage
-- **46%** of campgrounds have strong signal
-- **32%** have moderate signal
-- **22%** have weak or no signal
-- **Verizon** has most strong coverage (42 campgrounds)
-
-### Amenities
-- **84%** allow tent camping
-- **80%** have RV sites
-- **73%** offer electric hookups
-- **62%** have waterfront campsites
-
-### Regional Patterns
-- **Northern Wisconsin**: Best signal (3.3 ⭐)
-- **Northern Michigan**: Excellent signal (3.2 ⭐)
-- **Southern West Virginia**: Most challenging (2.9 ⭐)
-
-## Expansion Roadmap
-
-### Phase 1: Great Lakes (Current)
-- ✅ 100 campgrounds, 5 states
-- ✅ Database schema design
-- ✅ SEO architecture
-- ✅ Interactive dashboard
-
-### Phase 2: Regional Expansion (Q2 2026)
-- 500+ campgrounds, 10 states
-- Northeast and Midwest focus
-
-### Phase 3: National Coverage (Q3-Q4 2026)
-- 13,000+ U.S. campgrounds
-- All 50 states and territories
-
-### Phase 4: Advanced Features (2027)
-- Real-time availability
-- Community reviews
-- Weather integration
-- Trip planning tools
-
-## Documentation
-
-- **RESEARCH_SUMMARY.md**: Comprehensive research findings and insights
-- **database_schema.md**: SQL table definitions and relationships
-- **seo_architecture.md**: URL patterns, page templates, metadata strategy
-- **filter_system.md**: Advanced search and filtering design
-
-## Contributing
-
-This is a research project. For questions or suggestions, please refer to the documentation files.
-
-## License
-
-Research and data compilation © 2026 SignalCamping
-
-## Contact
-
-For more information about SignalCamping, visit the interactive dashboard or review the comprehensive research documentation.
 
 ---
 
-**Last Updated**: March 15, 2026  
-**Dataset Version**: 1.0  
-**Coverage**: Great Lakes Region (MI, OH, PA, WI, WV)
+## Current Status
+
+The app is live and fully functional for four states: **Michigan, Ohio, Pennsylvania, Wisconsin**.
+
+**Working today:**
+- State pages with rich SEO content, stats grids, carrier-specific counts, and searchable/paginated directories
+- Campground detail pages with signal scores, carrier likelihood badges, amenity data, Google Maps embed, and anonymous signal report submission
+- Carrier landing pages (Verizon / AT&T / T-Mobile × 4 states)
+- Remote work rankings, amenity-filtered pages, city-level pages
+- Route finder and shareable campground lists
+
+**Not yet implemented:**
+- User authentication (OAuth flow is wired but `OAUTH_SERVER_URL` is not configured)
+- Additional states beyond MI / OH / PA / WI
+- Real-time or crowdsourced signal score updates (current scores are static model outputs)
