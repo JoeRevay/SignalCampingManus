@@ -88,9 +88,9 @@ export default function BestRemoteWork() {
               <span className="text-blue-300">Remote Work</span>
             </h1>
             <p className="text-base sm:text-lg text-white/70 leading-relaxed mb-6">
-              Rankings use remote_work_score (a composite of signal coverage, town proximity, and highway
-              access) with signal_quality_score as a tie-breaker. Only legitimate campgrounds are included —
-              individual campsites and low-quality entries are filtered out. Real-world connectivity may vary.
+              Each campground is ranked by a composite score that weighs signal coverage, proximity to towns,
+              and highway access. Signal quality is used as a tie-breaker. Only established campgrounds are
+              included — individual campsites and low-quality entries are filtered out. Real-world connectivity may vary.
             </p>
             <div className="flex flex-wrap gap-4 text-sm text-white/60">
               <span className="flex items-center gap-1.5">
