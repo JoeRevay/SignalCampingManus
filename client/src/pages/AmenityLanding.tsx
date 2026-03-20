@@ -10,7 +10,13 @@ import { ArrowLeft, Info } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 
 export default function AmenityLanding() {
-  useEffect(() => { document.title = "Amenity-Based Campground Search | SignalCamping"; }, []);
+  useEffect(() => {
+    document.title = "Amenity-Based Campground Search | SignalCamping";
+    let meta = document.querySelector('meta[name="robots"]') as HTMLMetaElement;
+    if (!meta) { meta = document.createElement("meta"); meta.name = "robots"; document.head.appendChild(meta); }
+    meta.content = "noindex, follow";
+    return () => { meta.content = "index, follow"; };
+  }, []);
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-green-50/30">
       <SiteHeader />
