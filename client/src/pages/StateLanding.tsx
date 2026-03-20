@@ -19,9 +19,13 @@ import {
   Radio, Laptop, Mountain, TreePine
 } from "lucide-react";
 import top100Data from "@/data/top100_seo.json";
+import allCampgroundsData from "@/data/campgrounds.json";
 import { filterForBestSignal, sortBySignalQuality, generateRankingDescription } from "@/lib/rankingUtils";
 import SiteHeader from "@/components/SiteHeader";
 import { getCarrierLikelihood, LIKELIHOOD_STYLES, type CarrierLikelihood } from "@/lib/carrierLikelihood";
+
+const normalizeCity = (s: string) => (s || "").toLowerCase().replace(/[^a-z0-9]+/g, "-");
+const allCampgrounds = allCampgroundsData as any[];
 
 const campgrounds = (top100Data as any[]).map(cg => ({
   ...cg,
@@ -128,6 +132,23 @@ export default function StateLanding() {
       highQuality: cgs.filter(c => (c.signal_quality_score ?? 0) >= 85).length,
       remoteWorkGood: cgs.filter(c => (c.remote_work_score ?? 0) >= 65).length,
     };
+  }, [stateInfo]);
+
+  /* ── Top cities by campground count (full dataset) ── */
+  const topCities = useMemo(() => {
+    if (!stateInfo) return [];
+    const counts: Record<string, { citySlug: string; cityName: string; count: number; strongSignal: number }> = {};
+    allCampgrounds
+      .filter(c => c.state === stateInfo.code && c.city)
+      .forEach(c => {
+        const key = normalizeCity(c.city);
+        if (!counts[key]) counts[key] = { citySlug: key, cityName: c.city, count: 0, strongSignal: 0 };
+        counts[key].count++;
+        if ((c.signal_score ?? 0) >= 80) counts[key].strongSignal++;
+      });
+    return Object.values(counts)
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 10);
   }, [stateInfo]);
 
   useEffect(() => {
@@ -451,6 +472,35 @@ export default function StateLanding() {
                 View Full Rankings Across All States <ChevronRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
+          </div>
+        </section>
+      )}
+
+      {/* ═══════════════════ TOP CITIES IN STATE ═══════════════════ */}
+      {topCities.length > 0 && (
+        <section className="container pb-10">
+          <h2 className="text-xl font-bold text-gray-900 mb-1" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+            Top Cities in {stateInfo.name} for Camping with Cell Service
+          </h2>
+          <p className="text-gray-500 text-sm mb-5">
+            Cities ranked by number of campgrounds in our dataset. Click a city to see its full signal breakdown.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+            {topCities.map(({ citySlug, cityName, count, strongSignal }) => (
+              <Link key={citySlug} href={`/campgrounds-with-cell-service/${citySlug}-${stateSlug}`}>
+                <Card className="hover:shadow-md hover:border-green-200 transition cursor-pointer h-full">
+                  <CardContent className="p-3">
+                    <p className="text-sm font-semibold text-gray-800 truncate" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{cityName}</p>
+                    <p className="text-xs text-gray-400 mt-0.5">{count} campground{count !== 1 ? "s" : ""}</p>
+                    {strongSignal > 0 && (
+                      <p className="text-[10px] text-green-600 mt-0.5 flex items-center gap-0.5">
+                        <Signal className="w-2.5 h-2.5" /> {strongSignal} strong signal
+                      </p>
+                    )}
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
           </div>
         </section>
       )}
