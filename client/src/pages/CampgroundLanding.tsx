@@ -22,6 +22,8 @@ import mvpData from "@/data/mvp_campgrounds.json";
 import { MapView } from "@/components/Map";
 
 const parseBool = (v: any) => v === true || v === "True" || v === "Yes";
+const normalizeCitySlug = (city: string) =>
+  (city || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 // Merge top100 and MVP data, preferring MVP (has verified details)
 const allCampgrounds = (() => {
@@ -161,6 +163,19 @@ export default function CampgroundLanding() {
           <li><Link href="/" className="hover:text-green-700 transition">Home</Link></li>
           <li><ChevronRight className="w-3.5 h-3.5" /></li>
           <li><Link href={`/campgrounds/${cg.state.toLowerCase()}`} className="hover:text-green-700 transition">{state}</Link></li>
+          {cg.city && (
+            <>
+              <li><ChevronRight className="w-3.5 h-3.5" /></li>
+              <li>
+                <Link
+                  href={`/campgrounds-with-cell-service/${normalizeCitySlug(cg.city)}-${cg.state.toLowerCase()}`}
+                  className="hover:text-green-700 transition"
+                >
+                  {cg.city}
+                </Link>
+              </li>
+            </>
+          )}
           <li><ChevronRight className="w-3.5 h-3.5" /></li>
           <li className="text-gray-800 font-medium truncate max-w-[200px] sm:max-w-none">{cg.campground_name}</li>
         </ol>
