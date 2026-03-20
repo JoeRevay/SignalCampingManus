@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import campgroundsData from "@/data/campgrounds.json";
 import SiteHeader from "@/components/SiteHeader";
+import { getCarrierLikelihood, LIKELIHOOD_STYLES } from "@/lib/carrierLikelihood";
 
 const STATE_NAMES: Record<string, string> = {
   MI: "Michigan", OH: "Ohio", PA: "Pennsylvania", WI: "Wisconsin",
@@ -349,7 +350,31 @@ export default function RouteFinder() {
                           {cg.is_verified && <Badge className="bg-green-100 text-green-800 text-[10px] shrink-0"><CheckCircle2 className="w-3 h-3 mr-0.5" /> Verified</Badge>}
                         </div>
                         <p className="text-xs text-gray-500"><MapPin className="w-3 h-3 inline mr-1" />{cg.city ? `${cg.city}, ` : ""}{STATE_NAMES[cg.state] || cg.state} &middot; {cg.corridorDist.toFixed(1)} mi from route</p>
-                        <div className="flex flex-wrap gap-1.5 mt-2">
+                        {/* Signal score + carrier likelihood */}
+                        {(() => {
+                          const score = cg.signal_score ?? null;
+                          const likelihood = getCarrierLikelihood(cg);
+                          const scoreColor = score == null ? "#9ca3af" : score >= 80 ? "#16a34a" : score >= 60 ? "#2563eb" : score >= 40 ? "#d97706" : "#dc2626";
+                          return (
+                            <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-gray-50 border border-gray-200" style={{ color: scoreColor }}>
+                                <Signal className="w-3 h-3" /> {score != null ? Math.round(score) : "—"}
+                              </span>
+                              {(["verizon", "att", "tmobile"] as const).map(carrier => {
+                                const level = likelihood[carrier];
+                                const s = LIKELIHOOD_STYLES[level];
+                                const label = carrier === "att" ? "AT&T" : carrier === "tmobile" ? "T-Mob" : "Vzn";
+                                return (
+                                  <span key={carrier} className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-medium border ${s.bgClass} ${s.textClass} ${s.borderClass}`}>
+                                    <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: s.dotColor }} />
+                                    {label}
+                                  </span>
+                                );
+                              })}
+                            </div>
+                          );
+                        })()}
+                        <div className="flex flex-wrap gap-1.5 mt-1.5">
                           <Badge variant="outline" className="text-xs">{(cg.campground_type || "campground").replace(/_/g, " ")}</Badge>
                           {cg.tent_sites && <Badge variant="outline" className="text-xs py-0 px-1.5"><Tent className="w-3 h-3" /></Badge>}
                           {cg.rv_sites && <Badge variant="outline" className="text-xs py-0 px-1.5"><Truck className="w-3 h-3" /></Badge>}
