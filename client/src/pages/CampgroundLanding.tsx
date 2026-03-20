@@ -231,7 +231,8 @@ export default function CampgroundLanding() {
       <section className="container pb-6">
         {(() => {
           const score = cg.signal_score ?? 0;
-          const nearTown = cg.nearest_town ? ` near ${cg.nearest_town}` : "";
+          const townName = cg.nearest_town ? cg.nearest_town.replace(/,\s*[A-Z]{2}$/, "").trim() : "";
+          const nearTown = townName ? ` near ${townName}` : "";
           const strengthLabel = score >= 70 ? "strong" : score >= 40 ? "moderate" : "weak";
           const usability = score >= 70
             ? "video calls, streaming, and remote work should all work reliably here"

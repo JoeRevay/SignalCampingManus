@@ -62,7 +62,8 @@ export default function CampgroundDetail({ campground: cg, onClose }: Campground
           : score >= 40
           ? "workable if you plan around connectivity gaps"
           : "not recommended for remote work or data-heavy tasks";
-        const nearTown = cg.nearest_town ? ` near ${cg.nearest_town}` : "";
+        const townName = cg.nearest_town ? cg.nearest_town.replace(/,\s*[A-Z]{2}$/, "").trim() : "";
+        const nearTown = townName ? ` near ${townName}` : "";
         return (
           <div className="text-sm text-gray-600 space-y-2 py-1 border-t border-b border-gray-100">
             <p>Looking for cell service at {cg.campground_name}{nearTown} in {stateName}? Here&rsquo;s what you can realistically expect based on signal data and nearby coverage.</p>
