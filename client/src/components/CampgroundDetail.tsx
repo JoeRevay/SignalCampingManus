@@ -47,6 +47,31 @@ export default function CampgroundDetail({ campground: cg, onClose }: Campground
         </Button>
       </div>
 
+      {/* SEO content block */}
+      {(() => {
+        const score = cg.signal_score ?? 0;
+        const stateName = cg.state_full || cg.state;
+        const strengthLabel = score >= 70 ? "strong" : score >= 40 ? "moderate" : "weak";
+        const usability = score >= 70
+          ? "video calls, streaming, and remote work should all work reliably here"
+          : score >= 40
+          ? "basic calls and browsing should work, though streaming or video calls may be inconsistent"
+          : "connectivity will be unreliable — offline-first tools are recommended";
+        const rwVerdict = score >= 70
+          ? "a good option for consistent connectivity"
+          : score >= 40
+          ? "workable if you plan around connectivity gaps"
+          : "not recommended for remote work or data-heavy tasks";
+        const nearTown = cg.nearest_town ? ` near ${cg.nearest_town}` : "";
+        return (
+          <div className="text-sm text-gray-600 space-y-2 py-1 border-t border-b border-gray-100">
+            <p>Looking for cell service at {cg.campground_name}{nearTown} in {stateName}? Here&rsquo;s what you can realistically expect based on signal data and nearby coverage.</p>
+            <p>Signal strength here is generally <strong>{strengthLabel}</strong>. This means {usability}.</p>
+            <p>If you&rsquo;re planning to work remotely or rely on mobile data, this campground is <strong>{rwVerdict}</strong>.</p>
+          </div>
+        );
+      })()}
+
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-sm">Amenities</CardTitle>
@@ -216,9 +241,39 @@ export default function CampgroundDetail({ campground: cg, onClose }: Campground
         </CardContent>
       </Card>
 
+      {/* Remote Work Verdict */}
+      {(() => {
+        const score = cg.signal_score ?? 0;
+        const verdict = score >= 70
+          ? { label: "Good", color: "text-green-700 bg-green-50 border-green-200", desc: "This campground offers reliable enough signal for video calls, file uploads, and day-to-day remote work." }
+          : score >= 40
+          ? { label: "Moderate", color: "text-amber-700 bg-amber-50 border-amber-200", desc: "Signal is usable for calls and light browsing but may struggle with video conferencing or large data transfers." }
+          : { label: "Poor", color: "text-red-700 bg-red-50 border-red-200", desc: "Signal is weak or unreliable. Plan to work offline and sync when you have connectivity." };
+        return (
+          <Card className="border-gray-200">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm flex items-center gap-2">
+                <Briefcase className="w-4 h-4 text-gray-500" /> Remote Work Verdict
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded border ${verdict.color}`}>{verdict.label}</span>
+              <p className="text-xs text-gray-600">{verdict.desc}</p>
+            </CardContent>
+          </Card>
+        );
+      })()}
+
       <Link href={`/campground/${slug}`}>
         <Button className="w-full bg-green-700 hover:bg-green-800">View Full Details</Button>
       </Link>
+
+      {/* State browse link */}
+      <p className="text-xs text-center text-gray-500">
+        <Link href={`/campgrounds/${cg.state?.toLowerCase()}`} className="text-green-700 hover:underline">
+          View more campgrounds in {cg.state_full || cg.state}
+        </Link>
+      </p>
     </div>
   );
 }
