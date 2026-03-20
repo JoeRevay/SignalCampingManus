@@ -1,0 +1,72 @@
+Upgrade CarrierLanding.tsx from a placeholder into a real SEO landing page WITHOUT changing routing or unrelated app behavior.
+
+STRICT REQUIREMENTS:
+- Modify only the carrier landing page and any directly required helper/data logic
+- Do NOT refactor unrelated components
+- Do NOT change app routing
+- Do NOT change layout globally
+- Keep styling consistent with the rest of the site
+- Do NOT invent data that does not exist
+- Use existing campground dataset and existing signal/carrier fields only
+
+TASK:
+
+1. Find the carrier landing page component
+- likely client/src/pages/CarrierLanding.tsx
+
+2. Replace the placeholder content (“Signal data not yet available” or similar) with a full landing page structure.
+
+3. The page must support at least these carriers cleanly:
+- Verizon
+- AT&T
+- T-Mobile
+
+4. Build the page using existing data only:
+- Filter campgrounds by carrier likelihood/availability from the existing dataset
+- Rank results by the best existing signal-related metric available
+- If multiple ranking metrics exist, use the one already used elsewhere for rankings
+
+5. Add a real SEO intro at the top that dynamically adapts to the selected carrier.
+Structure:
+- H1 should clearly target the carrier page
+- Add 3–5 readable paragraphs explaining:
+  - why campers care about this carrier
+  - where this carrier tends to perform well
+  - that SignalCamping uses modeled signal/campground data
+  - what users will find on the page
+
+6. Add a “Top campgrounds for [carrier]” section
+- Show a ranked list using existing campground cards or a consistent list UI
+- Each item should include:
+  - campground name
+  - state/location
+  - signal score / relevant metric
+  - remote work verdict if available
+  - link to campground detail page
+
+7. Add a trust/disclaimer section:
+- Make clear that coverage is modeled and real-world results may vary
+- Do NOT weaken the whole page; keep it credible and useful
+
+8. Add internal linking:
+- Link to relevant state pages
+- Link to top campgrounds page
+- Link to remote work page if relevant
+- Make these visible in the page body, not hidden
+
+9. Add an FAQ section at the bottom with 3–5 useful questions such as:
+- Which carrier is best for camping?
+- Does [carrier] work well in rural campgrounds?
+- Can you work remotely using [carrier] at campgrounds?
+Use readable HTML content, not just comments or data objects.
+
+10. Preserve current route params / route behavior exactly as-is.
+
+11. After finishing, report:
+- every file modified
+- exactly what changed
+- how the carrier ranking works
+- any missing data limitations you had to work around
+
+GOAL:
+Turn CarrierLanding.tsx into a real traffic-generating, indexable SEO page using the existing data and current app structure.
