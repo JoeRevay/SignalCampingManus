@@ -657,6 +657,75 @@ export default function CampgroundLanding() {
         </Link>
       </section>
 
+      {/* Explore by Carrier */}
+      <section className="container pb-8">
+        <h2 className="text-base font-semibold text-gray-700 mb-3" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+          Campgrounds by Carrier in {state}
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <Link href={`/campgrounds-with-verizon-signal/${cg.state?.toLowerCase()}`}>
+            <Card className={`hover:shadow-md transition cursor-pointer ${cg.verizon_coverage ? "border-red-200 bg-red-50/30" : ""}`}>
+              <CardContent className="p-4 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center shrink-0">
+                  <Signal className="w-4 h-4 text-red-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-red-700">Verizon</p>
+                  <p className="text-xs text-gray-500">{cg.verizon_coverage ? "Likely covered here" : "Coverage varies"}</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-gray-300" />
+              </CardContent>
+            </Card>
+          </Link>
+          <Link href={`/campgrounds-with-att-signal/${cg.state?.toLowerCase()}`}>
+            <Card className={`hover:shadow-md transition cursor-pointer ${cg.att_coverage ? "border-blue-200 bg-blue-50/30" : ""}`}>
+              <CardContent className="p-4 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+                  <Signal className="w-4 h-4 text-blue-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-blue-700">AT&amp;T</p>
+                  <p className="text-xs text-gray-500">{cg.att_coverage ? "Likely covered here" : "Coverage varies"}</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-gray-300" />
+              </CardContent>
+            </Card>
+          </Link>
+          <Link href={`/campgrounds-with-tmobile-signal/${cg.state?.toLowerCase()}`}>
+            <Card className={`hover:shadow-md transition cursor-pointer ${cg.tmobile_coverage ? "border-pink-200 bg-pink-50/30" : ""}`}>
+              <CardContent className="p-4 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-pink-50 flex items-center justify-center shrink-0">
+                  <Signal className="w-4 h-4 text-pink-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-pink-700">T-Mobile</p>
+                  <p className="text-xs text-gray-500">{cg.tmobile_coverage ? "Likely covered here" : "Coverage varies"}</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-gray-300" />
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
+        {(cg.remote_work_score ?? 0) >= 60 && (
+          <div className="mt-3">
+            <Link href="/best-remote-work-campgrounds">
+              <Card className="hover:shadow-md transition cursor-pointer border-indigo-100 bg-indigo-50/30">
+                <CardContent className="p-4 flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-lg bg-indigo-50 flex items-center justify-center shrink-0">
+                    <Briefcase className="w-4 h-4 text-indigo-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-indigo-700">Best Campgrounds for Remote Work</p>
+                    <p className="text-xs text-gray-500">This campground ranks well for remote work — see how others compare</p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-gray-300" />
+                </CardContent>
+              </Card>
+            </Link>
+          </div>
+        )}
+      </section>
+
       {/* Footer */}
       <footer className="bg-gradient-to-b from-gray-900 to-gray-950 text-gray-400 py-10">
         <div className="container text-center">

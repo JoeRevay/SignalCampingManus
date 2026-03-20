@@ -257,6 +257,62 @@ export default function BestRemoteWork() {
           {/* Related Signal Guides */}
           <RelatedSignalGuides exclude="/best-remote-work-campgrounds" />
 
+          {/* Explore by State */}
+          <div className="mt-8">
+            <h2 className="text-lg font-bold text-gray-800 mb-3" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+              Explore Remote Work Campgrounds by State
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {[
+                { slug: "mi", name: "Michigan" },
+                { slug: "oh", name: "Ohio" },
+                { slug: "pa", name: "Pennsylvania" },
+                { slug: "wi", name: "Wisconsin" },
+              ].map(({ slug, name }) => (
+                <Link key={slug} href={`/campgrounds/${slug}`}>
+                  <Card className="hover:shadow-md hover:border-blue-200 transition cursor-pointer text-center">
+                    <CardContent className="p-3">
+                      <p className="text-sm font-semibold text-gray-800">{name}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">View campgrounds</p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Top campgrounds quick links */}
+          <div className="mt-6">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-lg font-bold text-gray-800" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                Top Picks from This List
+              </h2>
+              <Link href="/top-campgrounds" className="text-xs text-blue-600 hover:underline">All campgrounds</Link>
+            </div>
+            <div className="space-y-2">
+              {top50.slice(0, 5).map((cg, idx) => (
+                <Link key={cg.slug} href={`/campground/${cg.slug}`}>
+                  <Card className="hover:shadow-md hover:border-blue-200 transition cursor-pointer">
+                    <CardContent className="p-3 flex items-center gap-3">
+                      <div className="w-7 h-7 rounded-full bg-blue-100 text-blue-800 text-xs font-bold flex items-center justify-center shrink-0">
+                        {idx + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-gray-800 truncate">{cg.campground_name}</p>
+                        <p className="text-xs text-gray-400">{cg.city ? `${cg.city}, ` : ""}{STATE_NAMES[cg.state] || cg.state}</p>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <span className="text-sm font-bold text-blue-600">{cg.remote_work_score}</span>
+                        <span className="text-xs text-gray-400"> RW</span>
+                      </div>
+                      <ArrowLeft className="w-4 h-4 text-gray-300 shrink-0 rotate-180" />
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+
           {/* Methodology note */}
           <Card className="mt-10 border-blue-100 bg-blue-50/30">
             <CardContent className="p-5">

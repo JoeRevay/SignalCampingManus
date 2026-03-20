@@ -194,6 +194,47 @@ export default function StateLanding() {
         </div>
       </section>
 
+      {/* Top Campgrounds by Signal */}
+      {(() => {
+        const topBySignal = stateCampgrounds
+          .filter((cg: any) => cg.signal_score != null)
+          .sort((a: any, b: any) => (b.signal_score ?? 0) - (a.signal_score ?? 0))
+          .slice(0, 5);
+        if (topBySignal.length === 0) return null;
+        return (
+          <section className="container pb-6">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-base font-semibold text-gray-700" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                Top Campgrounds in {stateInfo.name} by Signal
+              </h2>
+              <Link href="/top-campgrounds" className="text-xs text-green-700 hover:underline">View all</Link>
+            </div>
+            <div className="space-y-2">
+              {topBySignal.map((cg: any, idx: number) => (
+                <Link key={cg.slug} href={`/campground/${cg.slug}`}>
+                  <Card className="hover:shadow-md hover:border-green-200 transition cursor-pointer">
+                    <CardContent className="p-3 flex items-center gap-3">
+                      <div className="w-7 h-7 rounded-full bg-green-100 text-green-800 text-xs font-bold flex items-center justify-center shrink-0">
+                        {idx + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-gray-800 truncate">{cg.campground_name}</p>
+                        <p className="text-xs text-gray-400">{cg.city ? `${cg.city}, ` : ""}{stateInfo.name}</p>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <span className="text-sm font-bold text-green-600">{cg.signal_score}</span>
+                        <span className="text-xs text-gray-400">/100</span>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-gray-300 shrink-0" />
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
+
       {/* ═══════════════════ MICHIGAN SEO INTRODUCTION ═══════════════════ */}
       {stateSlug === "mi" && miStats && (
         <section className="container pb-8">
