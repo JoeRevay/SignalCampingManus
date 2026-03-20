@@ -65,7 +65,7 @@ export default function CityLanding() {
     if (!parsed) return [];
     const stateCode = parsed.stateCode.toUpperCase();
     return campgrounds
-      .filter(c => c.state === stateCode && normalize(c.city) === parsed.citySlug)
+      .filter(c => c.state.toLowerCase() === stateCode.toLowerCase() && normalize(c.city) === parsed.citySlug)
       .sort((a, b) => (b.signal_score ?? 0) - (a.signal_score ?? 0));
   }, [parsed]);
 
