@@ -2,8 +2,9 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { createSignalReport, getSignalReportAggregates } from "./db";
+import { createSignalReport, getSignalReportAggregates, getDb } from "./db";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -58,6 +59,13 @@ export const appRouter = router({
         })
       )
       .mutation(async ({ input }) => {
+        const db = await getDb();
+        if (!db) {
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "NO_DATABASE",
+          });
+        }
         await createSignalReport({
           campgroundId: input.campgroundId,
           carrier: input.carrier,

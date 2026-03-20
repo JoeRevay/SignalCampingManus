@@ -95,35 +95,50 @@ export async function createSignalReport(report: InsertSignalReport) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
-  await db.insert(signalReports).values(report);
-  return { success: true };
+  try {
+    await db.insert(signalReports).values(report);
+    return { success: true };
+  } catch (error) {
+    console.warn("[Database] Failed to insert signal report:", error);
+    throw new Error("Database not available");
+  }
 }
 
 export async function getSignalReportAggregates(campgroundId: string) {
   const db = await getDb();
   if (!db) return [];
 
-  const rows = await db
-    .select({
-      carrier: signalReports.carrier,
-      rating: signalReports.rating,
-      count: sql<number>`count(*)`.as("count"),
-    })
-    .from(signalReports)
-    .where(eq(signalReports.campgroundId, campgroundId))
-    .groupBy(signalReports.carrier, signalReports.rating);
+  try {
+    const rows = await db
+      .select({
+        carrier: signalReports.carrier,
+        rating: signalReports.rating,
+        count: sql<number>`count(*)`.as("count"),
+      })
+      .from(signalReports)
+      .where(eq(signalReports.campgroundId, campgroundId))
+      .groupBy(signalReports.carrier, signalReports.rating);
 
-  return rows;
+    return rows;
+  } catch (error) {
+    console.warn("[Database] Failed to query signal reports:", error);
+    return [];
+  }
 }
 
 export async function getTotalReportsForCampground(campgroundId: string) {
   const db = await getDb();
   if (!db) return 0;
 
-  const [row] = await db
-    .select({ count: sql<number>`count(*)`.as("count") })
-    .from(signalReports)
-    .where(eq(signalReports.campgroundId, campgroundId));
+  try {
+    const [row] = await db
+      .select({ count: sql<number>`count(*)`.as("count") })
+      .from(signalReports)
+      .where(eq(signalReports.campgroundId, campgroundId));
 
-  return row?.count ?? 0;
+    return row?.count ?? 0;
+  } catch (error) {
+    console.warn("[Database] Failed to count signal reports:", error);
+    return 0;
+  }
 }

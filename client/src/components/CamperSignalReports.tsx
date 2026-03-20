@@ -54,7 +54,11 @@ export default function CamperSignalReports({ campgroundId, campgroundName }: Ca
       refetch();
     },
     onError: (err) => {
-      toast.error("Failed to submit report. Please try again.");
+      if (err.message === "NO_DATABASE") {
+        toast.info("Signal reports aren't enabled yet — database not configured.");
+      } else {
+        toast.error("Failed to submit report. Please try again.");
+      }
       setSubmittingRating(null);
     },
   });
