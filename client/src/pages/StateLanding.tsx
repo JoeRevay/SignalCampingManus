@@ -1,11 +1,13 @@
 /**
  * StateLanding — State-level campground listing page.
  *
- * Michigan (/campgrounds/mi) gets enhanced SEO content:
- *   - 500–800 word introduction with target keywords
- *   - "Best Campgrounds in Michigan for Cell Service" H2
- *   - "How We Rank Campground Signal Strength" H2
- * Other states get the standard listing layout.
+ * All states now use enhanced SEO content:
+ * - Dynamic intro paragraphs from STATE_COPY
+ * - Top campgrounds by signal
+ * - Stats grid (coverage, signal quality, remote work)
+ * - Ranking methodology section
+ *
+ * Michigan includes a few additional featured links (e.g. Upper Peninsula).
  */
 import { useMemo, useEffect, useState } from "react";
 import { useParams, Link } from "wouter";
