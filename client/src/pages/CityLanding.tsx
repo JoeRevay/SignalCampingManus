@@ -6,7 +6,7 @@ import { useParams, Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Tent, Truck, Waves, CheckCircle2 } from "lucide-react";
+import { MapPin, ChevronRight, Tent, Truck, Waves, CheckCircle2 } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import seoData from "@/data/seo_pages.json";
 import allData from "@/data/campgrounds.json";
@@ -27,7 +27,7 @@ export default function CityLanding() {
   useEffect(() => { if (page) document.title = `${page.title} | SignalCamping`; }, [page]);
 
   if (!page) return (
-    <div className="min-h-screen"><header className="border-b bg-white/90 backdrop-blur-md sticky top-0 z-40"><div className="container py-3"><Link href="/"><Signal className="w-5 h-5 text-green-700" /></Link></div></header>
+    <div className="min-h-screen"><SiteHeader />
     <div className="container py-16 text-center"><h2 className="text-2xl font-bold mb-4">Page Not Found</h2><Link href="/"><Button>Back Home</Button></Link></div></div>
   );
 
