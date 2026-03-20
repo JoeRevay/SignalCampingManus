@@ -6,7 +6,7 @@ A research initiative and interactive dashboard to help outdoor enthusiasts find
 
 - **Frontend**: React 19, TypeScript, Tailwind CSS v4, shadcn/ui components
 - **Backend**: Node.js, Express, tRPC (type-safe API)
-- **Database**: MySQL via Drizzle ORM
+- **Database**: PostgreSQL (Replit built-in) via Drizzle ORM + `postgres` driver
 - **Build**: Vite (frontend), esbuild (server bundling)
 - **Package Manager**: pnpm
 - **Runtime**: tsx (dev), Node.js (prod)
@@ -32,7 +32,7 @@ Server runs on port 5000 (Express + Vite middleware mode).
 
 ## Environment Variables
 
-- `DATABASE_URL` — MySQL connection string
+- `DATABASE_URL` — PostgreSQL connection string (provisioned by Replit)
 - `OAUTH_SERVER_URL` — OAuth provider URL (optional)
 - `VITE_APP_ID` — App ID for OAuth (optional)
 - `VITE_OAUTH_PORTAL_URL` — OAuth portal URL (optional)
