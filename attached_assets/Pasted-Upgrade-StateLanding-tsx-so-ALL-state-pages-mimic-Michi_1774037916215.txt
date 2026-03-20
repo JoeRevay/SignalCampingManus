@@ -1,0 +1,77 @@
+Upgrade StateLanding.tsx so ALL state pages mimic Michigan’s rich structure, using each state’s own data.
+
+STRICT REQUIREMENTS:
+- Modify ONLY client/src/pages/StateLanding.tsx
+- Do NOT change routing
+- Do NOT change the current search/load-more functionality for the directory
+- Do NOT remove any existing sections
+- Keep styling/layout patterns consistent with the current page
+- Do NOT hardcode Michigan wording onto other states
+- Use the Michigan page as the template/structure, but make the content dynamic by state
+
+GOAL:
+Every supported state page (MI, OH, PA, WI) should have the same rich content structure Michigan has now:
+- intro paragraphs
+- stats grid
+- “Best Campgrounds in [State] for Cell Service”
+- “How We Rank Campground Signal Strength”
+- directory intro text
+- stronger state-specific title/meta
+
+TASKS:
+
+1. Find every section in StateLanding.tsx currently gated by:
+   stateSlug === "mi"
+
+2. Generalize the following sections so they render for ALL supported states:
+- the long SEO intro paragraphs directly under the carrier section
+- the stats grid
+- the “Best Campgrounds in [State] for Cell Service” section
+- the “How We Rank Campground Signal Strength” section
+- the directory intro/header above the full campground list
+
+3. For each state, dynamically compute stats similar to Michigan’s existing miStats:
+- total campgrounds
+- Verizon coverage count
+- AT&T coverage count
+- T-Mobile coverage count
+- three-carrier coverage count
+- high-quality signal count
+- remote-work-ready count
+
+4. Create a generic stateStats object for the current state instead of Michigan-only stats
+
+5. Create a generic topSignalCampgrounds list for the current state instead of Michigan-only top campgrounds
+- use the same ranking/filtering approach already used for Michigan
+- keep the same logic style and thresholds unless a state-specific value is clearly already used
+
+6. Replace Michigan-specific copy with dynamic state-specific copy
+- preserve the same overall paragraph structure and quality
+- reference the current state name throughout
+- use real dynamic counts from that state
+- do NOT invent geography that doesn’t exist
+- keep wording natural and state-aware
+
+7. Keep truly Michigan-only sections ONLY if they are uniquely Michigan-specific:
+- Upper Peninsula section can remain Michigan-only
+- any other clearly Michigan-only special feature may remain if there is no equivalent for other states
+
+8. Strengthen metadata for all states
+- Right now Michigan gets custom title/description while others get a generic fallback
+- make Ohio, Pennsylvania, and Wisconsin use the same stronger title/description pattern as Michigan, with their own counts/state names
+
+9. Preserve all existing sections below the rich content:
+- campground directory
+- search/load-more
+- Explore Other States
+- footer
+
+10. After finishing, report EXACTLY:
+- every block that was changed from Michigan-only to all-states
+- what dynamic state stats are now used
+- which sections remain Michigan-only and why
+- the new title/description pattern for each state page
+
+IMPORTANT:
+Do NOT create thin duplicate fluff.
+The result should feel like Michigan’s page structure applied intelligently to Ohio, Pennsylvania, and Wisconsin using their own data and wording.

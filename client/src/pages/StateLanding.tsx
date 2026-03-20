@@ -36,6 +36,35 @@ const STATE_MAP: Record<string, { code: string; name: string; desc: string }> = 
   wi: { code: "WI", name: "Wisconsin", desc: "Camp in Wisconsin's Northwoods, Door County, and along the shores of Lake Superior." },
 };
 
+// State-specific copy: paragraphs that need geographic context per state.
+// Dynamic counts are interpolated inline in the render section.
+const STATE_COPY: Record<string, { title: string; p1: string; p3terrain: string; p4: string }> = {
+  mi: {
+    title: "Campgrounds in Michigan with Cell Service",
+    p1: "Michigan is one of the most popular camping destinations in the Midwest, and for good reason. With more than 100 state parks, thousands of miles of Great Lakes shoreline, and vast stretches of national forest in both the Upper and Lower Peninsulas, the state offers something for every kind of camper. But there is a practical question that comes up more and more often, especially for families, solo travelers, and remote workers: which campgrounds in Michigan have reliable cell service?",
+    p3terrain: "remote parts of the Upper Peninsula where conditions can change fast",
+    p4: "Of course, not every campground needs a strong signal. Some of the best camping in Michigan is deep in the Porcupine Mountains or along the shores of Lake Superior, where the whole point is to unplug. We include those locations too, with honest signal scores so you know what to expect. Whether you are looking for Michigan camping with good signal or a place to truly disconnect, the data here helps you make that choice intentionally rather than by accident.",
+  },
+  oh: {
+    title: "Campgrounds in Ohio with Cell Service",
+    p1: "Ohio has more than 70 state parks, thousands of miles of rivers and lakes, and one of the densest concentrations of campgrounds in the Midwest. From the waterfalls and sandstone cliffs of Hocking Hills to the quiet marinas along Lake Erie's shoreline, Ohio offers diverse camping for every type of outdoor traveler. As the state's camping culture has grown, so has a practical question — especially for families and remote workers: which campgrounds in Ohio have reliable cell service?",
+    p3terrain: "the gorges and hollows of Hocking Hills and other valleys where terrain can limit line-of-sight to towers",
+    p4: "That said, not every Ohio campground needs a strong signal. Some of the most memorable camping in the state is in quiet hollows where thick canopy and valley walls keep the outside world at bay. Whether you are looking for Ohio campgrounds with good cell signal or a confirmed digital detox, the data here helps you plan either kind of trip with confidence.",
+  },
+  pa: {
+    title: "Campgrounds in Pennsylvania with Cell Service",
+    p1: "Pennsylvania has one of the largest public campground networks of any state east of the Mississippi, with more than 2.2 million acres of state forest alone. From the rugged plateau of the Allegheny Mountains to the Poconos in the northeast and the rolling valleys in between, the state offers campgrounds to suit every preference. For a growing number of campers, the question before booking has become: which campgrounds in Pennsylvania have reliable cell service?",
+    p3terrain: "the ridgelines and hollows of the Allegheny Plateau where terrain significantly affects signal propagation",
+    p4: "Of course, strong signal is not always the goal. Some of the finest camping in Pennsylvania is deep in Tioga or Elk State Forest, where the absence of cell coverage is part of the experience. Whether you need Pennsylvania campgrounds with cell service for work or safety, or want a confirmed dead zone to recharge, the signal scores here let you choose deliberately.",
+  },
+  wi: {
+    title: "Campgrounds in Wisconsin with Cell Service",
+    p1: "Wisconsin has more than 15,000 lakes, a Lake Superior shoreline that stretches for miles, the Door County peninsula, and vast stretches of national and state forest. It is one of the great camping destinations in the upper Midwest, drawing anglers, paddlers, hikers, and families every season. As extended camping trips and remote work have grown more common, the question has followed: which campgrounds in Wisconsin have reliable cell service?",
+    p3terrain: "Wisconsin's Northwoods and the remote stretches of the Lake Superior shoreline where tower density drops sharply",
+    p4: "Not every Wisconsin campground needs a strong signal. Some of the most memorable camping in the state is on remote lake shores in the Chequamegon-Nicolet National Forest, where quiet is the point. Whether you need Wisconsin campgrounds with cell service to stay connected or want a confirmed offline weekend, the signal scores here let you plan with confidence.",
+  },
+};
+
 export default function StateLanding() {
   const params = useParams<{ state: string }>();
   const stateSlug = params.state?.toLowerCase() || "";
@@ -68,11 +97,11 @@ export default function StateLanding() {
     );
   }, [stateCampgrounds, searchQuery]);
 
-  /* ── Michigan-specific: top campgrounds by signal quality ── */
-  const miTopSignal = useMemo(() => {
-    if (stateSlug !== "mi") return [];
-    const miCampgrounds = campgrounds.filter(cg => cg.state === "MI");
-    const filtered = filterForBestSignal(miCampgrounds, 85);
+  /* ── All states: top campgrounds by signal quality ── */
+  const topSignalCampgrounds = useMemo(() => {
+    if (!stateInfo) return [];
+    const stateCgs = campgrounds.filter(cg => cg.state === stateInfo.code);
+    const filtered = filterForBestSignal(stateCgs, 85);
     const sorted = sortBySignalQuality(filtered);
     const seen = new Set<string>();
     return sorted
@@ -82,37 +111,33 @@ export default function StateLanding() {
         return true;
       })
       .slice(0, 15);
-  }, [stateSlug]);
+  }, [stateInfo]);
 
-  /* ── Michigan-specific: computed stats for intro ── */
-  const miStats = useMemo(() => {
-    if (stateSlug !== "mi") return null;
-    const mi = campgrounds.filter(cg => cg.state === "MI");
+  /* ── All states: computed stats for intro ── */
+  const stateStats = useMemo(() => {
+    if (!stateInfo) return null;
+    const cgs = campgrounds.filter(cg => cg.state === stateInfo.code);
     return {
-      total: mi.length,
-      verizon: mi.filter(c => c.verizon_coverage === true).length,
-      att: mi.filter(c => c.att_coverage === true).length,
-      tmobile: mi.filter(c => c.tmobile_coverage === true).length,
-      threeCarrier: mi.filter(c => c.verizon_coverage === true && c.att_coverage === true && c.tmobile_coverage === true).length,
-      highQuality: mi.filter(c => (c.signal_quality_score ?? 0) >= 85).length,
-      remoteWorkGood: mi.filter(c => (c.remote_work_score ?? 0) >= 65).length,
+      total: cgs.length,
+      verizon: cgs.filter(c => c.verizon_coverage === true).length,
+      att: cgs.filter(c => c.att_coverage === true).length,
+      tmobile: cgs.filter(c => c.tmobile_coverage === true).length,
+      threeCarrier: cgs.filter(c => c.verizon_coverage === true && c.att_coverage === true && c.tmobile_coverage === true).length,
+      highQuality: cgs.filter(c => (c.signal_quality_score ?? 0) >= 85).length,
+      remoteWorkGood: cgs.filter(c => (c.remote_work_score ?? 0) >= 65).length,
     };
-  }, [stateSlug]);
+  }, [stateInfo]);
 
   useEffect(() => {
     if (!stateInfo) return;
-    if (stateSlug === "mi") {
-      document.title = `Campgrounds in Michigan with Cell Service | ${stateCampgrounds.length} Campgrounds | SignalCamping`;
-      let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement;
-      if (!meta) { meta = document.createElement("meta"); meta.name = "description"; document.head.appendChild(meta); }
-      meta.content = `Find the best campgrounds in Michigan for cell service and remote work. Browse ${stateCampgrounds.length} campgrounds with real signal data from ${miStats?.threeCarrier ?? 0}+ locations with three-carrier coverage.`;
-    } else {
-      document.title = `${stateInfo.name} Campgrounds | SignalCamping`;
-      let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement;
-      if (!meta) { meta = document.createElement("meta"); meta.name = "description"; document.head.appendChild(meta); }
-      meta.content = `Browse ${stateCampgrounds.length} campgrounds in ${stateInfo.name}. Real locations from OpenStreetMap with cell signal data.`;
-    }
-  }, [stateInfo, stateSlug, stateCampgrounds.length, miStats]);
+    const copy = STATE_COPY[stateSlug];
+    document.title = copy
+      ? `${copy.title} | ${stateCampgrounds.length} Campgrounds | SignalCamping`
+      : `${stateInfo.name} Campgrounds | SignalCamping`;
+    let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement;
+    if (!meta) { meta = document.createElement("meta"); meta.name = "description"; document.head.appendChild(meta); }
+    meta.content = `Find the best campgrounds in ${stateInfo.name} for cell service and remote work. Browse ${stateCampgrounds.length} campgrounds with modeled signal data from ${stateStats?.threeCarrier ?? 0}+ locations with three-carrier coverage.`;
+  }, [stateInfo, stateSlug, stateCampgrounds.length, stateStats]);
 
   if (!stateInfo) {
     return (
@@ -144,7 +169,7 @@ export default function StateLanding() {
       {/* Hero */}
       <section className="container py-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-          {stateSlug === "mi" ? "Campgrounds in Michigan with Cell Service" : `${stateInfo.name} Campgrounds`}
+          {STATE_COPY[stateSlug]?.title ?? `${stateInfo.name} Campgrounds`}
         </h1>
         <p className="text-gray-500 max-w-3xl mb-4">{stateInfo.desc}</p>
         <div className="flex gap-3 flex-wrap">
@@ -152,10 +177,10 @@ export default function StateLanding() {
           {verifiedCount > 0 && (
             <Badge className="bg-blue-100 text-blue-700 text-sm px-3 py-1">{verifiedCount} Verified</Badge>
           )}
-          {miStats && (
+          {stateStats && (
             <>
-              <Badge className="bg-emerald-100 text-emerald-700 text-sm px-3 py-1">{miStats.highQuality} Strong Signal</Badge>
-              <Badge className="bg-purple-100 text-purple-700 text-sm px-3 py-1">{miStats.remoteWorkGood} Remote Work Ready</Badge>
+              <Badge className="bg-emerald-100 text-emerald-700 text-sm px-3 py-1">{stateStats.highQuality} Strong Signal</Badge>
+              <Badge className="bg-purple-100 text-purple-700 text-sm px-3 py-1">{stateStats.remoteWorkGood} Remote Work Ready</Badge>
             </>
           )}
         </div>
@@ -253,28 +278,28 @@ export default function StateLanding() {
         );
       })()}
 
-      {/* ═══════════════════ MICHIGAN SEO INTRODUCTION ═══════════════════ */}
-      {stateSlug === "mi" && miStats && (
+      {/* ═══════════════════ STATE SEO INTRODUCTION ═══════════════════ */}
+      {stateStats && STATE_COPY[stateSlug] && (
         <section className="container pb-8">
           <div className="max-w-3xl">
             <div className="prose prose-gray prose-lg max-w-none">
               <p className="text-gray-700 leading-relaxed mb-4">
-                Michigan is one of the most popular camping destinations in the Midwest, and for good reason. With more than 100 state parks, thousands of miles of Great Lakes shoreline, and vast stretches of national forest in both the Upper and Lower Peninsulas, the state offers something for every kind of camper. But there is a practical question that comes up more and more often, especially for families, solo travelers, and remote workers: <strong>which campgrounds in Michigan have reliable cell service?</strong>
+                {STATE_COPY[stateSlug].p1}
               </p>
               <p className="text-gray-700 leading-relaxed mb-4">
-                That question used to be nearly impossible to answer without trial and error. You might ask around on forums, check a carrier's coverage map (which tends to be optimistic), or simply hope for the best when you pull into a campground. SignalCamping was built to change that. We analyzed real cell tower locations from public infrastructure databases and modeled signal coverage for every campground in our Michigan dataset — {miStats.total} locations in total — across Verizon, AT&T, and T-Mobile. The result is a practical, data-driven directory of <strong>campgrounds in Michigan with cell service</strong> that you can actually trust before you book.
+                That question used to be nearly impossible to answer without trial and error. You might ask around on forums, check a carrier's coverage map (which tends to be optimistic), or simply hope for the best when you pull into a campground. SignalCamping was built to change that. We analyzed real cell tower locations from public infrastructure databases and modeled signal coverage for every campground in our {stateInfo.name} dataset — {stateStats.total} locations in total — across Verizon, AT&T, and T-Mobile. The result is a practical, data-driven directory of <strong>campgrounds in {stateInfo.name} with cell service</strong> that you can trust before you book.
               </p>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Cell signal matters for campers for reasons that go well beyond scrolling social media. Parents want to know they can call for help if a kid gets hurt on a trail. Travelers need GPS and weather alerts, especially in remote parts of the Upper Peninsula where conditions can change fast. And a growing number of people are looking for the <strong>best campgrounds in Michigan for remote work</strong> — places where you can take a video call from a picnic table in the morning and paddle a kayak in the afternoon. Our data shows that {miStats.remoteWorkGood} Michigan campgrounds score well enough on connectivity to support that kind of trip, with {miStats.threeCarrier} locations showing likely coverage from all three major carriers.
+                Cell signal matters for campers for reasons that go beyond scrolling social media. Parents want to know they can call for help if a kid gets hurt on a trail. Travelers need GPS and weather alerts, especially in {STATE_COPY[stateSlug].p3terrain}. And a growing number of people are looking for the <strong>best campgrounds in {stateInfo.name} for remote work</strong> — places where you can take a video call in the morning and explore the outdoors in the afternoon. Our data shows that {stateStats.remoteWorkGood} {stateInfo.name} campgrounds score well enough on connectivity to support that kind of trip, with {stateStats.threeCarrier} locations showing likely coverage from all three major carriers.
               </p>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Of course, not every campground needs a strong signal. Some of the best camping in Michigan is deep in the Porcupine Mountains or along the shores of Lake Superior, where the whole point is to unplug. We include those locations too, with honest signal scores so you know what to expect. Whether you are looking for <strong>Michigan camping with good signal</strong> or a place to truly disconnect, the data here helps you make that choice intentionally rather than by accident.
+                {STATE_COPY[stateSlug].p4}
               </p>
               <p className="text-gray-700 leading-relaxed mb-4">
-                What makes our approach different from a carrier coverage map is specificity. Carrier maps paint broad strokes — they will show most of southern Michigan as "covered" without telling you whether the campground tucked behind a ridge actually gets a usable signal. We start from the other direction: we take each campground's exact GPS coordinates, find the nearest cell towers for each carrier, and calculate a signal score based on distance, tower density, and terrain classification. The closer a campground is to multiple towers, the higher its score. It is not a guarantee — terrain, foliage, and weather all affect real-world signal — but it is a much better starting point than a color-coded blob on a map.
+                What makes our approach different from a carrier coverage map is specificity. Carrier maps paint broad strokes without telling you whether the campground tucked behind a ridge actually gets a usable signal. We start from the campground's exact GPS coordinates, find the nearest cell towers for each carrier, and calculate a signal score based on distance, tower density, and terrain classification. The closer a campground is to multiple towers, the higher its score. It is not a guarantee — terrain, foliage, and weather all affect real-world signal — but it is a much better starting point than a color-coded blob on a map.
               </p>
               <p className="text-gray-700 leading-relaxed">
-                Below you will find every campground in our Michigan database, along with featured rankings for the Upper Peninsula and carrier-specific guides. Each campground links to a detail page with signal scores, carrier likelihood, amenity data, and a map. If you have camped at any of these locations, you can also submit a signal report to help other campers plan their trips.
+                Below you will find every campground in our {stateInfo.name} database, along with featured rankings and carrier-specific guides. Each campground links to a detail page with signal scores, carrier likelihood, amenity data, and a map. If you have camped at any of these locations, you can submit a signal report to help other campers plan their trips.
               </p>
             </div>
           </div>
@@ -282,19 +307,19 @@ export default function StateLanding() {
           {/* Quick stats grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8">
             <div className="bg-white rounded-xl border border-gray-100 p-4 text-center shadow-sm">
-              <div className="text-2xl font-bold text-green-700" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{miStats.total}</div>
+              <div className="text-2xl font-bold text-green-700" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{stateStats.total}</div>
               <div className="text-xs text-gray-500 mt-1">Campgrounds Analyzed</div>
             </div>
             <div className="bg-white rounded-xl border border-gray-100 p-4 text-center shadow-sm">
-              <div className="text-2xl font-bold text-green-700" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{miStats.threeCarrier}</div>
+              <div className="text-2xl font-bold text-green-700" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{stateStats.threeCarrier}</div>
               <div className="text-xs text-gray-500 mt-1">Three-Carrier Coverage</div>
             </div>
             <div className="bg-white rounded-xl border border-gray-100 p-4 text-center shadow-sm">
-              <div className="text-2xl font-bold text-green-700" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{miStats.verizon}</div>
+              <div className="text-2xl font-bold text-green-700" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{stateStats.verizon}</div>
               <div className="text-xs text-gray-500 mt-1">Verizon Coverage</div>
             </div>
             <div className="bg-white rounded-xl border border-gray-100 p-4 text-center shadow-sm">
-              <div className="text-2xl font-bold text-green-700" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{miStats.remoteWorkGood}</div>
+              <div className="text-2xl font-bold text-green-700" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{stateStats.remoteWorkGood}</div>
               <div className="text-xs text-gray-500 mt-1">Remote Work Ready</div>
             </div>
           </div>
@@ -355,17 +380,17 @@ export default function StateLanding() {
         </section>
       )}
 
-      {/* ═══════════════════ MICHIGAN: BEST CAMPGROUNDS FOR CELL SERVICE ═══════════════════ */}
-      {stateSlug === "mi" && miTopSignal.length > 0 && (
+      {/* ═══════════════════ BEST CAMPGROUNDS FOR CELL SERVICE (ALL STATES) ═══════════════════ */}
+      {topSignalCampgrounds.length > 0 && (
         <section className="container pb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-            Best Campgrounds in Michigan for Cell Service
+            Best Campgrounds in {stateInfo.name} for Cell Service
           </h2>
           <p className="text-gray-500 text-sm mb-6 max-w-2xl">
             These campgrounds rank highest in our signal quality analysis, with strong tower proximity across multiple carriers. Each location scored 85 or above on our 100-point signal quality scale.
           </p>
           <div className="space-y-3">
-            {miTopSignal.map((cg: any, idx: number) => {
+            {topSignalCampgrounds.map((cg: any, idx: number) => {
               const likelihood = getCarrierLikelihood(cg);
               const desc = generateRankingDescription(cg);
               return (
@@ -389,7 +414,7 @@ export default function StateLanding() {
                           </div>
                           <p className="text-xs text-gray-500 flex items-center gap-1 mb-2">
                             <MapPin className="w-3 h-3" />
-                            {cg.city ? `${cg.city}, ` : ""}Michigan
+                            {cg.city ? `${cg.city}, ` : ""}{stateInfo.name}
                           </p>
                           <p className="text-xs text-gray-600 leading-relaxed mb-2">{desc}</p>
                           <div className="flex flex-wrap items-center gap-1.5">
@@ -428,77 +453,71 @@ export default function StateLanding() {
         </section>
       )}
 
-      {/* ═══════════════════ MICHIGAN: HOW WE RANK SIGNAL STRENGTH ═══════════════════ */}
-      {stateSlug === "mi" && (
-        <section className="container pb-10">
-          <div className="max-w-3xl">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-              How We Rank Campground Signal Strength
-            </h2>
-            <div className="prose prose-gray max-w-none">
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Every signal score on SignalCamping is calculated from real cell tower infrastructure data, not from carrier-reported coverage maps. We use publicly available tower location databases that include verified positions for Verizon, AT&T, and T-Mobile towers across Michigan and the broader Great Lakes region.
-              </p>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                For each campground, our model takes the exact GPS coordinates and measures the distance to the nearest towers for each carrier. We apply coverage radius rules that account for terrain type — suburban areas get a wider effective range (up to 15 km), rural locations use a 12 km radius, and backcountry sites are modeled at 6 km to reflect the reality of signal attenuation in dense forest and hilly terrain. We also sample signal strength at multiple points within a 750-meter buffer around each campground to account for the fact that your actual campsite may not be at the exact center point.
-              </p>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                The result is two scores. The <strong>signal score</strong> (0–100) is the primary number you see on each campground page — it reflects overall connectivity potential based on how many carriers are likely available and how close the nearest towers are. The <strong>signal quality score</strong> is a more granular metric we use internally for rankings. It breaks ties between campgrounds that share the same signal score by factoring in exact tower distances, giving a finer-grained ordering when dozens of campgrounds all score in the same tier.
-              </p>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                We also calculate a <strong>remote work score</strong> for each location, which combines signal strength with proximity to towns (for backup Wi-Fi and supplies) and highway access. This is especially useful if you are searching for the best campgrounds in Michigan for remote work and need confidence that you can maintain a reliable connection for video calls and file uploads.
-              </p>
-              <p className="text-gray-700 leading-relaxed">
-                No model is perfect. Real-world signal depends on weather, foliage density, your specific device, and network congestion. We encourage campers to submit their own signal reports from the field — every report helps refine the picture for the next person planning a trip.
+      {/* ═══════════════════ HOW WE RANK SIGNAL STRENGTH (ALL STATES) ═══════════════════ */}
+      <section className="container pb-10">
+        <div className="max-w-3xl">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+            How We Rank Campground Signal Strength
+          </h2>
+          <div className="prose prose-gray max-w-none">
+            <p className="text-gray-700 leading-relaxed mb-4">
+              Every signal score on SignalCamping is calculated from real cell tower infrastructure data, not from carrier-reported coverage maps. We use publicly available tower location databases that include verified positions for Verizon, AT&T, and T-Mobile towers across {stateInfo.name} and the broader Great Lakes region.
+            </p>
+            <p className="text-gray-700 leading-relaxed mb-4">
+              For each campground, our model takes the exact GPS coordinates and measures the distance to the nearest towers for each carrier. We apply coverage radius rules that account for terrain type — suburban areas get a wider effective range (up to 15 km), rural locations use a 12 km radius, and backcountry sites are modeled at 6 km to reflect the reality of signal attenuation in dense forest and hilly terrain. We also sample signal strength at multiple points within a 750-meter buffer around each campground to account for the fact that your actual campsite may not be at the exact center point.
+            </p>
+            <p className="text-gray-700 leading-relaxed mb-4">
+              The result is two scores. The <strong>signal score</strong> (0–100) is the primary number you see on each campground page — it reflects overall connectivity potential based on how many carriers are likely available and how close the nearest towers are. The <strong>signal quality score</strong> is a more granular metric we use internally for rankings. It breaks ties between campgrounds that share the same signal score by factoring in exact tower distances, giving a finer-grained ordering when dozens of campgrounds all score in the same tier.
+            </p>
+            <p className="text-gray-700 leading-relaxed mb-4">
+              We also calculate a <strong>remote work score</strong> for each location, which combines signal strength with proximity to towns (for backup Wi-Fi and supplies) and highway access. This is especially useful if you are searching for the best campgrounds in {stateInfo.name} for remote work and need confidence that you can maintain a reliable connection for video calls and file uploads.
+            </p>
+            <p className="text-gray-700 leading-relaxed">
+              No model is perfect. Real-world signal depends on weather, foliage density, your specific device, and network congestion. We encourage campers to submit their own signal reports from the field — every report helps refine the picture for the next person planning a trip.
+            </p>
+          </div>
+
+          {/* Methodology quick-reference */}
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
+              <div className="flex items-center gap-2 mb-2">
+                <Radio className="w-4 h-4 text-green-600" />
+                <span className="text-sm font-semibold text-gray-800">Tower Data</span>
+              </div>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                Real tower locations from public infrastructure databases — not carrier-reported coverage estimates.
               </p>
             </div>
-
-            {/* Methodology quick-reference */}
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
-                <div className="flex items-center gap-2 mb-2">
-                  <Radio className="w-4 h-4 text-green-600" />
-                  <span className="text-sm font-semibold text-gray-800">Tower Data</span>
-                </div>
-                <p className="text-xs text-gray-500 leading-relaxed">
-                  Real tower locations from public infrastructure databases — not carrier-reported coverage estimates.
-                </p>
+            <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
+              <div className="flex items-center gap-2 mb-2">
+                <Mountain className="w-4 h-4 text-green-600" />
+                <span className="text-sm font-semibold text-gray-800">Terrain-Adjusted</span>
               </div>
-              <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
-                <div className="flex items-center gap-2 mb-2">
-                  <Mountain className="w-4 h-4 text-green-600" />
-                  <span className="text-sm font-semibold text-gray-800">Terrain-Adjusted</span>
-                </div>
-                <p className="text-xs text-gray-500 leading-relaxed">
-                  Coverage radii vary by terrain classification: suburban (15 km), rural (12 km), and backcountry (6 km).
-                </p>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                Coverage radii vary by terrain classification: suburban (15 km), rural (12 km), and backcountry (6 km).
+              </p>
+            </div>
+            <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
+              <div className="flex items-center gap-2 mb-2">
+                <Laptop className="w-4 h-4 text-green-600" />
+                <span className="text-sm font-semibold text-gray-800">Remote Work Scored</span>
               </div>
-              <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
-                <div className="flex items-center gap-2 mb-2">
-                  <Laptop className="w-4 h-4 text-green-600" />
-                  <span className="text-sm font-semibold text-gray-800">Remote Work Scored</span>
-                </div>
-                <p className="text-xs text-gray-500 leading-relaxed">
-                  Each campground gets a remote work score combining signal strength, town proximity, and highway access.
-                </p>
-              </div>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                Each campground gets a remote work score combining signal strength, town proximity, and highway access.
+              </p>
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* ═══════════════════ FULL CAMPGROUND DIRECTORY ═══════════════════ */}
       <section className="container pb-8">
-        {stateSlug === "mi" && (
-          <h2 className="text-xl font-bold text-gray-900 mb-1" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-            All {stateCampgrounds.length} Michigan Campgrounds
-          </h2>
-        )}
-        {stateSlug === "mi" && (
-          <p className="text-gray-500 text-sm mb-4">
-            Browse every campground in our Michigan database, listed alphabetically. Click any campground for detailed signal data, carrier coverage, and amenity information.
-          </p>
-        )}
+        <h2 className="text-xl font-bold text-gray-900 mb-1" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+          All {stateCampgrounds.length} {stateInfo.name} Campgrounds
+        </h2>
+        <p className="text-gray-500 text-sm mb-4">
+          Browse every campground in our {stateInfo.name} database, listed alphabetically. Click any campground for detailed signal data, carrier coverage, and amenity information.
+        </p>
 
         {/* Search input */}
         <div className="mb-4">
