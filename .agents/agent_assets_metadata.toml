@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "jrZALYpLQARetEy4EdSGa"
+uri = "file://signalcamping-page-audit.md"
+type = "text"
+title = "SignalCamping Page Audit"
