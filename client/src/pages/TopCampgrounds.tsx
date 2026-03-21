@@ -368,38 +368,46 @@ export default function TopCampgrounds() {
                 </CardContent>
               </Card>
             </Link>
-            <Card className="h-full border-blue-200 bg-blue-50/30 opacity-70">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                    <Signal className="w-4 h-4 text-blue-700" />
+            <Link href="/campgrounds-with-att-signal/mi">
+              <Card className="hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer h-full border-blue-200 bg-blue-50/30">
+                <CardContent className="p-5">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                      <Signal className="w-4 h-4 text-blue-700" />
+                    </div>
+                    <h3 className="font-bold text-sm text-blue-800" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                      AT&amp;T &mdash; Michigan
+                    </h3>
                   </div>
-                  <h3 className="font-bold text-sm text-blue-800" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-                    AT&T &mdash; Coming Soon
-                  </h3>
-                </div>
-                <p className="text-xs text-gray-500 mb-2">
-                  Ranked campgrounds by AT&T signal strength. Currently in development.
-                </p>
-                <Badge variant="outline" className="text-[10px] border-blue-200 text-blue-600">Coming Soon</Badge>
-              </CardContent>
-            </Card>
-            <Card className="h-full border-pink-200 bg-pink-50/30 opacity-70">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center">
-                    <Signal className="w-4 h-4 text-pink-700" />
+                  <p className="text-xs text-gray-600 mb-2">
+                    Top Michigan campgrounds ranked by modeled AT&amp;T signal score across the Lower and Upper Peninsulas.
+                  </p>
+                  <span className="text-xs text-blue-700 font-medium flex items-center gap-1">
+                    View AT&amp;T Rankings <ArrowRight className="w-3 h-3" />
+                  </span>
+                </CardContent>
+              </Card>
+            </Link>
+            <Link href="/campgrounds-with-tmobile-signal/mi">
+              <Card className="hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer h-full border-pink-200 bg-pink-50/30">
+                <CardContent className="p-5">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center">
+                      <Signal className="w-4 h-4 text-pink-700" />
+                    </div>
+                    <h3 className="font-bold text-sm text-pink-800" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                      T-Mobile &mdash; Michigan
+                    </h3>
                   </div>
-                  <h3 className="font-bold text-sm text-pink-800" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-                    T-Mobile &mdash; Coming Soon
-                  </h3>
-                </div>
-                <p className="text-xs text-gray-500 mb-2">
-                  Ranked campgrounds by T-Mobile signal strength. Currently in development.
-                </p>
-                <Badge variant="outline" className="text-[10px] border-pink-200 text-pink-600">Coming Soon</Badge>
-              </CardContent>
-            </Card>
+                  <p className="text-xs text-gray-600 mb-2">
+                    Top Michigan campgrounds ranked by modeled T-Mobile signal score, including rural and highway-adjacent sites.
+                  </p>
+                  <span className="text-xs text-pink-700 font-medium flex items-center gap-1">
+                    View T-Mobile Rankings <ArrowRight className="w-3 h-3" />
+                  </span>
+                </CardContent>
+              </Card>
+            </Link>
           </div>
         </div>
       </section>
@@ -437,22 +445,24 @@ export default function TopCampgrounds() {
                 </CardContent>
               </Card>
             </Link>
-            <Card className="h-full border-gray-200 bg-gray-50/50">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-3 mb-2">
-                  <WifiOff className="w-5 h-5 text-gray-600" />
-                  <h3 className="font-bold text-sm text-gray-800" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-                    Off-Grid &amp; Disconnected Camping
-                  </h3>
-                </div>
-                <p className="text-xs text-gray-600 mb-2">
-                  Looking to truly unplug? Many campgrounds in our database have low signal scores and limited carrier coverage &mdash; perfect for a digital detox. Use the directory below and filter by state to find backcountry and remote sites.
-                </p>
-                <span className="text-xs text-gray-500 font-medium flex items-center gap-1">
-                  Browse the directory below <ArrowRight className="w-3 h-3" />
-                </span>
-              </CardContent>
-            </Card>
+            <Link href="/list/off-grid-campgrounds">
+              <Card className="hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer h-full border-gray-200 bg-gray-50/50">
+                <CardContent className="p-5">
+                  <div className="flex items-center gap-3 mb-2">
+                    <WifiOff className="w-5 h-5 text-gray-600" />
+                    <h3 className="font-bold text-sm text-gray-800" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                      Off-Grid &amp; Disconnected Camping
+                    </h3>
+                  </div>
+                  <p className="text-xs text-gray-600 mb-2">
+                    Looking to truly unplug? Browse our curated list of backcountry and remote campgrounds with low signal scores &mdash; ideal for a real digital detox.
+                  </p>
+                  <span className="text-xs text-gray-700 font-medium flex items-center gap-1">
+                    View Off-Grid List <ArrowRight className="w-3 h-3" />
+                  </span>
+                </CardContent>
+              </Card>
+            </Link>
           </div>
         </div>
       </section>
