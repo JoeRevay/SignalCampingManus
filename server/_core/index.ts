@@ -24,15 +24,16 @@ async function startServer() {
       createContext,
     })
   );
-  // Dynamic sitemap — registered before Vite/static so it always wins
+  // Dynamic sitemap — registered FIRST, before tRPC, static, and Vite middleware
+  // so it always wins and is never intercepted by catch-alls or express.static
   app.get("/sitemap.xml", (_req, res) => {
     try {
       const xml = generateSitemapXml();
       res.set("Content-Type", "application/xml; charset=utf-8");
-      res.send(xml);
+      return res.send(xml);
     } catch (err) {
       console.error("[Sitemap] Failed to generate sitemap:", err);
-      res.status(500).send("Failed to generate sitemap");
+      return res.status(500).send("Failed to generate sitemap");
     }
   });
   // development mode uses Vite, production mode uses static files
