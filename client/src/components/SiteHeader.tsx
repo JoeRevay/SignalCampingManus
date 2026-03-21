@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Map as MapIcon, Trophy, Navigation } from "lucide-react";
 import rawData from "@/data/campgrounds.json";
-import logoSrc from "@assets/SignalCamping_logo_1774051531997.png";
+const logoSrc = "/logo.png";
 
 const SITE_COUNT = (rawData as any[]).length.toLocaleString();
 
@@ -20,7 +20,7 @@ export default function SiteHeader({ onMapClick }: SiteHeaderProps) {
             <img
               src={logoSrc}
               alt="SignalCamping — Where your phone works or doesn't"
-              className="h-16 w-auto hover:opacity-80 transition-opacity"
+              className="h-10 w-auto hover:opacity-80 transition-opacity"
             />
           </Link>
 
