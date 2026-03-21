@@ -2,22 +2,35 @@ import { eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import { InsertUser, users, signalReports, type InsertSignalReport } from "../drizzle/schema";
-import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
-// Lazily create the drizzle instance so local tooling can run without a DB.
+// Lazily create the drizzle instance and reuse it across all requests.
+// Call initDb() at server startup to establish and log the connection early.
 export async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
-    try {
-      const client = postgres(process.env.DATABASE_URL, { max: 10 });
-      _db = drizzle(client);
-    } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
-      _db = null;
-    }
+  if (_db) return _db;
+
+  const url = process.env.DATABASE_URL;
+  if (!url) {
+    console.warn("[Database] DATABASE_URL is not set — database features are disabled");
+    return null;
   }
+
+  try {
+    const client = postgres(url, { max: 10 });
+    _db = drizzle(client);
+    console.log("[Database] Connected to Postgres");
+  } catch (error) {
+    console.error("[Database] Failed to connect:", error);
+    _db = null;
+  }
+
   return _db;
+}
+
+// Call once at server startup to eagerly establish the connection.
+export async function initDb() {
+  await getDb();
 }
 
 export async function upsertUser(user: InsertUser): Promise<void> {
@@ -57,9 +70,6 @@ export async function upsertUser(user: InsertUser): Promise<void> {
     if (user.role !== undefined) {
       values.role = user.role;
       updateSet.role = user.role;
-    } else if (user.openId === ENV.ownerOpenId) {
-      values.role = 'admin';
-      updateSet.role = 'admin';
     }
 
     if (!values.lastSignedIn) {
@@ -88,7 +98,6 @@ export async function getUserByOpenId(openId: string) {
   }
 
   const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
-
   return result.length > 0 ? result[0] : undefined;
 }
 
