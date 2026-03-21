@@ -16,24 +16,103 @@ interface ResolvedRec {
   href: string;
 }
 
-const SLOT_CONFIG: Record<string, { ctaLabel: string; helpText: string }> = {
+const SLOT_CONFIG: Record<string, { title: string; helper: string; ctaLabel: string; featuredLabel: string }> = {
   portable_power: {
-    ctaLabel: "Shop Portable Power",
-    helpText: "Helpful for off-grid camping, backup charging, and remote work.",
+    title: "Portable Power for Off-Grid Reliability",
+    helper: "A practical backup for charging devices, running gear, and staying productive at camp.",
+    ctaLabel: "Browse Power Options",
+    featuredLabel: "Top pick for this campground",
   },
   signal_booster: {
-    ctaLabel: "Shop Signal Boosters",
-    helpText: "Best for campgrounds with weaker or inconsistent signal.",
+    title: "Signal Boosters for Weak Coverage",
+    helper: "Best when this campground has inconsistent or marginal cell reception.",
+    ctaLabel: "Browse Signal Boosters",
+    featuredLabel: "Recommended for this signal level",
   },
   mobile_router: {
-    ctaLabel: "Shop Mobile Routers",
-    helpText: "Useful when multiple devices need a more flexible connection setup.",
+    title: "Mobile Routers for Flexible Work Setups",
+    helper: "Useful when multiple devices need a more stable or shareable connection.",
+    ctaLabel: "Browse Mobile Routers",
+    featuredLabel: "Useful for remote work here",
   },
   starlink_accessory: {
-    ctaLabel: "Shop Starlink Gear",
-    helpText: "Ideal for high-connectivity camping and advanced remote work setups.",
+    title: "Starlink Add-Ons for High-Connectivity Camping",
+    helper: "Ideal for campers building a more advanced remote-work setup.",
+    ctaLabel: "Browse Starlink Gear",
+    featuredLabel: "For advanced connectivity setups",
   },
 };
+
+function FeaturedCard({ rec }: { rec: ResolvedRec }) {
+  const config = SLOT_CONFIG[rec.slot] ?? {
+    title: rec.product.title,
+    helper: rec.product.description,
+    ctaLabel: "View Deal",
+    featuredLabel: "Recommended",
+  };
+  return (
+    <div className="bg-white rounded-lg border border-green-100 p-4">
+      <div className="flex items-center gap-2 mb-3">
+        <span className="text-[10px] font-semibold uppercase tracking-wide text-green-700 bg-green-50 border border-green-200 px-2 py-0.5 rounded-full">
+          {config.featuredLabel}
+        </span>
+      </div>
+      <div className="flex items-start gap-3">
+        {rec.product.image && (
+          <img
+            src={rec.product.image}
+            alt={rec.product.title}
+            className="w-14 h-14 object-cover rounded-md border border-gray-100 shrink-0"
+          />
+        )}
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-bold text-gray-900 leading-snug">{config.title}</p>
+          <p className="text-[11px] text-gray-400 mt-0.5">via {rec.product.merchant}</p>
+          <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">{config.helper}</p>
+        </div>
+      </div>
+      <div className="mt-3 pt-3 border-t border-gray-100">
+        <a
+          href={rec.href}
+          target="_blank"
+          rel="noopener noreferrer sponsored"
+          className="block"
+        >
+          <button className="w-full text-sm font-semibold bg-green-700 hover:bg-green-800 active:bg-green-900 text-white px-4 py-2.5 rounded-lg transition-colors">
+            {config.ctaLabel}
+          </button>
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function SecondaryCard({ rec }: { rec: ResolvedRec }) {
+  const config = SLOT_CONFIG[rec.slot] ?? {
+    title: rec.product.title,
+    helper: rec.product.description,
+    ctaLabel: "View Deal",
+    featuredLabel: "",
+  };
+  return (
+    <div className="bg-white rounded-lg border border-gray-200 px-3 py-2.5 flex items-center gap-3">
+      <div className="flex-1 min-w-0">
+        <p className="text-xs font-semibold text-gray-800 leading-snug truncate">{config.title}</p>
+        <p className="text-[11px] text-gray-500 mt-0.5 leading-snug line-clamp-2">{config.helper}</p>
+      </div>
+      <a
+        href={rec.href}
+        target="_blank"
+        rel="noopener noreferrer sponsored"
+        className="shrink-0"
+      >
+        <button className="text-[11px] font-semibold text-green-700 border border-green-300 hover:bg-green-50 px-2.5 py-1.5 rounded-md transition-colors whitespace-nowrap">
+          {config.ctaLabel}
+        </button>
+      </a>
+    </div>
+  );
+}
 
 export default function AffiliateRecommendations({ campground }: AffiliateRecommendationsProps) {
   if (!campground) return null;
@@ -60,74 +139,34 @@ export default function AffiliateRecommendations({ campground }: AffiliateRecomm
 
   if (recs.length === 0) return null;
 
+  const [featured, ...secondary] = recs;
+
   return (
-    <div className="rounded-xl border border-gray-200 bg-gray-50/60 p-4 shadow-sm">
+    <div className="rounded-xl border border-gray-200 bg-stone-50/70 p-4 space-y-3">
       {/* Header */}
-      <div className="flex items-start justify-between gap-3 mb-4">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-sm font-bold text-gray-900 leading-tight">
-              Recommended Gear for Staying Connected
-            </h3>
-            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide bg-green-100 text-green-700 px-2 py-0.5 rounded-full border border-green-200">
-              Curated Picks
-            </span>
-          </div>
-          <p className="text-xs text-gray-500">
-            Curated gear picks based on this campground's signal and remote-work profile.
-          </p>
+      <div>
+        <h3 className="text-sm font-bold text-gray-900 leading-tight">
+          Recommended Gear for This Campground
+        </h3>
+        <p className="text-[11px] text-gray-500 mt-0.5">
+          Selected based on this campground's connectivity and remote-work profile.
+        </p>
+      </div>
+
+      {/* Featured card */}
+      <FeaturedCard rec={featured} />
+
+      {/* Secondary cards */}
+      {secondary.length > 0 && (
+        <div className="space-y-2">
+          {secondary.map((rec) => (
+            <SecondaryCard key={rec.product.id} rec={rec} />
+          ))}
         </div>
-      </div>
-
-      {/* Cards */}
-      <div className="space-y-3">
-        {recs.map(({ slot, product, href }) => {
-          const config = SLOT_CONFIG[slot] ?? { ctaLabel: "View Deal", helpText: "" };
-          return (
-            <div
-              key={product.id}
-              className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 flex items-start gap-3"
-            >
-              {/* Image or placeholder */}
-              {product.image ? (
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="w-16 h-16 object-cover rounded-md border border-gray-100 shrink-0"
-                />
-              ) : (
-                <div className="w-16 h-16 rounded-md border border-gray-100 bg-gray-100 shrink-0" />
-              )}
-
-              {/* Text */}
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-gray-900 leading-snug">{product.title}</p>
-                <p className="text-[11px] text-gray-400 mt-0.5 font-medium">via {product.merchant}</p>
-                <p className="text-xs text-gray-600 mt-1 leading-snug">{product.description}</p>
-                {config.helpText && (
-                  <p className="text-[11px] text-gray-400 mt-1 italic leading-snug">{config.helpText}</p>
-                )}
-              </div>
-
-              {/* CTA */}
-              <div className="shrink-0 self-center">
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer sponsored"
-                >
-                  <button className="text-xs font-semibold bg-green-700 hover:bg-green-800 active:bg-green-900 text-white px-3 py-2 rounded-lg transition-colors whitespace-nowrap shadow-sm">
-                    {config.ctaLabel}
-                  </button>
-                </a>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      )}
 
       {/* Disclosure */}
-      <p className="text-[10px] text-gray-400 mt-3 leading-snug">
+      <p className="text-[10px] text-gray-400 leading-snug">
         Some links may be affiliate links, which means SignalCamping may earn a commission at no extra cost to you.
       </p>
     </div>

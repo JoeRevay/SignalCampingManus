@@ -1,0 +1,165 @@
+Fix the affiliate recommendations UI and placement in my SignalCamping project.
+
+CURRENT PROBLEMS:
+1. The affiliate section is still too low on campground detail pages
+2. The section looks generic and placeholder-like
+3. It does not feel integrated with the SignalCamping brand
+4. The current stacked list layout is too plain and repetitive
+
+GOAL:
+- move the affiliate module much higher on campground detail pages
+- redesign it so it feels curated, premium, and native to SignalCamping
+- make it look like an intentional recommendation feature, not a generic card dump
+
+==================================================
+PART 1 — MOVE IT HIGHER
+==================================================
+
+Modify:
+client/src/components/CampgroundDetail.tsx
+
+Placement requirement:
+- render AffiliateRecommendations ABOVE the "Remote Work Verdict" section
+- place it as high as possible without interrupting the main campground hero/title block
+- ideal order:
+  1. campground title / main hero info
+  2. top-level score / signal summary / key facts
+  3. affiliate recommendations
+  4. remote work verdict
+  5. remaining lower sections
+
+Do not leave the affiliate section below remote work verdict or buried lower on the page.
+
+==================================================
+PART 2 — REDESIGN THE SECTION TO FEEL OFFICIAL
+==================================================
+
+Modify:
+client/src/components/AffiliateRecommendations.tsx
+
+New design direction:
+- stop using a generic stacked commerce-card look
+- make it feel like a curated SignalCamping recommendation module
+- visually cleaner, more intentional, and more branded
+- do NOT imitate Amazon styling
+- do NOT use gray empty image placeholders if there is no image
+- if there is no image, remove the image block entirely
+
+Section header:
+- stronger title hierarchy
+- subtitle smaller and cleaner
+- badge should be subtle and premium, not loud
+
+Use:
+Title: "Recommended Gear for This Campground"
+Subtitle: "Selected based on this campground’s connectivity and remote-work profile."
+
+==================================================
+PART 3 — USE A FEATURED + SECONDARY LAYOUT
+==================================================
+
+Instead of rendering all recommendations as identical rows:
+
+- render the first recommendation as a featured card
+- render the remaining 1–2 recommendations as smaller secondary cards below it
+
+Featured card requirements:
+- larger, more visually distinct
+- stronger title
+- short explanatory text
+- one primary CTA
+- optional “Best for this campground” label
+
+Secondary cards:
+- more compact
+- less repetitive
+- cleaner spacing
+- CTA buttons less dominant than the featured card
+
+If only 1 product exists:
+- show only the featured card
+If 2 or 3 exist:
+- first = featured
+- rest = compact secondary cards
+
+==================================================
+PART 4 — MAKE THE COPY FEEL LESS GENERIC
+==================================================
+
+Use tighter, more editorial copy.
+
+Slot-specific titles/subcopy should feel useful and natural.
+
+Examples:
+- portable_power:
+  title: "Portable Power for Off-Grid Reliability"
+  helper: "A practical backup for charging devices, running gear, and staying productive at camp."
+
+- signal_booster:
+  title: "Signal Boosters for Weak Coverage"
+  helper: "Best when this campground has inconsistent or marginal cell reception."
+
+- mobile_router:
+  title: "Mobile Routers for Flexible Work Setups"
+  helper: "Useful when multiple devices need a more stable or shareable connection."
+
+- starlink_accessory:
+  title: "Starlink Add-Ons for High-Connectivity Camping"
+  helper: "Ideal for campers building a more advanced remote-work setup."
+
+Use cleaner CTA labels:
+- portable_power → "Browse Power Options"
+- signal_booster → "Browse Signal Boosters"
+- mobile_router → "Browse Mobile Routers"
+- starlink_accessory → "Browse Starlink Gear"
+
+==================================================
+PART 5 — VISUAL STYLE
+==================================================
+
+Style requirements:
+- make it feel native to SignalCamping
+- use the site’s existing visual language and palette
+- cleaner typography
+- better spacing
+- more refined borders/backgrounds
+- subtle card contrast
+- polished button styles
+- avoid generic placeholder boxes
+- avoid repetitive big green buttons on every identical row
+
+The section should feel like:
+- a curated site feature
+- a trustworthy recommendation block
+- part of the product, not an ad dump
+
+==================================================
+PART 6 — DISCLOSURE
+==================================================
+
+Keep the affiliate disclosure, but make it smaller and visually lighter.
+Place it under the section without drawing too much attention.
+
+Text:
+"Some links may be affiliate links, which means SignalCamping may earn a commission at no extra cost to you."
+
+==================================================
+PART 7 — SAFETY
+==================================================
+
+- do not change the affiliate slot logic
+- do not change URL generation logic
+- do not modify unrelated files
+- do not break mobile responsiveness
+- do not render empty image placeholders
+- do not duplicate the section
+
+==================================================
+PART 8 — AFTER IMPLEMENTATION
+==================================================
+
+After making the changes, summarize:
+1. exactly where the module now appears on campground detail pages
+2. what layout is used (featured + secondary)
+3. what visual changes were made
+4. whether any placeholder image blocks were removed

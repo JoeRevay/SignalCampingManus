@@ -99,6 +99,8 @@ export default function CampgroundDetail({ campground: cg, onClose }: Campground
         </CardContent>
       </Card>
 
+      <AffiliateRecommendations campground={cg} />
+
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-sm">Links</CardTitle>
@@ -124,8 +126,6 @@ export default function CampgroundDetail({ campground: cg, onClose }: Campground
           {cg.operator && <p className="text-xs text-gray-500">Operator: {cg.operator}</p>}
         </CardContent>
       </Card>
-
-      <AffiliateRecommendations campground={cg} />
 
       {/* Cell Signal & Remote Work */}
       <Card className="border-indigo-100">
