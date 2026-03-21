@@ -1,8 +1,9 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Signal, Map as MapIcon, Trophy, Navigation } from "lucide-react";
+import { Map as MapIcon, Trophy, Navigation } from "lucide-react";
 import rawData from "@/data/campgrounds.json";
+import logoSrc from "@assets/SignalCamping_logo_1774051531997.png";
 
 const SITE_COUNT = (rawData as any[]).length.toLocaleString();
 
@@ -16,15 +17,11 @@ export default function SiteHeader({ onMapClick }: SiteHeaderProps) {
       <div className="container py-3">
         <div className="flex items-center gap-3">
           <Link href="/">
-            <div className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center shadow-sm">
-                <Signal className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <p className="text-xl font-bold tracking-tight leading-none" style={{ fontFamily: "Space Grotesk, sans-serif" }}>SignalCamping</p>
-                <p className="text-[10px] text-muted-foreground leading-none mt-0.5">Where your phone works &mdash; or doesn&rsquo;t</p>
-              </div>
-            </div>
+            <img
+              src={logoSrc}
+              alt="SignalCamping — Where your phone works or doesn't"
+              className="h-16 w-auto hover:opacity-80 transition-opacity"
+            />
           </Link>
 
           <div className="ml-auto flex items-center gap-1">
