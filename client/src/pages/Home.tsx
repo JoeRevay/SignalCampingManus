@@ -8,7 +8,6 @@
  * Data: OSM base inventory (3114 campgrounds, 4 states) + verified MVP subset (485).
  */
 import { useState, useMemo, useCallback, useEffect } from "react";
-import { useAuth } from "@/_core/hooks/useAuth";
 import { Link } from "wouter";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -72,9 +71,11 @@ const typeOptions = (() => {
 
 /* ──────────────────────────── Main Component ──────────────────────────── */
 export default function Home() {
-  // The userAuth hooks provides authentication state
-  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
-  let { user, loading, error, isAuthenticated, logout } = useAuth();
+  const user = null;
+  const loading = false;
+  const error = null;
+  const isAuthenticated = false;
+  const logout = () => {};
 
   const [view, setView] = useState<"landing" | "explorer">("landing");
   const [filters, setFilters] = useState<Filters>({ ...DEFAULT_FILTERS });
