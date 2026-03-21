@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { getCarrierLikelihood, LIKELIHOOD_STYLES, CARRIER_DISCLAIMER, type CarrierLikelihood } from "@/lib/carrierLikelihood";
 import { Link } from "wouter";
+import AffiliateRecommendations from "@/components/AffiliateRecommendations";
 
 interface CampgroundDetailProps {
   campground: any;
@@ -264,6 +265,8 @@ export default function CampgroundDetail({ campground: cg, onClose }: Campground
           </Card>
         );
       })()}
+
+      <AffiliateRecommendations campground={cg} />
 
       <Link href={`/campground/${slug}`}>
         <Button className="w-full bg-green-700 hover:bg-green-800">View Full Details</Button>

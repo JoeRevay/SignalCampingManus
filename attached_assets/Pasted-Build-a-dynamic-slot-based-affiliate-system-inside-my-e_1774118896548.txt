@@ -1,0 +1,245 @@
+Build a dynamic, slot-based affiliate system inside my existing SignalCamping project.
+
+IMPORTANT:
+- Do NOT hardcode old/static products into campground pages
+- Do NOT require affiliate IDs yet
+- Build the system so I can plug in Amazon/Skimlinks/etc later
+- Keep everything simple, safe, and compatible with my current project structure
+- Do NOT introduce new external libraries unless absolutely necessary
+
+GOAL:
+Create a reusable affiliate recommendation system that:
+1. defines affiliate "slots" by intent/category
+2. maps campground pages to relevant slots based on existing campground data
+3. stores current products/links in one central data file
+4. renders those recommendations dynamically on campground detail pages
+5. makes it easy to update products later without editing page code
+
+PROJECT CONTEXT:
+My project already has:
+- React + Vite frontend
+- campground dataset at client/src/data/campgrounds.json
+- campground detail rendering in client/src/components/CampgroundDetail.tsx
+
+Use my existing data and architecture.
+
+==================================================
+STEP 1 — CREATE CENTRAL AFFILIATE DATA FILE
+==================================================
+
+Create a new file:
+client/src/data/affiliateProducts.json
+
+Structure it like this:
+
+{
+  "portable_power": [
+    {
+      "id": "portable-power-1",
+      "title": "Portable Power Station",
+      "description": "Reliable backup power for camping and remote work.",
+      "merchant": "Amazon",
+      "url": "https://example.com/portable-power-placeholder",
+      "image": "",
+      "active": true,
+      "priority": 1,
+      "last_updated": "2026-03-21"
+    }
+  ],
+  "signal_booster": [
+    {
+      "id": "signal-booster-1",
+      "title": "Cell Signal Booster",
+      "description": "Boost weak cell signal at campgrounds with marginal coverage.",
+      "merchant": "Amazon",
+      "url": "https://example.com/signal-booster-placeholder",
+      "image": "",
+      "active": true,
+      "priority": 1,
+      "last_updated": "2026-03-21"
+    }
+  ],
+  "mobile_router": [
+    {
+      "id": "mobile-router-1",
+      "title": "Mobile Hotspot / Travel Router",
+      "description": "Useful for remote work and shared connectivity while camping.",
+      "merchant": "Amazon",
+      "url": "https://example.com/mobile-router-placeholder",
+      "image": "",
+      "active": true,
+      "priority": 1,
+      "last_updated": "2026-03-21"
+    }
+  ],
+  "starlink_accessory": [
+    {
+      "id": "starlink-accessory-1",
+      "title": "Starlink Travel Accessory",
+      "description": "Helpful add-on for campers using satellite internet.",
+      "merchant": "Amazon",
+      "url": "https://example.com/starlink-accessory-placeholder",
+      "image": "",
+      "active": true,
+      "priority": 1,
+      "last_updated": "2026-03-21"
+    }
+  ]
+}
+
+Requirements:
+- keep this file editable by hand
+- support multiple products per slot
+- use only active=true products
+- sort by lowest priority number first
+
+==================================================
+STEP 2 — CREATE AFFILIATE TYPES + HELPERS
+==================================================
+
+Create a new file:
+client/src/lib/affiliate.ts
+
+In this file:
+1. import affiliateProducts.json
+2. create types/interfaces for affiliate products
+3. create helper functions:
+
+A) getActiveAffiliateProducts(slot: string)
+- returns active products for a slot
+- sorted by priority ascending
+
+B) getPrimaryAffiliateProduct(slot: string)
+- returns the first active product for the slot
+- returns null if none
+
+C) getAffiliateSlotsForCampground(campground)
+This is the key logic.
+
+Use existing campground fields to decide which slots to show.
+
+Use these rules:
+
+- always include "portable_power"
+- if signal_quality_score is defined and less than 70, include "signal_booster"
+- if remote_work_score is defined and >= 70, include "mobile_router"
+- if remote_work_score is defined and >= 85, include "starlink_accessory"
+- do not return duplicates
+- maximum 3 slots returned
+
+Make this logic safe for undefined/null values
+
+==================================================
+STEP 3 — CREATE REUSABLE UI COMPONENT
+==================================================
+
+Create a new file:
+client/src/components/AffiliateRecommendations.tsx
+
+Props:
+- campground: current campground object
+
+Behavior:
+- call getAffiliateSlotsForCampground(campground)
+- for each slot, get the primary product
+- render up to 3 recommendation cards
+
+Each card should show:
+- product title
+- product description
+- merchant name
+- CTA button: "View Deal"
+
+CTA requirements:
+- open in new tab
+- use rel="noopener noreferrer sponsored"
+
+If image exists, render it. If not, omit image cleanly.
+
+Section title:
+"Recommended Gear for Staying Connected"
+
+Section intro:
+"Based on this campground's connectivity profile, these are the most relevant gear picks."
+
+If no products are available, render nothing.
+
+Styling:
+- simple, clean, consistent with current project
+- no new libraries
+- use basic div/card/button styling
+- keep mobile-friendly
+
+==================================================
+STEP 4 — INTEGRATE INTO CAMPGROUND DETAIL PAGE
+==================================================
+
+Modify:
+client/src/components/CampgroundDetail.tsx
+
+Requirements:
+- import and render AffiliateRecommendations
+- place it BELOW the main campground information, but ABOVE the bottom of the page
+- do not break existing layout
+- keep all existing functionality intact
+
+Also add a small disclosure under the affiliate section:
+"Some links may be affiliate links, which means SignalCamping may earn a commission at no extra cost to you."
+
+==================================================
+STEP 5 — ADD OPTIONAL TRACKING-FRIENDLY WRAPPER
+==================================================
+
+Create a helper in:
+client/src/lib/affiliate.ts
+
+Function:
+appendAffiliateSubId(url: string, campgroundSlug?: string, slot?: string)
+
+Behavior:
+- if URL is missing, return empty string
+- append query params safely:
+  - sc_source=signalcamping
+  - sc_campground={slug}
+  - sc_slot={slot}
+- preserve existing query params
+- return final URL
+
+Then use this helper in AffiliateRecommendations when generating the CTA href.
+
+This is NOT affiliate network logic.
+This is just internal tracking-friendly URL decoration so I can later inspect outbound clicks or use redirects if I want.
+
+==================================================
+STEP 6 — KEEP IT FUTURE-PROOF
+==================================================
+
+Design this so I can later:
+- swap placeholder URLs with Amazon/Skimlinks/etc
+- add more slots without changing campground page code
+- add more products per slot without changing campground page code
+
+Do NOT build a backend yet.
+Do NOT add cron jobs.
+Do NOT overengineer.
+Just build the clean frontend/data architecture now.
+
+==================================================
+STEP 7 — SAFETY / QUALITY
+==================================================
+
+- Type everything appropriately
+- Handle missing fields safely
+- Do not crash if a campground has incomplete data
+- Do not modify unrelated files
+- Keep code readable and production-clean
+
+==================================================
+STEP 8 — AFTER IMPLEMENTATION
+==================================================
+
+After completing the work, summarize:
+1. which files were created
+2. which files were modified
+3. how to update product links later
+4. how to add a new slot later

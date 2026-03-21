@@ -1,0 +1,54 @@
+{
+  "portable_power": [
+    {
+      "id": "portable-power-1",
+      "title": "Portable Power Station",
+      "description": "Reliable backup power for camping and remote work.",
+      "merchant": "Amazon",
+      "url": "https://example.com/portable-power-placeholder",
+      "image": "",
+      "active": true,
+      "priority": 1,
+      "last_updated": "2026-03-21"
+    }
+  ],
+  "signal_booster": [
+    {
+      "id": "signal-booster-1",
+      "title": "Cell Signal Booster",
+      "description": "Boost weak cell signal at campgrounds with marginal coverage.",
+      "merchant": "Amazon",
+      "url": "https://example.com/signal-booster-placeholder",
+      "image": "",
+      "active": true,
+      "priority": 1,
+      "last_updated": "2026-03-21"
+    }
+  ],
+  "mobile_router": [
+    {
+      "id": "mobile-router-1",
+      "title": "Mobile Hotspot / Travel Router",
+      "description": "Useful for remote work and shared connectivity while camping.",
+      "merchant": "Amazon",
+      "url": "https://example.com/mobile-router-placeholder",
+      "image": "",
+      "active": true,
+      "priority": 1,
+      "last_updated": "2026-03-21"
+    }
+  ],
+  "starlink_accessory": [
+    {
+      "id": "starlink-accessory-1",
+      "title": "Starlink Travel Accessory",
+      "description": "Helpful add-on for campers using satellite internet.",
+      "merchant": "Amazon",
+      "url": "https://example.com/starlink-accessory-placeholder",
+      "image": "",
+      "active": true,
+      "priority": 1,
+      "last_updated": "2026-03-21"
+    }
+  ]
+}
