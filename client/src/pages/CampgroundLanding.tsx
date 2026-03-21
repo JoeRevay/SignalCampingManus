@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { getCarrierLikelihood, LIKELIHOOD_STYLES, CARRIER_DISCLAIMER, type CarrierLikelihood } from "@/lib/carrierLikelihood";
 import CamperSignalReports from "@/components/CamperSignalReports";
+import AffiliateRecommendations from "@/components/AffiliateRecommendations";
 import SiteHeader from "@/components/SiteHeader";
 import top100Data from "@/data/top100_seo.json";
 import mvpData from "@/data/mvp_campgrounds.json";
@@ -515,6 +516,8 @@ export default function CampgroundLanding() {
                 </Card>
               );
             })()}
+
+            <AffiliateRecommendations campground={cg} />
 
           </div>
 
