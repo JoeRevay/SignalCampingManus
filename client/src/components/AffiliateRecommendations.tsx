@@ -1,6 +1,7 @@
 import {
   getAffiliateSlotsForCampground,
   getPrimaryAffiliateProduct,
+  resolveProductHref,
   appendAffiliateSubId,
   type AffiliateProduct,
 } from "@/lib/affiliate";
@@ -12,6 +13,7 @@ interface AffiliateRecommendationsProps {
 interface ResolvedRec {
   slot: string;
   product: AffiliateProduct;
+  href: string;
 }
 
 export default function AffiliateRecommendations({ campground }: AffiliateRecommendationsProps) {
@@ -29,7 +31,11 @@ export default function AffiliateRecommendations({ campground }: AffiliateRecomm
   const recs: ResolvedRec[] = slots
     .map((slot) => {
       const product = getPrimaryAffiliateProduct(slot);
-      return product ? { slot, product } : null;
+      if (!product) return null;
+      const base = resolveProductHref(product);
+      if (!base) return null;
+      const href = appendAffiliateSubId(base, slug, slot);
+      return { slot, product, href };
     })
     .filter((r): r is ResolvedRec => r !== null);
 
@@ -47,38 +53,35 @@ export default function AffiliateRecommendations({ campground }: AffiliateRecomm
       </div>
 
       <div className="space-y-2">
-        {recs.map(({ slot, product }) => {
-          const href = appendAffiliateSubId(product.url, slug, slot);
-          return (
-            <div
-              key={product.id}
-              className="border border-gray-200 rounded-lg p-3 bg-gray-50 flex items-start gap-3"
-            >
-              {product.image && (
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="w-14 h-14 object-cover rounded shrink-0"
-                />
-              )}
-              <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold text-gray-900 leading-tight">{product.title}</p>
-                <p className="text-xs text-gray-500 mt-0.5 leading-snug">{product.description}</p>
-                <p className="text-[10px] text-gray-400 mt-0.5">via {product.merchant}</p>
-              </div>
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer sponsored"
-                className="shrink-0"
-              >
-                <button className="text-xs font-medium bg-green-700 hover:bg-green-800 text-white px-3 py-1.5 rounded transition-colors whitespace-nowrap">
-                  View Deal
-                </button>
-              </a>
+        {recs.map(({ slot, product, href }) => (
+          <div
+            key={product.id}
+            className="border border-gray-200 rounded-lg p-3 bg-gray-50 flex items-start gap-3"
+          >
+            {product.image && (
+              <img
+                src={product.image}
+                alt={product.title}
+                className="w-14 h-14 object-cover rounded shrink-0"
+              />
+            )}
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-semibold text-gray-900 leading-tight">{product.title}</p>
+              <p className="text-xs text-gray-500 mt-0.5 leading-snug">{product.description}</p>
+              <p className="text-[10px] text-gray-400 mt-0.5">via {product.merchant}</p>
             </div>
-          );
-        })}
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="shrink-0"
+            >
+              <button className="text-xs font-medium bg-green-700 hover:bg-green-800 text-white px-3 py-1.5 rounded transition-colors whitespace-nowrap">
+                View Deal
+              </button>
+            </a>
+          </div>
+        ))}
       </div>
 
       <p className="text-[10px] text-gray-400 mt-2 leading-snug">

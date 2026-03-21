@@ -1,52 +1,56 @@
 {
   "portable_power": [
     {
-      "id": "portable-power-1",
-      "title": "Portable Power Station",
-      "description": "Reliable backup power for camping and remote work.",
+      "id": "portable-power-search",
+      "type": "amazon_search",
+      "keywords": "portable power station camping",
+      "title": "Portable Power Stations",
+      "description": "Current portable power options for camping and remote work.",
       "merchant": "Amazon",
-      "url": "https://example.com/portable-power-placeholder",
-      "image": "",
       "active": true,
+      "ready": true,
       "priority": 1,
       "last_updated": "2026-03-21"
     }
   ],
   "signal_booster": [
     {
-      "id": "signal-booster-1",
-      "title": "Cell Signal Booster",
+      "id": "signal-booster-search",
+      "type": "amazon_search",
+      "keywords": "cell signal booster camping RV",
+      "title": "Cell Signal Boosters",
       "description": "Boost weak cell signal at campgrounds with marginal coverage.",
       "merchant": "Amazon",
-      "url": "https://example.com/signal-booster-placeholder",
-      "image": "",
       "active": true,
+      "ready": true,
       "priority": 1,
       "last_updated": "2026-03-21"
     }
   ],
   "mobile_router": [
     {
-      "id": "mobile-router-1",
-      "title": "Mobile Hotspot / Travel Router",
+      "id": "mobile-router-search",
+      "type": "amazon_search",
+      "keywords": "mobile hotspot travel router camping",
+      "title": "Mobile Hotspots & Travel Routers",
       "description": "Useful for remote work and shared connectivity while camping.",
       "merchant": "Amazon",
-      "url": "https://example.com/mobile-router-placeholder",
-      "image": "",
       "active": true,
+      "ready": true,
       "priority": 1,
       "last_updated": "2026-03-21"
     }
   ],
   "starlink_accessory": [
     {
-      "id": "starlink-accessory-1",
-      "title": "Starlink Travel Accessory",
-      "description": "Helpful add-on for campers using satellite internet.",
+      "id": "starlink-accessory-search",
+      "type": "amazon_search",
+      "keywords": "starlink travel mount accessory camping",
+      "title": "Starlink Travel Accessories",
+      "description": "Helpful add-ons for campers using satellite internet.",
       "merchant": "Amazon",
-      "url": "https://example.com/starlink-accessory-placeholder",
-      "image": "",
       "active": true,
+      "ready": true,
       "priority": 1,
       "last_updated": "2026-03-21"
     }
