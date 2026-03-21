@@ -1,0 +1,121 @@
+Final conversion-focused refinement of the affiliate recommendation module.
+
+GOAL:
+- increase click-through rate
+- make the section feel more premium and intentional
+- strengthen trust and clarity
+- make it feel like a “recommended setup”, not a product list
+
+==================================================
+PART 1 — MAKE SECTION VISUALLY DISTINCT
+==================================================
+
+- wrap the entire affiliate section in a slightly different background
+- subtle contrast from rest of page (very light tint or soft container)
+- increase padding slightly
+- add slightly stronger border or shadow than surrounding cards
+
+Goal:
+This section should feel like a featured module, not just another block
+
+==================================================
+PART 2 — REPLACE "TOP PICK" LABEL
+==================================================
+
+Replace:
+"TOP PICK FOR THIS CAMPGROUND"
+
+With:
+
+If signal is strong:
+"Recommended Setup"
+
+If signal is weak:
+"Recommended Setup for Weak Signal"
+
+Style:
+- slightly bolder
+- cleaner
+- less “marketing label”
+- more “system recommendation”
+
+==================================================
+PART 3 — ADD TRUST MICROCOPY
+==================================================
+
+Under the featured title, add a small line:
+
+Examples:
+
+If signal strong:
+"Chosen based on signal strength, reliability, and real-world usage."
+
+If signal weak:
+"Chosen to improve reliability in low-signal conditions."
+
+Style:
+- small
+- muted
+- trustworthy tone
+
+==================================================
+PART 4 — UPGRADE CTA LANGUAGE
+==================================================
+
+Replace current CTA labels:
+
+portable_power:
+"Browse Power Options" → "View Power Solutions"
+
+signal_booster:
+"Browse Signal Boosters" → "Fix Weak Signal"
+
+mobile_router:
+"Browse Mobile Routers" → "Improve Connectivity"
+
+starlink_accessory:
+"Browse Starlink Gear" → "Upgrade Your Setup"
+
+Goal:
+More action-oriented, more outcome-focused
+
+==================================================
+PART 5 — ADD LIGHT SOCIAL PROOF FEEL (NO FAKE CLAIMS)
+==================================================
+
+Add subtle helper text under featured card:
+
+Examples:
+"Common setup used by campers working remotely"
+or
+"Popular for improving connectivity at similar campgrounds"
+
+Do NOT fabricate numbers or reviews
+
+==================================================
+PART 6 — IMPROVE SECONDARY CARD BALANCE
+==================================================
+
+- slightly increase font weight of titles
+- slightly improve contrast
+- tighten spacing
+- ensure they don’t look faded or disabled
+
+==================================================
+PART 7 — KEEP EVERYTHING ELSE INTACT
+==================================================
+
+- do NOT change logic
+- do NOT change slot system
+- do NOT change URLs
+- do NOT break responsiveness
+
+==================================================
+PART 8 — AFTER IMPLEMENTATION
+==================================================
+
+Confirm:
+- section stands out visually from rest of page
+- “Top Pick” label is replaced
+- CTA language updated
+- trust microcopy added
