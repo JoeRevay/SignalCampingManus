@@ -7,6 +7,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { initDb } from "../db";
+import { generateSitemapXml } from "../sitemap";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -43,6 +44,17 @@ async function startServer() {
       createContext,
     })
   );
+  // Dynamic sitemap — registered before Vite/static so it always wins
+  app.get("/sitemap.xml", (_req, res) => {
+    try {
+      const xml = generateSitemapXml();
+      res.set("Content-Type", "application/xml; charset=utf-8");
+      res.send(xml);
+    } catch (err) {
+      console.error("[Sitemap] Failed to generate sitemap:", err);
+      res.status(500).send("Failed to generate sitemap");
+    }
+  });
   // development mode uses Vite, production mode uses static files
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
