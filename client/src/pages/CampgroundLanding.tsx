@@ -440,6 +440,8 @@ export default function CampgroundLanding() {
               </CardContent>
             </Card>
 
+            <AffiliateRecommendations campground={cg} />
+
             {/* Camper Signal Reports */}
             <CamperSignalReports campgroundId={cg.slug} campgroundName={cg.campground_name} />
 
@@ -516,8 +518,6 @@ export default function CampgroundLanding() {
                 </Card>
               );
             })()}
-
-            <AffiliateRecommendations campground={cg} />
 
           </div>
 

@@ -1,0 +1,125 @@
+Refine the affiliate recommendation UI and placement for higher conversion quality.
+
+CURRENT ISSUES:
+- affiliate section is still below the "Remote Work Verdict"
+- primary CTA button is too large and looks like a generic ad
+- secondary cards appear faded and low importance
+- section lacks a strong contextual hook tied to signal quality
+- visual hierarchy is not optimized for trust or engagement
+
+GOAL:
+- reposition section above the Remote Work Verdict
+- make the section feel like a "recommended setup" rather than a product list
+- improve visual hierarchy and balance
+- increase perceived trust and reduce “ad-like” appearance
+
+==================================================
+PART 1 — MOVE SECTION ABOVE VERDICT
+==================================================
+
+In CampgroundDetail.tsx:
+
+- move AffiliateRecommendations ABOVE the "Remote Work Verdict" component
+- order should be:
+
+1. campground title / header
+2. key stats / signal summary
+3. affiliate recommendations
+4. remote work verdict
+5. rest of content
+
+==================================================
+PART 2 — ADD CONTEXTUAL HOOK (VERY IMPORTANT)
+==================================================
+
+In AffiliateRecommendations.tsx:
+
+Above the section, add dynamic messaging:
+
+If signal_quality_score < 70:
+Show:
+"Signal is weak here — this setup helps you stay connected."
+
+If signal_quality_score >= 70:
+Show:
+"Solid signal here — these upgrades can improve reliability and performance."
+
+Style:
+- slightly bold
+- subtle highlight
+- not loud
+
+==================================================
+PART 3 — FIX FEATURED CARD CTA
+==================================================
+
+- reduce width of main CTA (do NOT make it full width)
+- make it inline or right-aligned
+- keep it prominent but not dominant
+- slightly reduce height/padding
+- improve spacing around it
+
+Goal:
+Look like a premium action button, not a banner ad
+
+==================================================
+PART 4 — FIX SECONDARY CARDS
+==================================================
+
+- increase contrast (no faded gray)
+- equal visual weight to each other
+- tighter spacing
+- optional: place in 2-column layout on desktop
+- keep clean stacked layout on mobile
+
+==================================================
+PART 5 — ADD VISUAL HIERARCHY
+==================================================
+
+- featured card should have slightly elevated styling:
+  - subtle border or shadow
+  - slight background contrast
+
+- secondary cards:
+  - simpler but still clean
+
+- remove any empty image placeholder blocks entirely
+
+==================================================
+PART 6 — COPY REFINEMENT
+==================================================
+
+Tighten descriptions:
+- max 1–2 lines
+- remove redundancy
+- keep practical tone
+
+Example:
+"A practical backup for charging devices and staying productive at camp."
+
+==================================================
+PART 7 — DISCLOSURE
+==================================================
+
+- keep it small
+- low contrast
+- below section
+
+==================================================
+PART 8 — SAFETY
+==================================================
+
+- do not modify affiliate logic
+- do not change slot selection
+- do not break mobile layout
+- do not introduce new libraries
+
+==================================================
+PART 9 — AFTER
+==================================================
+
+After changes, confirm:
+- section appears above Remote Work Verdict
+- CTA is no longer full-width
+- secondary cards are clearly visible and balanced
+- contextual hook is showing correctly
