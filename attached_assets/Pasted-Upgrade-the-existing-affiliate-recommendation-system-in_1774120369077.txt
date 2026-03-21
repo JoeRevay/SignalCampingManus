@@ -1,0 +1,183 @@
+Upgrade the existing affiliate recommendation system in my SignalCamping project to Phase 2.
+
+GOAL:
+1. Move the affiliate section to a more impactful location on campground detail pages
+2. Add the affiliate section to high-traffic page types
+3. Make the affiliate section look more official, polished, and commerce-grade
+4. Keep everything dynamic and tied to the existing slot-based affiliate system
+5. Do not break any existing layout or functionality
+
+IMPORTANT:
+- Keep using the current affiliate system already built
+- Do NOT switch to static products
+- Do NOT add new libraries unless absolutely necessary
+- Keep it compatible with my current React + Vite codebase
+- Make the UI feel more like a polished ecommerce recommendation module
+- It can feel inspired by a clean marketplace/product card layout, but do NOT copy Amazon branding, logos, or trademarks
+
+==================================================
+PHASE 2A — MOVE AFFILIATE SECTION TO IDEAL LOCATION
+==================================================
+
+Modify:
+client/src/components/CampgroundDetail.tsx
+
+Current issue:
+The affiliate section is placed too low on the page.
+
+New placement requirement:
+- render the affiliate section much higher on the page
+- place it BELOW the primary campground summary / signal overview
+- place it ABOVE long-form body content, secondary sections, or anything lower-intent
+- the affiliate section should appear while the user is still engaged and before major scrolling fatigue
+
+Ideal placement order on campground detail pages:
+1. Campground title / hero info
+2. Core summary / scores / main facts
+3. Affiliate recommendation section
+4. Remaining detailed content / secondary sections / footer content
+
+Keep the affiliate disclosure visible but subtle under the affiliate section:
+"Some links may be affiliate links, which means SignalCamping may earn a commission at no extra cost to you."
+
+==================================================
+PHASE 2B — ADD AFFILIATE SECTION TO HIGH-TRAFFIC PAGES
+==================================================
+
+Add the affiliate recommendation block to these page types if they exist in my project:
+
+1. Carrier/state ranking page
+- file likely at client/src/pages/CarrierStatePage.tsx
+- render the affiliate section using the top-ranked campground on that page
+- if filtered results exist, pass filtered[0] as the campground context
+- place the affiliate section near the top of the page, after the intro / summary and before the full list
+
+2. State landing page
+- find the state page component actually used by my routing
+- render the affiliate section using the top-ranked or first featured campground for that state
+- place it after the page intro / state summary and before the long campground list
+
+3. List pages
+- find the list page component actually used by /list/:slug
+- render the affiliate section using the first or top item from the list
+- place it after the list intro / list description and before the ranked entries
+
+Requirements:
+- only render AffiliateRecommendations if a valid campground context exists
+- do not crash if the array is empty
+- do not duplicate the section multiple times on one page
+
+==================================================
+PHASE 2C — VISUAL REDESIGN: MAKE IT LOOK OFFICIAL
+==================================================
+
+Modify:
+client/src/components/AffiliateRecommendations.tsx
+
+Current issue:
+The section looks too generic.
+
+Redesign requirements:
+Create a polished, official-looking commerce module with a clean marketplace feel.
+
+Overall section requirements:
+- look trustworthy and premium
+- more structured and deliberate than a generic card list
+- visually distinct from normal content
+- should feel like a curated “recommended products” module
+- use a neutral ecommerce-inspired visual style, not a blog style
+
+Section design:
+- wrap the whole section in a bordered container with subtle background contrast
+- add clear section heading
+- add a short explanatory subheading
+- use spacing, hierarchy, and alignment that feel professional
+- mobile-friendly and visually clean
+
+Header content:
+Title:
+"Recommended Gear for Staying Connected"
+
+Subtitle:
+"Curated gear picks based on this campground's signal and remote-work profile."
+
+Add a small badge or label near the header such as:
+"Curated Picks"
+
+Product card redesign:
+For each recommendation card:
+- use a more structured horizontal or responsive layout
+- show a small image area if image exists, otherwise show a clean placeholder/icon-free box
+- show title prominently
+- show merchant in smaller muted text
+- show description in a clean readable style
+- add a strong CTA button
+- optionally show a small line like:
+  "Selected for weak signal areas"
+  or
+  "Useful for remote work setups"
+  based on slot type
+
+Button requirements:
+- larger and more polished than current button
+- strong visual hierarchy
+- label should be more contextual than “View Deal”
+
+Use these CTA labels by slot:
+- portable_power → "Shop Portable Power"
+- signal_booster → "Shop Signal Boosters"
+- mobile_router → "Shop Mobile Routers"
+- starlink_accessory → "Shop Starlink Gear"
+
+Style direction:
+- clean ecommerce styling
+- white cards
+- subtle borders
+- soft shadows
+- strong typography hierarchy
+- professional spacing/padding
+- refined button styling
+- no bright gimmicky colors
+- use the existing site palette where appropriate
+- should feel credible, not flashy
+
+==================================================
+PHASE 2D — SLOT-SPECIFIC MICROCOPY
+==================================================
+
+In AffiliateRecommendations.tsx, add slot-specific helper copy.
+
+Examples:
+- portable_power:
+  "Helpful for off-grid camping, backup charging, and remote work."
+- signal_booster:
+  "Best for campgrounds with weaker or inconsistent signal."
+- mobile_router:
+  "Useful when multiple devices need a more flexible connection setup."
+- starlink_accessory:
+  "Ideal for high-connectivity camping and advanced remote work setups."
+
+Use the existing slot key to determine which helper copy and CTA label to show.
+
+==================================================
+PHASE 2E — KEEP IT CLEAN AND SAFE
+==================================================
+
+Requirements:
+- do not change the existing affiliate logic or slot selection rules unless needed for rendering
+- keep current tracking-friendly URL logic intact
+- handle missing product image gracefully
+- handle missing campground data safely
+- do not render empty shells if no products are available
+- do not duplicate disclosure text multiple times on the same page
+- do not modify unrelated files
+
+==================================================
+PHASE 2F — AFTER IMPLEMENTATION
+==================================================
+
+After finishing, summarize:
+1. which files were modified
+2. exactly where the affiliate section now appears on each page type
+3. what visual changes were made
+4. whether any page did not have a suitable context campground and was skipped

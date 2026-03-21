@@ -22,6 +22,7 @@ import top100Data from "@/data/top100_seo.json";
 import allCampgroundsData from "@/data/campgrounds.json";
 import { filterForBestSignal, sortBySignalQuality, generateRankingDescription } from "@/lib/rankingUtils";
 import SiteHeader from "@/components/SiteHeader";
+import AffiliateRecommendations from "@/components/AffiliateRecommendations";
 import { getCarrierLikelihood, LIKELIHOOD_STYLES, type CarrierLikelihood } from "@/lib/carrierLikelihood";
 
 const normalizeCity = (s: string) => (s || "").toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -208,6 +209,12 @@ export default function StateLanding() {
           )}
         </div>
       </section>
+
+      {topSignalCampgrounds.length > 0 && (
+        <section className="container pb-6">
+          <AffiliateRecommendations campground={topSignalCampgrounds[0]} />
+        </section>
+      )}
 
       {/* Browse by Carrier */}
       <section className="container pb-6">

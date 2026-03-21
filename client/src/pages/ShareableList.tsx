@@ -12,6 +12,7 @@ import {
   CheckCircle2, ArrowLeft, Share2
 } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
+import AffiliateRecommendations from "@/components/AffiliateRecommendations";
 import listsData from "@/data/shareable_lists.json";
 import campgroundsData from "@/data/mvp_campgrounds.json";
 import allData from "@/data/campgrounds.json";
@@ -78,6 +79,12 @@ export default function ShareableList() {
         <p className="text-gray-500 mb-4">{list.description}</p>
         <Badge className="bg-green-100 text-green-700">{campgrounds.length} campgrounds</Badge>
       </section>
+
+      {campgrounds.length > 0 && (
+        <section className="container pb-4">
+          <AffiliateRecommendations campground={campgrounds[0]} />
+        </section>
+      )}
 
       <section className="container pb-8">
         <div className="space-y-2">

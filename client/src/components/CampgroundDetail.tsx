@@ -125,6 +125,8 @@ export default function CampgroundDetail({ campground: cg, onClose }: Campground
         </CardContent>
       </Card>
 
+      <AffiliateRecommendations campground={cg} />
+
       {/* Cell Signal & Remote Work */}
       <Card className="border-indigo-100">
         <CardHeader className="pb-2">
@@ -265,8 +267,6 @@ export default function CampgroundDetail({ campground: cg, onClose }: Campground
           </Card>
         );
       })()}
-
-      <AffiliateRecommendations campground={cg} />
 
       <Link href={`/campground/${slug}`}>
         <Button className="w-full bg-green-700 hover:bg-green-800">View Full Details</Button>

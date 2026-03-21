@@ -20,6 +20,7 @@ import {
   Briefcase, CheckCircle2, HelpCircle,
 } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
+import AffiliateRecommendations from "@/components/AffiliateRecommendations";
 import campgroundsRaw from "@/data/campgrounds.json";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -333,6 +334,8 @@ export default function CarrierLanding() {
                 <p key={i} className="leading-relaxed">{para}</p>
               ))}
             </div>
+
+            {ranked.length > 0 && <AffiliateRecommendations campground={ranked[0]} />}
 
             {/* Ranked List */}
             <div>
