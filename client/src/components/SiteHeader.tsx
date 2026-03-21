@@ -20,7 +20,7 @@ export default function SiteHeader({ onMapClick }: SiteHeaderProps) {
             <img
               src={logoSrc}
               alt="SignalCamping — Where your phone works or doesn't"
-              className="h-10 w-auto hover:opacity-80 transition-opacity"
+              className="h-16 w-auto hover:opacity-80 transition-opacity"
             />
           </Link>
 
