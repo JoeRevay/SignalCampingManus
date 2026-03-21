@@ -661,6 +661,32 @@ export default function StateLanding() {
         )}
       </section>
 
+      {/* More Rankings for This State — internal links to new SEO ranking pages */}
+      <section className="container pb-8">
+        <h2 className="text-base font-semibold text-gray-700 mb-3" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+          More Rankings for {stateInfo.name}
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+          {[
+            { href: `/best-campgrounds-with-verizon-signal-in/${stateInfo.name.toLowerCase()}`, label: `Best Verizon Campgrounds in ${stateInfo.name}` },
+            { href: `/best-campgrounds-with-att-signal-in/${stateInfo.name.toLowerCase()}`, label: `Best AT&T Campgrounds in ${stateInfo.name}` },
+            { href: `/best-campgrounds-with-tmobile-signal-in/${stateInfo.name.toLowerCase()}`, label: `Best T-Mobile Campgrounds in ${stateInfo.name}` },
+            { href: `/best-remote-work-campgrounds-in/${stateInfo.name.toLowerCase()}`, label: `Best Remote Work Campgrounds in ${stateInfo.name}` },
+            { href: `/campgrounds-with-strong-cell-service-in/${stateInfo.name.toLowerCase()}`, label: `Strong Signal Campgrounds in ${stateInfo.name}` },
+          ].map(link => (
+            <Link key={link.href} href={link.href}>
+              <Card className="hover:shadow-md hover:border-green-200 transition cursor-pointer">
+                <CardContent className="p-3 flex items-center gap-3">
+                  <Signal className="w-4 h-4 text-green-600 shrink-0" />
+                  <span className="text-sm text-gray-700 font-medium flex-1 leading-snug">{link.label}</span>
+                  <ChevronRight className="w-4 h-4 text-gray-300 shrink-0" />
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Other States */}
       <section className="container pb-8">
         <h2 className="text-xl font-bold text-gray-800 mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>

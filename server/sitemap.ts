@@ -27,6 +27,14 @@ function loadCampgrounds(): any[] {
   return [];
 }
 
+const FULL_STATE_NAMES: Record<string, string> = {
+  MI: "michigan",
+  OH: "ohio",
+  PA: "pennsylvania",
+  WI: "wisconsin",
+};
+const SEO_CARRIERS = ["verizon", "att", "tmobile"];
+
 let _cachedXml: string | null = null;
 
 export function generateSitemapXml(): string {
@@ -104,6 +112,15 @@ export function generateSitemapXml(): string {
     addUrl(`/remote-work-camping/${stateSlug}`, "0.7", "monthly");
   }
 
+  // New SEO ranking pages: carrier + state, remote work + state, strong signal + state
+  for (const stateName of Object.values(FULL_STATE_NAMES)) {
+    for (const carrier of SEO_CARRIERS) {
+      addUrl(`/best-campgrounds-with-${carrier}-signal-in/${stateName}`, "0.8", "monthly");
+    }
+    addUrl(`/best-remote-work-campgrounds-in/${stateName}`, "0.8", "monthly");
+    addUrl(`/campgrounds-with-strong-cell-service-in/${stateName}`, "0.8", "monthly");
+  }
+
   // Top 500 campground pages
   for (const cg of top500) {
     if (cg.slug) addUrl(`/campground/${cg.slug}`, "0.6", "monthly");
@@ -120,10 +137,12 @@ export function generateSitemapXml(): string {
   const xml = lines.join("\n");
   _cachedXml = xml;
 
+  const newSeoCount = Object.keys(FULL_STATE_NAMES).length * (SEO_CARRIERS.length + 2); // 3 carriers + remote-work + strong-signal per state
   console.log(
     `[Sitemap] Generated: ${staticPages.length} static + 12 carrier + 4 remote-work + ` +
+    `${newSeoCount} new-seo-ranking + ` +
     `${top500.filter(c => c.slug).length} campground + ${qualifyingCities.length} city = ` +
-    `${staticPages.length + 12 + 4 + top500.filter(c => c.slug).length + qualifyingCities.length} URLs`
+    `${staticPages.length + 12 + 4 + newSeoCount + top500.filter(c => c.slug).length + qualifyingCities.length} URLs`
   );
 
   return xml;

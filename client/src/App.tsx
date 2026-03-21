@@ -24,6 +24,7 @@ import RouteFinder from "./pages/RouteFinder";
 import BestRemoteWork from "./pages/BestRemoteWork";
 import UpperPeninsulaSignal from "./pages/UpperPeninsulaSignal";
 import VerizonMichigan from "./pages/VerizonMichigan";
+import SeoRankingPage from "./pages/SeoRankingPage";
 function ScrollToTop() {
   const [location] = useLocation();
   useEffect(() => {
@@ -86,6 +87,13 @@ function Router() {
 
       {/* Verizon Michigan ranking */}
       <Route path={"/best-verizon-signal-campgrounds-michigan"} component={VerizonMichigan} />
+
+      {/* New SEO ranking pages — carrier + state, remote work + state, strong signal + state */}
+      <Route path={"/best-campgrounds-with-verizon-signal-in/:state"} component={SeoRankingPage} />
+      <Route path={"/best-campgrounds-with-att-signal-in/:state"} component={SeoRankingPage} />
+      <Route path={"/best-campgrounds-with-tmobile-signal-in/:state"} component={SeoRankingPage} />
+      <Route path={"/best-remote-work-campgrounds-in/:state"} component={SeoRankingPage} />
+      <Route path={"/campgrounds-with-strong-cell-service-in/:state"} component={SeoRankingPage} />
 
       {/* SEO directory */}
       <Route path={"/seo-directory"} component={SeoDirectory} />
