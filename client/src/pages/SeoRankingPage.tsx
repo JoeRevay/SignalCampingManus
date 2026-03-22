@@ -201,6 +201,27 @@ export default function SeoRankingPage() {
           {h1}
         </h1>
         <p className="text-gray-600 max-w-2xl text-sm leading-relaxed">{intro}</p>
+
+        {/* Explore More — cross-links to sibling ranking pages, placed high for authority */}
+        {relatedLinks.length > 0 && (
+          <div className="mt-5 bg-green-50/70 border border-green-100 rounded-xl p-4 max-w-2xl">
+            <p className="text-[11px] font-semibold text-green-800 uppercase tracking-wide mb-2.5 flex items-center gap-1.5">
+              <Signal className="w-3.5 h-3.5" /> Explore More in {stateInfo.name}
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5">
+              {relatedLinks.map(link => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="flex items-center gap-1.5 text-xs text-green-800 font-medium py-1 px-1.5 rounded hover:bg-green-100 hover:underline transition"
+                >
+                  <ChevronRight className="w-3.5 h-3.5 text-green-500 shrink-0" />
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Affiliate module — top-ranked campground as context */}
@@ -338,31 +359,6 @@ export default function SeoRankingPage() {
           )}
         </div>
       </section>
-
-      {/* Related ranking pages — internal linking */}
-      {relatedLinks.length > 0 && (
-        <section className="container pb-10">
-          <h2
-            className="text-base font-semibold text-gray-700 mb-3"
-            style={{ fontFamily: "Space Grotesk, sans-serif" }}
-          >
-            More Rankings for {stateInfo.name}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {relatedLinks.map(link => (
-              <Link key={link.href} href={link.href}>
-                <Card className="hover:shadow-md hover:border-green-200 transition cursor-pointer">
-                  <CardContent className="p-3 flex items-center gap-3">
-                    <Signal className="w-4 h-4 text-green-600 shrink-0" />
-                    <span className="text-sm text-gray-700 font-medium flex-1">{link.label}</span>
-                    <ChevronRight className="w-4 h-4 text-gray-300 shrink-0" />
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
 
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-400 py-8">
