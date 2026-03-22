@@ -15,6 +15,7 @@ import {
   Briefcase, Building2, Route
 } from "lucide-react";
 import { getCarrierLikelihood, LIKELIHOOD_STYLES, CARRIER_DISCLAIMER, type CarrierLikelihood } from "@/lib/carrierLikelihood";
+import { generateCampgroundSummary, generateCampgroundMeta } from "@/lib/campgroundSummary";
 import CamperSignalReports from "@/components/CamperSignalReports";
 import AffiliateRecommendations from "@/components/AffiliateRecommendations";
 import SiteHeader from "@/components/SiteHeader";
@@ -98,9 +99,23 @@ export default function CampgroundLanding() {
 
   const related = useMemo(() => {
     if (!cg) return [];
-    return allCampgrounds
-      .filter((c: any) => c.state === cg.state && c.slug !== cg.slug)
-      .slice(0, 6);
+    const sameState = allCampgrounds.filter(
+      (c: any) => c.state === cg.state && c.slug !== cg.slug
+    );
+    // Prefer same city first, then closest signal_quality_score, then same type
+    const sameCity = sameState.filter((c: any) => c.city && c.city === cg.city);
+    const remaining = sameState.filter((c: any) => !sameCity.includes(c));
+    const refScore = cg.signal_quality_score ?? cg.signal_score ?? 50;
+    remaining.sort((a: any, b: any) => {
+      const da = Math.abs((a.signal_quality_score ?? a.signal_score ?? 50) - refScore);
+      const db = Math.abs((b.signal_quality_score ?? b.signal_score ?? 50) - refScore);
+      if (da !== db) return da - db;
+      // secondary: same campground_type
+      const ta = a.campground_type === cg.campground_type ? 0 : 1;
+      const tb = b.campground_type === cg.campground_type ? 0 : 1;
+      return ta - tb;
+    });
+    return [...sameCity, ...remaining].slice(0, 6);
   }, [cg]);
 
   const nearby = useMemo(() => {
@@ -118,7 +133,7 @@ export default function CampgroundLanding() {
   useEffect(() => {
     if (!cg) return;
     const state = STATE_NAMES[cg.state] || cg.state;
-    document.title = `${cg.campground_name} - Camping in ${state} | SignalCamping`;
+    document.title = `${cg.campground_name} in ${state} — Cell Signal & Connectivity | SignalCamping`;
 
     const script = document.createElement("script");
     script.type = "application/ld+json";
@@ -130,7 +145,7 @@ export default function CampgroundLanding() {
 
     let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement;
     if (!meta) { meta = document.createElement("meta"); meta.name = "description"; document.head.appendChild(meta); }
-    meta.content = `${cg.campground_name} in ${cg.city || ""}, ${state}. ${cg.is_verified ? "Verified campground." : "OSM data."} View amenities, location, and directions.`;
+    meta.content = generateCampgroundMeta(cg);
 
     return () => { const el = document.getElementById("campground-jsonld"); if (el) el.remove(); };
   }, [cg]);
@@ -243,31 +258,58 @@ export default function CampgroundLanding() {
         </div>
       </section>
 
-      {/* SEO Content Block */}
-      <section className="container pb-6">
-        {(() => {
-          const score = cg.signal_score ?? 0;
-          const townName = cg.nearest_town ? cg.nearest_town.replace(/,\s*[A-Z]{2}$/, "").trim() : "";
-          const nearTown = townName ? ` near ${townName}` : "";
-          const strengthLabel = score >= 70 ? "strong" : score >= 40 ? "moderate" : "weak";
-          const usability = score >= 70
-            ? "video calls, streaming, and remote work should all work reliably here"
-            : score >= 40
-            ? "basic calls and browsing should work, though streaming or video calls may be inconsistent"
-            : "connectivity will be unreliable — offline-first tools are recommended";
-          const rwVerdict = score >= 70
-            ? "a good option for consistent connectivity"
-            : score >= 40
-            ? "workable if you plan around connectivity gaps"
-            : "not recommended for remote work or data-heavy tasks";
-          return (
-            <div className="text-base text-gray-700 space-y-3 leading-relaxed">
-              <p>Looking for cell service at {cg.campground_name}{nearTown} in {state}? Here&rsquo;s what you can realistically expect based on signal data and nearby coverage.</p>
-              <p>Signal strength here is generally <strong>{strengthLabel}</strong>. This means {usability}.</p>
-              <p>If you&rsquo;re planning to work remotely or rely on mobile data, this campground is <strong>{rwVerdict}</strong>.</p>
-            </div>
-          );
-        })()}
+      {/* Dynamic Summary + Connectivity at a Glance */}
+      <section className="container pb-6 space-y-4">
+        {/* Natural-language summary */}
+        <p className="text-base text-gray-700 leading-relaxed max-w-2xl">
+          {generateCampgroundSummary(cg)}
+        </p>
+
+        {/* Connectivity at a Glance — compact badge row */}
+        <div className="flex flex-wrap gap-2 items-center">
+          {cg.signal_quality_score != null && (
+            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${
+              cg.signal_quality_score >= 70 ? "bg-green-50 text-green-700 border-green-200"
+              : cg.signal_quality_score >= 40 ? "bg-amber-50 text-amber-700 border-amber-200"
+              : "bg-red-50 text-red-700 border-red-200"
+            }`}>
+              <Signal className="w-3.5 h-3.5" />
+              Signal {cg.signal_quality_score}/100
+            </span>
+          )}
+          {cg.remote_work_score != null && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border bg-indigo-50 text-indigo-700 border-indigo-200">
+              <Briefcase className="w-3.5 h-3.5" />
+              Remote Work {Math.round(cg.remote_work_score)}/100
+            </span>
+          )}
+          {cg.verizon_coverage && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border bg-red-50 text-red-700 border-red-200">
+              <Wifi className="w-3.5 h-3.5" /> Verizon
+            </span>
+          )}
+          {cg.att_coverage && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border bg-blue-50 text-blue-700 border-blue-200">
+              <Wifi className="w-3.5 h-3.5" /> AT&amp;T
+            </span>
+          )}
+          {cg.tmobile_coverage && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border bg-pink-50 text-pink-700 border-pink-200">
+              <Wifi className="w-3.5 h-3.5" /> T-Mobile
+            </span>
+          )}
+          {cg.waterfront && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border bg-cyan-50 text-cyan-700 border-cyan-200">
+              <Waves className="w-3.5 h-3.5" /> Waterfront
+            </span>
+          )}
+          {cg.electric_hookups && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border bg-yellow-50 text-yellow-700 border-yellow-200">
+              <Zap className="w-3.5 h-3.5" /> Electric
+            </span>
+          )}
+          <span className="text-[10px] text-gray-400 ml-1">Data: March 2026</span>
+        </div>
       </section>
 
       {/* Main Content Grid */}
@@ -619,6 +661,33 @@ export default function CampgroundLanding() {
         </div>
       </section>
 
+      {/* Related Rankings for this state — internal SEO links */}
+      <section className="container pb-6">
+        <h2 className="text-base font-semibold text-gray-700 mb-3" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+          More Rankings for {state}
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+          {[
+            { href: `/campgrounds/${cg.state?.toLowerCase()}`, label: `All Campgrounds in ${state}`, always: true },
+            { href: `/campgrounds-with-strong-cell-service-in/${state.toLowerCase()}`, label: `Strong Signal Campgrounds in ${state}`, always: true },
+            { href: `/best-remote-work-campgrounds-in/${state.toLowerCase()}`, label: `Best Remote Work Campgrounds in ${state}`, always: true },
+            cg.verizon_coverage ? { href: `/best-campgrounds-with-verizon-signal-in/${state.toLowerCase()}`, label: `Best Verizon Campgrounds in ${state}`, always: false } : null,
+            cg.att_coverage ? { href: `/best-campgrounds-with-att-signal-in/${state.toLowerCase()}`, label: `Best AT&T Campgrounds in ${state}`, always: false } : null,
+            cg.tmobile_coverage ? { href: `/best-campgrounds-with-tmobile-signal-in/${state.toLowerCase()}`, label: `Best T-Mobile Campgrounds in ${state}`, always: false } : null,
+          ].filter(Boolean).map((link: any) => (
+            <Link key={link.href} href={link.href}>
+              <Card className="hover:shadow-md hover:border-green-200 transition cursor-pointer">
+                <CardContent className="p-3 flex items-center gap-3">
+                  <Signal className="w-4 h-4 text-green-600 shrink-0" />
+                  <span className="text-sm text-gray-700 font-medium flex-1 leading-snug">{link.label}</span>
+                  <ChevronRight className="w-4 h-4 text-gray-300 shrink-0" />
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Related Campgrounds */}
       {related.length > 0 && (
         <section className="container pb-8">
@@ -726,14 +795,14 @@ export default function CampgroundLanding() {
         </div>
         {(cg.remote_work_score ?? 0) >= 60 && (
           <div className="mt-3">
-            <Link href="/best-remote-work-campgrounds">
+            <Link href={`/best-remote-work-campgrounds-in/${state.toLowerCase()}`}>
               <Card className="hover:shadow-md transition cursor-pointer border-indigo-100 bg-indigo-50/30">
                 <CardContent className="p-4 flex items-center gap-3">
                   <div className="w-9 h-9 rounded-lg bg-indigo-50 flex items-center justify-center shrink-0">
                     <Briefcase className="w-4 h-4 text-indigo-600" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-indigo-700">Best Campgrounds for Remote Work</p>
+                    <p className="text-sm font-semibold text-indigo-700">Best Remote Work Campgrounds in {state}</p>
                     <p className="text-xs text-gray-500">This campground ranks well for remote work — see how others compare</p>
                   </div>
                   <ChevronRight className="w-4 h-4 text-gray-300" />

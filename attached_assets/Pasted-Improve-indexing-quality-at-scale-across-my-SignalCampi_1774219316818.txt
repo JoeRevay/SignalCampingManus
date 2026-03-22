@@ -1,0 +1,212 @@
+Improve indexing quality at scale across my SignalCamping project, with a specific focus on fixing “Crawled - currently not indexed” issues for campground detail pages and weak ranking pages.
+
+IMPORTANT:
+- Do NOT redesign the site
+- Do NOT add new libraries unless absolutely necessary
+- Reuse my existing data structures and page templates
+- Keep the current affiliate system intact
+- Keep the current routing intact unless a redirect/canonical fix is clearly needed
+- Do not modify unrelated files
+
+GOAL:
+Make campground detail pages and weak ranking pages more index-worthy by increasing uniqueness, strengthening internal linking, cleaning up low-value pages, and improving page-level relevance signals.
+
+==================================================
+PART 1 — AUDIT CURRENT DETAIL PAGE STRUCTURE
+==================================================
+
+Before changing code:
+- inspect the actual campground detail page component(s)
+- inspect the real data fields in client/src/data/campgrounds.json
+- inspect current title/meta logic
+- inspect current internal linking on campground detail pages
+- inspect whether weak/general ranking pages exist such as:
+  /best-remote-work-campgrounds
+  or other non-state-specific thin pages
+
+Use the real file names and real field names from the project.
+Do NOT assume structure if it already exists.
+
+==================================================
+PART 2 — ADD A UNIQUE, DYNAMIC SUMMARY TO EVERY CAMPGROUND PAGE
+==================================================
+
+Modify the actual campground detail page component.
+
+Add a generated, human-readable summary paragraph near the top of each campground detail page.
+
+Requirements:
+- summary must be built dynamically from the real campground data
+- summary must sound natural and not robotic
+- summary must be meaningfully different based on:
+  - campground_name
+  - city
+  - state_full or state
+  - signal_quality_score
+  - signal_score
+  - remote_work_score
+  - verizon_coverage
+  - att_coverage
+  - tmobile_coverage
+  - waterfront
+  - electric_hookups
+  - campground_type
+- handle missing values safely
+- do not output weird broken sentences if data is missing
+
+The summary should be 2–4 sentences max.
+
+Examples of style only:
+- “Rippling River Resort is a Michigan campground with strong connectivity potential for campers who need to stay online. Verizon and AT&T coverage are available here, and its signal profile makes it a reasonable option for remote work or staying in touch while traveling.”
+- “Silver Springs Campsites offers a more mixed connectivity profile, but campers may still find it useful depending on carrier and setup. With [carrier coverage info], this page helps set expectations before arrival.”
+
+DO NOT hardcode campground names.
+Generate summaries from the real fields.
+
+Create helper logic if needed, for example:
+client/src/lib/campgroundSummary.ts
+
+==================================================
+PART 3 — ADD A “CONNECTIVITY AT A GLANCE” BLOCK
+==================================================
+
+On campground detail pages, add a small structured section near the top with:
+- Signal quality
+- Remote work score
+- Available carriers
+- Waterfront yes/no if available
+- Electric hookups yes/no if available
+
+This should make the page feel more complete and easier for Google/users to understand quickly.
+
+Use existing styles where possible.
+
+==================================================
+PART 4 — STRENGTHEN INTERNAL LINKING ON DETAIL PAGES
+==================================================
+
+Add a compact “Related pages” or “Explore more” section on campground detail pages.
+
+Include useful internal links based on the current campground:
+- state page for that campground’s state
+- strong-signal page for that state
+- remote-work page for that state
+- carrier-specific page(s) for that state if the campground supports that carrier
+
+Examples:
+- Best Campgrounds with Verizon Signal in Ohio
+- Best Remote Work Campgrounds in Ohio
+- Campgrounds with Strong Cell Service in Ohio
+
+Only render links that make sense.
+Do not show broken or irrelevant links.
+
+Place this below the main summary/info area but above long lower-page sections.
+
+==================================================
+PART 5 — ADD RELATED CAMPGROUNDS
+==================================================
+
+On campground detail pages, add a “Similar campgrounds” or “More campgrounds in this area” section.
+
+Requirements:
+- choose 3–6 related campgrounds using real dataset logic
+- prioritize same state
+- optionally prefer same city if enough exist
+- secondarily prefer similar signal_quality_score or campground_type if possible
+- link to those campground detail pages
+
+Goal:
+- improve internal linking
+- improve crawl paths
+- make pages feel less isolated
+
+Handle empty states safely.
+
+==================================================
+PART 6 — CLEAN UP WEAK / THIN RANKING PAGES
+==================================================
+
+Audit for weak non-state-specific ranking pages such as:
+- /best-remote-work-campgrounds
+or similar generic pages that may overlap with stronger state-specific pages.
+
+If such pages exist and are thin, do ONE of the following:
+- add a canonical pointing to the most relevant stronger page pattern if appropriate
+OR
+- remove internal links to the weak page
+OR
+- redirect the weak page to a better destination if routing/server structure supports it cleanly
+
+Do not break existing routing.
+Use the safest solution for the actual codebase after inspection.
+
+==================================================
+PART 7 — IMPROVE TITLE + META CONSISTENCY
+==================================================
+
+Audit current document titles and meta descriptions for campground detail pages.
+
+Requirements:
+- ensure titles use real campground names and state names cleanly
+- avoid junk/placeholder-looking titles
+- avoid inconsistent campground count language if any global text is stale
+- make meta descriptions read naturally and reflect connectivity value
+
+Example style:
+“Rippling River Resort in Michigan — signal quality, carrier coverage, and remote-work suitability for campers who need to stay connected.”
+
+Do not use spammy keyword stuffing.
+
+==================================================
+PART 8 — HANDLE LOW-QUALITY DATA SAFELY
+==================================================
+
+Add defensive cleanup logic where reasonable for display text:
+- trim whitespace
+- avoid rendering obvious duplicate separators
+- avoid showing malformed fallback text
+- avoid ugly “undefined” or blank fragments
+
+If any obviously bad placeholder/sloppy records are surfaced in titles or summaries, make the display safer without changing the raw source data unless already supported.
+
+==================================================
+PART 9 — KEEP AFFILIATE MODULE INTACT
+==================================================
+
+Do not remove the affiliate module.
+Keep it in its current improved position.
+
+Make sure any new summary or related-links sections work cleanly with the current affiliate block.
+
+==================================================
+PART 10 — OPTIONAL INDEXING SIGNAL IMPROVEMENT
+==================================================
+
+If there is already an easy place in the detail page UI, add a small freshness line such as:
+“Data last refreshed: March 2026”
+ONLY if it can be done cleanly and consistently without fake precision.
+
+Do not overengineer this.
+
+==================================================
+PART 11 — SAFETY / QUALITY
+==================================================
+
+- no runtime crashes
+- no unrelated refactors
+- no broken links
+- no empty sections
+- no spammy autogenerated text
+- code should be readable and maintainable
+
+==================================================
+PART 12 — AFTER IMPLEMENTATION
+==================================================
+
+After finishing:
+1. list which files were created
+2. list which files were modified
+3. show one example generated summary for a real campground from the dataset
+4. confirm what related links were added
+5. confirm whether any weak generic ranking pages were cleaned up

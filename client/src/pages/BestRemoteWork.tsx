@@ -264,16 +264,16 @@ export default function BestRemoteWork() {
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
-                { slug: "mi", name: "Michigan" },
-                { slug: "oh", name: "Ohio" },
-                { slug: "pa", name: "Pennsylvania" },
-                { slug: "wi", name: "Wisconsin" },
+                { slug: "michigan", name: "Michigan" },
+                { slug: "ohio", name: "Ohio" },
+                { slug: "pennsylvania", name: "Pennsylvania" },
+                { slug: "wisconsin", name: "Wisconsin" },
               ].map(({ slug, name }) => (
-                <Link key={slug} href={`/campgrounds/${slug}`}>
+                <Link key={slug} href={`/best-remote-work-campgrounds-in/${slug}`}>
                   <Card className="hover:shadow-md hover:border-blue-200 transition cursor-pointer text-center">
                     <CardContent className="p-3">
                       <p className="text-sm font-semibold text-gray-800">{name}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">View campgrounds</p>
+                      <p className="text-xs text-gray-400 mt-0.5">Remote work rankings</p>
                     </CardContent>
                   </Card>
                 </Link>
