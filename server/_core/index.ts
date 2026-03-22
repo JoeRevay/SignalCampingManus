@@ -24,6 +24,23 @@ async function startServer() {
       createContext,
     })
   );
+  // Redirects: hyphenated state variant → slash-separated canonical form
+  // e.g. /best-remote-work-campgrounds-in-ohio → /best-remote-work-campgrounds-in/ohio
+  const REDIRECT_PAIRS: [RegExp, string][] = [
+    [/^\/best-remote-work-campgrounds-in-(michigan|ohio|pennsylvania|wisconsin)$/i,          "/best-remote-work-campgrounds-in/"],
+    [/^\/best-campgrounds-with-verizon-signal-in-(michigan|ohio|pennsylvania|wisconsin)$/i,  "/best-campgrounds-with-verizon-signal-in/"],
+    [/^\/best-campgrounds-with-att-signal-in-(michigan|ohio|pennsylvania|wisconsin)$/i,      "/best-campgrounds-with-att-signal-in/"],
+    [/^\/best-campgrounds-with-tmobile-signal-in-(michigan|ohio|pennsylvania|wisconsin)$/i,  "/best-campgrounds-with-tmobile-signal-in/"],
+    [/^\/campgrounds-with-strong-cell-service-in-(michigan|ohio|pennsylvania|wisconsin)$/i,  "/campgrounds-with-strong-cell-service-in/"],
+  ];
+  app.use((req, res, next) => {
+    for (const [pattern, prefix] of REDIRECT_PAIRS) {
+      const m = req.path.match(pattern);
+      if (m) return res.redirect(301, `${prefix}${m[1].toLowerCase()}`);
+    }
+    next();
+  });
+
   // Dynamic sitemap — registered FIRST, before tRPC, static, and Vite middleware
   // so it always wins and is never intercepted by catch-alls or express.static
   app.get("/sitemap.xml", (_req, res) => {

@@ -2,9 +2,9 @@
  * SeoRankingPage — Reusable programmatic SEO ranking page.
  *
  * Handles three URL families:
- *   /best-campgrounds-with-{carrier}-signal-in-{state}
- *   /best-remote-work-campgrounds-in-{state}
- *   /campgrounds-with-strong-cell-service-in-{state}
+ *   /best-campgrounds-with-{carrier}-signal-in/:state
+ *   /best-remote-work-campgrounds-in/:state
+ *   /campgrounds-with-strong-cell-service-in/:state
  *
  * State param uses full lowercase name: ohio, michigan, pennsylvania, wisconsin
  */
